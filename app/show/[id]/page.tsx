@@ -381,7 +381,7 @@ export default function ShowPage() {
             </div>
 
             {/* Ticket/Support Button */}
-            <div className="flex gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href={`/artist/${show.artist.slug}/donate?show=${show.id}`}>
                 <Button 
                   size="lg" 
