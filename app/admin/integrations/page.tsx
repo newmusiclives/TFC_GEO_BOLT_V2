@@ -47,6 +47,22 @@ export default function IntegrationsPage() {
       }
     },
     {
+      id: 'vinly',
+      name: 'Vinly.co',
+      description: 'Community platform integration for TrueFans CONNECT ecosystem',
+      status: 'connected',
+      category: 'TrueFans Ecosystem',
+      icon: '👥',
+      color: 'bg-indigo-500',
+      lastSync: '15 minutes ago',
+      features: ['Community Management', 'User Groups', 'Content Sharing', 'Event Coordination'],
+      config: {
+        apiKey: 'vinly_****_****_7890',
+        webhookUrl: 'https://api.truefans.ai/webhooks/vinly',
+        environment: 'production'
+      }
+    },
+    {
       id: 'manifest',
       name: 'Manifest Financial',
       description: 'Payment processing and instant payouts for artist donations',
@@ -66,16 +82,16 @@ export default function IntegrationsPage() {
       id: 'truefans-api',
       name: 'TrueFans CONNECT',
       description: 'Core TrueFans ecosystem integration for cross-platform features',
-      status: 'disconnected',
+      status: 'connected',
       category: 'TrueFans Ecosystem',
       icon: '🌐',
-      color: 'bg-gray-500',
-      lastSync: 'Never',
+      color: 'bg-purple-500',
+      lastSync: '15 minutes ago',
       features: ['Profile Sync', 'Analytics', 'Cross-Platform Data'],
       config: {
-        apiKey: 'Not configured',
-        environment: 'Not set',
-        webhookUrl: 'Not configured'
+        apiKey: 'tf_****_****_1234',
+        environment: 'production',
+        webhookUrl: 'https://api.truefans.ai/webhooks/truefans'
       }
     },
     {
