@@ -2,24 +2,27 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Music, Heart, Send, User } from 'lucide-react'
+import { Music, Heart, Send, DollarSign } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { GlassCard } from '@/components/ui/glass-card'
 import { Badge } from '@/components/ui/badge'
+import { DonationBreakdown } from '@/components/donation/donation-breakdown'
 import { toast } from 'sonner'
 import type { SetlistSong } from '@/lib/types'
 
 interface SongRequestFormProps {
   showId: string
   artistName: string
+  requestPrice?: number
   onRequestSubmitted?: () => void
 }
 
 export function SongRequestForm({
   showId,
   artistName,
+  requestPrice = 5, // Default minimum price
   onRequestSubmitted
 }: SongRequestFormProps) {
   const supabase = createClient()
@@ -29,6 +32,8 @@ export function SongRequestForm({
   const [fanName, setFanName] = useState('')
   const [dedication, setDedication] = useState('')
   const [isAnonymous, setIsAnonymous] = useState(false)
+  const [donationAmount, setDonationAmount] = useState<number>(requestPrice)
+  const [customAmount, setCustomAmount] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [songRequestCounts, setSongRequestCounts] = useState<Record<string, number>>({})
   
@@ -146,6 +151,25 @@ export function SongRequestForm({
     }
   }
   
+  const handleAmountSelect = (amount: number) => {
+    setDonationAmount(amount)
+    setCustomAmount('')
+  }
+  
+  const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    // Only allow numbers and decimal points
+    if (/^\d*\.?\d{0,2}$/.test(value)) {
+      setCustomAmount(value)
+      if (value) {
+        const numValue = parseFloat(value)
+        setDonationAmount(numValue)
+      } else {
+        setDonationAmount(requestPrice)
+      }
+    }
+  }
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -159,6 +183,11 @@ export function SongRequestForm({
       return
     }
     
+    if (donationAmount < requestPrice) {
+      toast.error(`Minimum donation amount is $${requestPrice}`)
+      return
+    }
+    
     setIsSubmitting(true)
     
     try {
@@ -167,10 +196,10 @@ export function SongRequestForm({
         // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 1000));
       } else {
-        // Get current user ID if logged in
+        // Get current user ID if logged in 
         const { data: { user } } = await supabase.auth.getUser()
         
-        // Submit the song request
+        // Submit the song request with donation
         const { error } = await supabase
           .from('song_requests')
           .insert({
@@ -179,18 +208,34 @@ export function SongRequestForm({
             fan_id: user?.id || null,
             fan_name: fanName.trim(),
             dedication: dedication.trim() || null,
-            is_anonymous: isAnonymous
+            is_anonymous: isAnonymous,
+            donation_amount: donationAmount
           })
         
         if (error) throw error
+        
+        // Process the donation
+        const { error: donationError } = await supabase.rpc('process_song_request_donation', {
+          p_show_id: showId,
+          p_artist_id: null, // Will be looked up by the function
+          p_donor_id: user?.id || null,
+          p_amount: donationAmount,
+          p_donor_name: fanName.trim(),
+          p_donor_message: dedication.trim() || `Song request: ${songs.find(s => s.id === selectedSongId)?.title}`,
+          p_is_anonymous: isAnonymous
+        })
+        
+        if (donationError) throw donationError
       }
       
-      toast.success('Song request submitted!')
+      toast.success(`Song request submitted with $${donationAmount.toFixed(2)} donation!`)
       
       // Reset form
       setSelectedSongId(null)
       setDedication('')
       setIsAnonymous(false)
+      setDonationAmount(requestPrice)
+      setCustomAmount('')
       
       // Update request counts
       loadSongRequestCounts()
@@ -302,6 +347,42 @@ export function SongRequestForm({
           </div>
           
           <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-green-400" />
+              Donation Amount (Minimum ${requestPrice})
+            </label>
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              {[requestPrice, requestPrice * 2, requestPrice * 5].map((amount) => (
+                <button
+                  key={amount}
+                  type="button"
+                  onClick={() => handleAmountSelect(amount)}
+                  className={`p-4 rounded-lg border ${
+                    donationAmount === amount && !customAmount
+                      ? 'border-purple-400 bg-purple-500/20 text-white font-medium' 
+                      : 'border-white/20 bg-white/5 hover:bg-white/10 hover:border-purple-400/50 transition-all text-white font-medium'
+                  }`}
+                >
+                  ${amount}
+                </button>
+              ))}
+              <div className="p-1 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 hover:border-purple-400/50 transition-all">
+                <input
+                  type="text"
+                  placeholder="Custom"
+                  value={customAmount}
+                  onChange={handleCustomAmountChange}
+                  className="w-full h-full bg-transparent text-white text-center focus:outline-none"
+                />
+              </div>
+            </div>
+            
+            {donationAmount >= requestPrice && (
+              <div className="mb-4">
+                <DonationBreakdown amount={donationAmount} />
+              </div>
+            )}
+            
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Dedication or Message (Optional)
             </label>
@@ -343,6 +424,9 @@ export function SongRequestForm({
                 Request Song
               </>
             )}
+            <div className="text-xs text-gray-400 mt-2 text-center">
+              Includes ${donationAmount.toFixed(2)} donation to {artistName}
+            </div>
           </Button>
         </form>
       </div>

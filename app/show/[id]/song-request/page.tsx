@@ -10,6 +10,7 @@ import { GradientBg } from '@/components/ui/gradient-bg'
 import { GlassCard } from '@/components/ui/glass-card'
 import { Button } from '@/components/ui/button'
 import { SongRequestForm } from '@/components/setlist/song-request-form'
+import { DollarSign } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function ShowSongRequestPage() {
@@ -20,6 +21,7 @@ export default function ShowSongRequestPage() {
   
   const [show, setShow] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [requestPrice, setRequestPrice] = useState(5) // Default minimum price
   
   useEffect(() => {
     loadShowDetails()
@@ -39,6 +41,7 @@ export default function ShowSongRequestPage() {
         artist: {
           id: '11111111-1111-1111-1111-111111111111',
           name: 'Luna Rodriguez',
+          request_price: 5,
           slug: 'luna-rodriguez',
           avatar_url: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=200',
           is_verified: true
@@ -56,6 +59,7 @@ export default function ShowSongRequestPage() {
       
       setShow(mockShow)
       setIsLoading(false)
+      setRequestPrice(mockShow.artist.request_price || 5)
       return
     }
     
@@ -64,8 +68,11 @@ export default function ShowSongRequestPage() {
       const { data, error } = await supabase
         .from('shows')
         .select(`
-          *,
-          artist:artists(id, name, slug, avatar_url, is_verified),
+          id,
+          title,
+          status,
+          start_time,
+          artist:artists(id, name, slug, avatar_url, is_verified, request_price),
           venue:venues(name, city, state),
           setlist:setlists(id, title)
         `)
@@ -75,6 +82,7 @@ export default function ShowSongRequestPage() {
       if (error) throw error
       
       setShow(data)
+      setRequestPrice(data.artist?.request_price || 5)
     } catch (error) {
       console.error('Error loading show details:', error)
       toast.error('Failed to load show details')
@@ -215,6 +223,7 @@ export default function ShowSongRequestPage() {
           <SongRequestForm 
             showId={showId} 
             artistName={show.artist.name}
+            requestPrice={requestPrice}
             onRequestSubmitted={handleRequestSubmitted}
           />
         </motion.div>
@@ -223,7 +232,7 @@ export default function ShowSongRequestPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.3 }}  
           className="mt-8"
         >
           <GlassCard variant="minimal">
@@ -232,9 +241,12 @@ export default function ShowSongRequestPage() {
               
               <div className="grid md:grid-cols-3 gap-6 text-sm">
                 <div>
-                  <h4 className="font-medium text-white mb-2">How It Works</h4>
+                  <h4 className="font-medium text-white mb-2 flex items-center gap-2">
+                    <DollarSign className="w-4 h-4 text-green-400" />
+                    Support with Donations
+                  </h4>
                   <p className="text-gray-300">
-                    Select a song from the artist's setlist and add an optional dedication or message.
+                    Each song request includes a donation to support the artist. Minimum donation is ${requestPrice}.
                   </p>
                 </div>
                 
