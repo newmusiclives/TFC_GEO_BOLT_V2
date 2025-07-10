@@ -49,6 +49,22 @@ export default function IntegrationsPage() {
     {
       id: 'vinly',
       name: 'Vinly.co',
+      description: 'Community platform integration for fan engagement and artist communities',
+      status: 'connected',
+      category: 'Community',
+      icon: '👥',
+      color: 'bg-indigo-500',
+      lastSync: '15 minutes ago',
+      features: ['Community Management', 'User Groups', 'Content Sharing', 'Event Coordination'],
+      config: {
+        apiKey: 'vinly_****_****_7890',
+        webhookUrl: 'https://api.truefans.ai/webhooks/vinly',
+        environment: 'production'
+      }
+    },
+    {
+      id: 'vinly',
+      name: 'Vinly.co',
       description: 'Community platform integration for TrueFans CONNECT ecosystem',
       status: 'connected',
       category: 'TrueFans Ecosystem',
@@ -80,14 +96,14 @@ export default function IntegrationsPage() {
     },
     {
       id: 'truefans-api',
-      name: 'TrueFans CONNECT',
-      description: 'Core TrueFans ecosystem integration for cross-platform features',
+      name: 'TrueFans CONNECT™',
+      description: 'Live show digital donation platform for real-time artist support',
       status: 'connected',
-      category: 'TrueFans Ecosystem',
-      icon: '🌐',
+      category: 'Payment Processing',
+      icon: '💸',
       color: 'bg-purple-500',
       lastSync: '15 minutes ago',
-      features: ['Profile Sync', 'Analytics', 'Cross-Platform Data'],
+      features: ['Live Donations', 'Geolocation Detection', 'Artist Payouts', 'Fan Engagement'],
       config: {
         apiKey: 'tf_****_****_1234',
         environment: 'production',
