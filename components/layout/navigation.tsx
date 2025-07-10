@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Music, Menu, X, User, Heart, MapPin, Search, Home, LogOut, Building } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { GlassCard } from '@/components/ui/glass-card'
 import { Badge } from '@/components/ui/badge'
-import { createClient } from '@/lib/supabase/demo-client'
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -91,7 +91,7 @@ export function Navigation() {
                   Sign Out
                 </Button>
               </>
-              <Link href="/get-started">
+            ) : (
               <>
                 <Link href="/demo-login">
                   <Button variant="ghost" className="text-white hover:bg-white/10">
@@ -108,7 +108,7 @@ export function Navigation() {
                     Get Started
                   </Button>
                 </Link>
-                <Link href="/signup/artist">
+                <Link href="/signup/artist/benefits">
                   <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
                     Join as an Artist
                   </Button>
@@ -184,7 +184,7 @@ export function Navigation() {
                         Sign In
                       </Button>
                     </Link>
-                    <Link href="/get-started">
+                    <Link href="/signup">
                       <Button className="justify-start bg-purple-600 hover:bg-purple-700 w-full">
                         Get Started
                       </Button>
