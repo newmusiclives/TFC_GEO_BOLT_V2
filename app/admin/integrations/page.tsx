@@ -164,7 +164,13 @@ export default function IntegrationsPage() {
                 <p className="text-gray-300">Manage external service connections and API integrations</p>
               </div>
               <div className="flex gap-3">
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button 
+                  className="bg-purple-600 hover:bg-purple-700"
+                  onClick={() => {
+                    // Add a new integration with default values
+                    setSelectedIntegration('new-integration');
+                  }}
+                >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Integration
                 </Button>
@@ -326,6 +332,66 @@ export default function IntegrationsPage() {
                       </GlassCard>
                     )
                   })()}
+                </motion.div>
+              ) : selectedIntegration === 'new-integration' ? (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                >
+                  <GlassCard variant="elevated">
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                          <Plus className="w-5 h-5 text-purple-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-white">Add New Integration</h3>
+                          <Badge className="bg-yellow-500/20 text-yellow-300">
+                            Setup Required
+                          </Badge>
+                        </div>
+                      </div>
+
+                      <p className="text-gray-300 text-sm mb-6">Select the type of integration you want to add to your platform.</p>
+
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Integration Type</label>
+                          <select className="w-full p-3 bg-white/10 border border-white/20 rounded-lg text-white">
+                            <option value="">Select integration type</option>
+                            <option value="music">Music Platform</option>
+                            <option value="payment">Payment Processing</option>
+                            <option value="event">Event Platform</option>
+                            <option value="communication">Communication</option>
+                            <option value="analytics">Analytics</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Integration Name</label>
+                          <Input
+                            className="bg-white/10 border-white/20 text-white"
+                            placeholder="Enter a name for this integration"
+                          />
+                        </div>
+
+                        <div className="pt-4 border-t border-white/10">
+                          <div className="flex gap-2">
+                            <Button className="flex-1 bg-purple-600 hover:bg-purple-700">
+                              Continue Setup
+                            </Button>
+                            <Button
+                              variant="outline"
+                              className="border-white/20 text-white hover:bg-white/10"
+                              onClick={() => setSelectedIntegration(null)}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </GlassCard>
                 </motion.div>
               ) : (
                 <motion.div
