@@ -1,7 +1,9 @@
 'use client'
 
 import React, { Component, ErrorInfo, ReactNode } from 'react'
-import { AlertTriangle } from 'lucide-react'
+import { GlassCard } from '@/components/ui/glass-card'
+import { Button } from '@/components/ui/button'
+import { AlertCircle, RefreshCw } from 'lucide-react'
 
 interface Props {
   children: ReactNode
@@ -25,7 +27,6 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error): State {
-    // Update state so the next render will show the fallback UI
     return {
       hasError: true,
       error,
@@ -34,43 +35,54 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // You can also log the error to an error reporting service
-    console.error('Error caught by boundary:', error, errorInfo)
     this.setState({
       error,
       errorInfo
+    })
+    
+    // Log error to console or error reporting service
+    console.error('Error caught by ErrorBoundary:', error, errorInfo)
+  }
+
+  handleReset = (): void => {
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null
     })
   }
 
   render(): ReactNode {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
       if (this.props.fallback) {
         return this.props.fallback
       }
-
+      
       return (
-        <div className="min-h-[400px] flex items-center justify-center bg-black/20 rounded-lg p-6">
-          <div className="text-center max-w-md">
-            <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertTriangle className="w-8 h-8 text-red-400" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">Something went wrong</h3>
-            <div className="text-sm text-gray-400 mb-4">
-              {this.state.error && (
-                <p className="font-mono bg-black/30 p-2 rounded mb-2 overflow-auto max-h-32">
-                  {this.state.error.toString()}
+        <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+          <GlassCard variant="elevated" className="max-w-lg w-full">
+            <div className="p-6 text-center">
+              <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <AlertCircle className="w-8 h-8 text-red-400" />
+              </div>
+              
+              <h2 className="text-xl font-bold text-white mb-2">Something went wrong</h2>
+              
+              <div className="text-left bg-black/30 p-4 rounded-lg mb-4 overflow-auto max-h-40">
+                <p className="text-red-300 text-sm font-mono">
+                  {this.state.error?.toString() || 'Unknown error'}
                 </p>
-              )}
-              <p>Please try refreshing the page or contact support if the problem persists.</p>
+              </div>
+              
+              <Button 
+                onClick={this.handleReset}
+                className="bg-purple-600 hover:bg-purple-700"
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Try Again
+              </Button>
             </div>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md"
-            >
-              Refresh Page
-            </button>
-          </div>
+          </GlassCard>
         </div>
       )
     }

@@ -81,9 +81,9 @@ export type GeolocationStatus =
 export interface SetlistSong {
   id: string
   title: string
-  artist?: string
+  artist?: string | null
   isCover: boolean
-  duration?: string
+  duration?: string | null
   requestCount?: number
 }
 

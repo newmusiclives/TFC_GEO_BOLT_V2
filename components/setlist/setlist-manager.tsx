@@ -4,12 +4,13 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Music, Plus, Trash2, Save, Copy, Edit, X, GripVertical, Clock, User, FileMusic } from 'lucide-react'
+import { Music, Plus, Trash2, Save, Copy, Edit, X, GripVertical, Clock, User, FileMusic, Upload, Download } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { GlassCard } from '@/components/ui/glass-card'
 import { Badge } from '@/components/ui/badge'
+import { SetlistImport } from '@/components/setlist/setlist-import'
 import { toast } from 'sonner'
 import type { SetlistSong } from '@/lib/types'
 
@@ -37,6 +38,7 @@ export function SetlistManager({
   const [isLoading, setIsLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
+  const [showImport, setShowImport] = useState(false)
   
   // Form state for adding/editing songs
   const [songTitle, setSongTitle] = useState('')
@@ -193,6 +195,52 @@ export function SetlistManager({
     setSongs(updatedSongs)
   }
   
+  const handleImportSongs = (importedSongs: SetlistSong[]) => {
+    // Add imported songs to the current setlist
+    setSongs([...songs, ...importedSongs])
+    setShowImport(false)
+    toast.success(`Added ${importedSongs.length} songs to setlist`)
+  }
+  
+  const exportSetlist = () => {
+    try {
+      // Create a JSON representation of the setlist
+      const setlistData = {
+        title,
+        description,
+        songs: songs.map(song => ({
+          title: song.title,
+          artist: song.artist,
+          isCover: song.isCover,
+          duration: song.duration
+        }))
+      }
+      
+      // Convert to JSON string
+      const jsonString = JSON.stringify(setlistData, null, 2)
+      
+      // Create a blob and download link
+      const blob = new Blob([jsonString], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      
+      // Create a temporary link and trigger download
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${title || 'setlist'}.json`.replace(/\s+/g, '-').toLowerCase()
+      document.body.appendChild(a)
+      a.click()
+      
+      // Clean up
+      URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+      
+      toast.success('Setlist exported successfully')
+    } catch (error) {
+      console.error('Error exporting setlist:', error)
+      toast.error('Failed to export setlist')
+    }
+  }
+  
   const handleSaveSetlist = async () => {
     if (!title.trim()) {
       toast.error('Setlist title is required')
@@ -304,6 +352,16 @@ export function SetlistManager({
     }
   }
   
+  // If showing import UI, render the import component
+  if (showImport) {
+    return (
+      <SetlistImport 
+        onImport={handleImportSongs}
+        onCancel={() => setShowImport(false)}
+      />
+    )
+  }
+  
   return (
     <div className="space-y-6">
       <GlassCard variant="elevated">
@@ -315,6 +373,26 @@ export function SetlistManager({
             </h3>
             
             <div className="flex gap-2">
+              <Button
+                variant="outline"
+                className="border-white/20 text-white hover:bg-white/10"
+                onClick={() => setShowImport(true)}
+              >
+                <Upload className="w-4 h-4 mr-2" />
+                Import
+              </Button>
+              
+              {songs.length > 0 && (
+                <Button
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10"
+                  onClick={exportSetlist}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Export
+                </Button>
+              )}
+              
               <Button
                 variant="outline"
                 className="border-white/20 text-white hover:bg-white/10"
