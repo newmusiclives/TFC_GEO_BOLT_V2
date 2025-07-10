@@ -454,7 +454,7 @@ export default function HomePage() {
             </h2>
             <p className="text-gray-300 text-lg">
               Supporting artists has never been this simple. 
-              Our smart geolocation finds live shows happening near you in real-time
+              Our smart geolocation system finds live shows happening near you in real-time
             </p>
           </div>
 
@@ -470,7 +470,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Detect Shows</h3>
               <p className="text-gray-300">
-                Searches within 5m radius • Configurable in settings
+                Searches within a 5 mile radius. Configurable in settings
               </p>
               <p className="text-gray-300">
               </p>
