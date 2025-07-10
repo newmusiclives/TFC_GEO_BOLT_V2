@@ -63,22 +63,6 @@ export default function IntegrationsPage() {
       }
     },
     {
-      id: 'vinly',
-      name: 'Vinly.co',
-      description: 'Community platform integration for TrueFans CONNECT ecosystem',
-      status: 'connected',
-      category: 'TrueFans Ecosystem',
-      icon: '👥',
-      color: 'bg-indigo-500',
-      lastSync: '15 minutes ago',
-      features: ['Community Management', 'User Groups', 'Content Sharing', 'Event Coordination'],
-      config: {
-        apiKey: 'vinly_****_****_7890',
-        webhookUrl: 'https://api.truefans.ai/webhooks/vinly',
-        environment: 'production'
-      }
-    },
-    {
       id: 'manifest',
       name: 'Manifest Financial',
       description: 'Payment processing and instant payouts for artist donations',
