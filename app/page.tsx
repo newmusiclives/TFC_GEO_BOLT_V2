@@ -205,7 +205,7 @@ export default function HomePage() {
             
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Discover live shows near you and directly support artists with instant donations. 
-              No fees, no delays – just pure support for the music you love.
+              No delays – just pure support for the music you love.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
