@@ -157,6 +157,7 @@ export default function ArtistDashboardPage() {
   // State for setlist display (using React.useState for consistency)
   const [setlist, setSetlist] = React.useState<any>(null)
   const [isLoadingSetlist, setIsLoadingSetlist] = React.useState(true)
+  const [requestPrice, setRequestPrice] = React.useState(5)
   
   
   React.useEffect(() => {
@@ -167,6 +168,11 @@ export default function ArtistDashboardPage() {
     // Load setlist data
     loadArtistSetlist()
   }, [artist.id])
+
+  React.useEffect(() => {
+    // Load request price
+    loadRequestPrice()
+  }, [])
   
   const loadArtistSetlist = async () => {
     try {
@@ -215,14 +221,67 @@ export default function ArtistDashboardPage() {
       setIsLoadingSetlist(false)
     }
   }
-
+  
+  const loadRequestPrice = async () => {
+    try {
+      // For demo mode, use default price
+      if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
+        setRequestPrice(5)
+      } else {
+        // Get artist's request price from database
+        const { data, error } = await supabase
+          .from('artists')
+          .select('request_price')
+          .eq('id', artist.id)
+          .single()
+        
+        if (error) throw error
+        
+        if (data && data.request_price) {
+          setRequestPrice(data.request_price)
+        }
+      }
+    } catch (error) {
+      console.error('Error loading request price:', error)
+    }
+  }
+  
+  const updateRequestPrice = async (newPrice: number) => {
+    if (newPrice < 1) {
+      toast.error('Minimum request price is $1')
+      return
+    }
+    
+    try {
+      if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
+        // Just update local state in demo mode
+        setRequestPrice(newPrice)
+        toast.success('Request price updated successfully')
+      } else {
+        // Update in database
+        const { error } = await supabase
+          .from('artists')
+          .update({ request_price: newPrice })
+          .eq('id', artist.id)
+        
+        if (error) throw error
+        
+        setRequestPrice(newPrice)
+        toast.success('Request price updated successfully')
+      }
+    } catch (error) {
+      console.error('Error updating request price:', error)
+      toast.error('Failed to update request price')
+    }
+  }
+  
   const copyReferralLink = () => {
     navigator.clipboard.writeText(referralLink)
     toast.success('Referral link copied to clipboard!')
   }
 
   return (
-    <GradientBg>
+    <GradientBg variant="primary">
       <div className="min-h-screen py-8">
         <div className="container mx-auto px-4">
           {/* Header */}
@@ -235,20 +294,7 @@ export default function ArtistDashboardPage() {
               <div>
                 <h1 className="text-3xl font-bold text-white mb-2">Artist Dashboard</h1>
                 <p className="text-gray-300">Manage your music, shows, and earnings</p>
-              </div>
-              <div className="flex gap-3">
-                <Link href={`/artist/${artist.slug}`}>
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    View Profile
-                  </Button>
-                </Link>
-                <Link href="/dashboard/artist/setlists">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    <FileMusic className="w-4 h-4 mr-2" />
-                    Manage Setlists
-                  </Button>
-                </Link>
+                <p className="text-gray-300 mt-2">In this dashboard you can see all your stats, financials and important links, using the link Manage Setlists you can create your setlists enabling fans to make song requests and dedications during shows.</p>
               </div>
             </div>
 
@@ -260,7 +306,7 @@ export default function ArtistDashboardPage() {
                   {artist.name.charAt(0)}
                 </AvatarFallback>
               </Avatar>
-              <div>
+              <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <h2 className="text-2xl font-bold text-white">{artist.name}</h2>
                   {artist.is_verified && (
@@ -276,6 +322,20 @@ export default function ArtistDashboardPage() {
                     </Badge>
                   ))}
                 </div>
+              </div>
+              <div className="flex gap-3">
+                <Link href={`/artist/${artist.slug}`}>
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View Profile
+                  </Button>
+                </Link>
+                <Link href="/dashboard/artist/setlists">
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    <FileMusic className="w-4 h-4 mr-2" />
+                    Manage Setlists
+                  </Button>
+                </Link>
               </div>
             </div>
           </motion.div>
@@ -336,6 +396,53 @@ export default function ArtistDashboardPage() {
                 </div>
               </GlassCard>
             </div>
+          </motion.div>
+          
+          {/* Song Request Settings */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mb-8"
+          >
+            <GlassCard variant="elevated">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                    <DollarSign className="w-5 h-5 text-green-400" />
+                    Song Request Settings
+                  </h3>
+                </div>
+                
+                <div className="flex flex-col md:flex-row items-center gap-4">
+                  <div className="flex-1">
+                    <p className="text-gray-300 mb-2">
+                      Set the minimum donation amount required for fans to request songs during your shows.
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      Current minimum: <span className="text-green-400 font-bold">${requestPrice.toFixed(2)}</span>
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <Input
+                      type="number"
+                      min="1"
+                      step="1"
+                      value={requestPrice}
+                      onChange={(e) => setRequestPrice(parseFloat(e.target.value))}
+                      className="w-24 bg-white/10 border-white/20 text-white"
+                    />
+                    <Button 
+                      className="bg-purple-600 hover:bg-purple-700"
+                      onClick={() => updateRequestPrice(requestPrice)}
+                    >
+                      Update Price
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </GlassCard>
           </motion.div>
 
           {/* Referral Link Card */}
