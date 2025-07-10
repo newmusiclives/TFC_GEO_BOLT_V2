@@ -42,7 +42,7 @@ export default function FanBenefitsPage() {
     'Personalized recommendations based on your music preferences',
     'Follow your favorite artists and get notified about upcoming shows',
     'Connect with other fans who share your music taste',
-    'Track your support history and the artists you've helped',
+    'Track your support history and the artists you\'ve helped',
     'Earn rewards through our referral program',
     'Receive exclusive content from artists you support',
     'Participate in fan communities around your favorite music'
