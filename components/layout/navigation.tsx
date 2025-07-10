@@ -103,7 +103,7 @@ export function Navigation() {
                     Sign In
                   </Button>
                 </Link>
-                <Link href="/signup">
+                <Link href="/get-started">
                   <Button className="bg-purple-600 hover:bg-purple-700">
                     Get Started
                   </Button>
@@ -184,7 +184,7 @@ export function Navigation() {
                         Sign In
                       </Button>
                     </Link>
-                    <Link href="/signup">
+                    <Link href="/get-started">
                       <Button className="justify-start bg-purple-600 hover:bg-purple-700 w-full">
                         Get Started
                       </Button>
