@@ -190,8 +190,8 @@ export default function ArtistDashboardPage() {
             { id: '9', title: 'Jolene', artist: 'Dolly Parton', isCover: true, duration: '3:40', position: 9 },
             { id: '10', title: 'Whispers in the Wind', artist: null, isCover: false, duration: '4:30', position: 10 }
           ]
-        };
-        setSetlist(mockSetlist);
+        }
+        setSetlist(mockSetlist)
         console.log('Mock setlist created:', mockSetlist)
       } else if (artist && artist.setlist) {
         // Get setlist from artist data for non-demo mode
@@ -207,8 +207,22 @@ export default function ArtistDashboardPage() {
             duration: song.duration,
             position: song.position
           }))
-        });
+        })
       }
+    } catch (error) {
+      console.error('Error loading setlist:', error)
+    } finally {
+      setIsLoadingSetlist(false)
+    }
+  }
+
+  const copyReferralLink = () => {
+    navigator.clipboard.writeText(referralLink)
+    toast.success('Referral link copied to clipboard!')
+  }
+
+  return (
+    <GradientBg>
       <div className="min-h-screen py-8">
         <div className="container mx-auto px-4">
           {/* Header */}
@@ -236,23 +250,6 @@ export default function ArtistDashboardPage() {
                   </Button>
                 </Link>
               </div>
-            <div className="flex-1 ml-4">
-              <p className="text-gray-300">In this dashboard you can see all your stats, financials and important links. Using the Manage Setlists link you can create your setlists enabling fans to make song requests and dedications during shows.</p>
-              <div className="flex gap-3 mt-3">
-                <Link href={`/artist/${artist.slug}`}>
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    View Profile
-                  </Button>
-                </Link>
-                <Link href="/dashboard/artist/setlists">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    <FileMusic className="w-4 h-4 mr-2" />
-                    Manage Setlists
-                  </Button>
-                </Link>
-              </div>
-            </div>
             </div>
 
             {/* Artist Info */}
