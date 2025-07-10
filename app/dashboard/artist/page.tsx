@@ -251,6 +251,10 @@ export default function ArtistDashboardPage() {
                 </Link>
               </div>
             </div>
+              <p className="text-sm text-gray-400 mt-2">
+                Create and manage your song setlists to enable fan song requests during shows. Fans can request songs from your setlist and add personal dedications.
+              </p>
+              
 
             {/* Artist Info */}
             <div className="flex items-center gap-4">
