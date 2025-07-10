@@ -453,7 +453,8 @@ export default function HomePage() {
               How It Works
             </h2>
             <p className="text-gray-300 text-lg">
-              Supporting artists has never been this simple. Our smart geolocation finds live shows happening near you in real-time
+              Supporting artists has never been this simple. 
+              Our smart geolocation finds live shows happening near you in real-time
             </p>
           </div>
 
