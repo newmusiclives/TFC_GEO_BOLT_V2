@@ -209,20 +209,6 @@ export default function ArtistDashboardPage() {
           }))
         });
       }
-    } catch (error) {
-      console.error('Error loading setlist:', error)
-    } finally {
-      setIsLoadingSetlist(false)
-    }
-  }
-  
-  const copyReferralLink = () => {
-    navigator.clipboard.writeText(referralLink)
-    toast.success('Referral link copied to clipboard')
-  }
-
-  return (
-    <GradientBg variant="primary">
       <div className="min-h-screen py-8">
         <div className="container mx-auto px-4">
           {/* Header */}
@@ -250,11 +236,24 @@ export default function ArtistDashboardPage() {
                   </Button>
                 </Link>
               </div>
+            <div className="flex-1 ml-4">
+              <p className="text-gray-300">In this dashboard you can see all your stats, financials and important links. Using the Manage Setlists link you can create your setlists enabling fans to make song requests and dedications during shows.</p>
+              <div className="flex gap-3 mt-3">
+                <Link href={`/artist/${artist.slug}`}>
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View Profile
+                  </Button>
+                </Link>
+                <Link href="/dashboard/artist/setlists">
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    <FileMusic className="w-4 h-4 mr-2" />
+                    Manage Setlists
+                  </Button>
+                </Link>
+              </div>
             </div>
-              <p className="text-sm text-gray-400 mt-2">
-                Create and manage your song setlists to enable fan song requests during shows. Fans can request songs from your setlist and add personal dedications.
-              </p>
-              
+            </div>
 
             {/* Artist Info */}
             <div className="flex items-center gap-4">
