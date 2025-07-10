@@ -174,9 +174,9 @@ export class ManifestClient {
     const artistNet = amount * 0.80;
     
     // Processing fee (2.9% + $0.30) is added on top for the fan
-    const processingFeePercent = amount * DONATION_CONFIG.processingFeeRate;
-    const processingFeeCents = DONATION_CONFIG.processingFeeCents;
-    const processingFee = processingFeePercent + processingFeeCents;
+    const processingFeePercent = amount * DONATION_CONFIG.processingFeeRate; // 2.9% of amount
+    const processingFeeCents = DONATION_CONFIG.processingFeeCents; // $0.30 fixed fee
+    const processingFee = processingFeePercent + processingFeeCents; // Total processing fee
     
     // Total amount fan pays
     const fanPayment = amount + processingFee;
