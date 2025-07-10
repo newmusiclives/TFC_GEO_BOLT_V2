@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: true,
   optimizeFonts: false,
   eslint: {
     ignoreDuringBuilds: true,
@@ -44,6 +45,16 @@ const nextConfig = {
           },
         },
       }
+    }
+
+    // Add cache busting for development
+    if (dev) {
+      config.watchOptions = {
+        ...config.watchOptions,
+        poll: 1000,
+        aggregateTimeout: 300,
+        ignored: /node_modules/,
+      };
     }
 
     return config

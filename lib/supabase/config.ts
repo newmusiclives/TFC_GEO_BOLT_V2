@@ -1,8 +1,8 @@
 // Supabase configuration with proper environment variable handling
 export const supabaseConfig = {
-  url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
-  serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+  url: typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_SUPABASE_URL || '') : '',
+  anonKey: typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '') : '',
+  serviceRoleKey: typeof process !== 'undefined' ? (process.env.SUPABASE_SERVICE_ROLE_KEY || '') : ''
 }
 
 // Validate configuration with proper URL validation
@@ -10,7 +10,7 @@ export const isSupabaseConfigured = () => {
   const { url, anonKey } = supabaseConfig
   
   // Check if values exist and are not placeholder values
-  if (!url || !anonKey) return false
+  if (!url || !anonKey || url === '' || anonKey === '') return false
   
   // Check for common placeholder patterns
   const placeholderPatterns = [

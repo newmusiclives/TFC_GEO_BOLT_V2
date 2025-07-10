@@ -2,14 +2,19 @@
 import { createClient as createRealClient } from './client'
 
 export const createClient = () => {
-  const realClient = createRealClient()
+  try {
+    const realClient = createRealClient()
   
-  // Check if we're in demo mode
-  if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
+    // Check if we're in demo mode
+    if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
+      return createDemoClient()
+    }
+    
+    return realClient
+  } catch (error) {
+    console.warn('Error creating Supabase client, falling back to demo client:', error)
     return createDemoClient()
   }
-  
-  return realClient
 }
 
 function createDemoClient() {
@@ -18,8 +23,10 @@ function createDemoClient() {
   const demoProfile = typeof window !== 'undefined' ? 
     JSON.parse(localStorage.getItem('demo_profile') || 'null') : null
 
-  console.log('Demo client - user:', demoUser) // Debug log
-  console.log('Demo client - profile:', demoProfile) // Debug log
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Demo client - user:', demoUser) // Debug log in development only
+    console.log('Demo client - profile:', demoProfile) // Debug log in development only
+  }
 
   // Mock artist data based on user role
   const mockArtistData = {

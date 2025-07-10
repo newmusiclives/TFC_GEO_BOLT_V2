@@ -22,18 +22,26 @@ export function Navigation() {
 
     // Get current user
     const getCurrentUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      setUser(user)
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+        setUser(user)
+      } catch (error) {
+        console.error('Error fetching user:', error)
+      }
     }
 
     getCurrentUser()
   }, [])
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    setUser(null)
-    setIsDemoMode(false)
-    window.location.href = '/'
+    try {
+      await supabase.auth.signOut()
+      setUser(null)
+      setIsDemoMode(false)
+      window.location.href = '/'
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
   }
 
   const navItems = [

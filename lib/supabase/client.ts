@@ -1,14 +1,17 @@
 import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from '@/lib/database.types'
-import { isSupabaseConfigured, supabaseConfig, getConfigStatus } from './config'
+import { isSupabaseConfigured, supabaseConfig } from './config'
 
 export const createClient = () => {
   const { url, anonKey } = supabaseConfig
 
   if (!isSupabaseConfigured()) {
-    const status = getConfigStatus()
-    console.warn('🔧 Supabase Configuration Status:', status)
-    console.warn('💡 To enable real data, configure your Supabase environment variables in .env.local')
+    if (process.env.NODE_ENV === 'development') {
+      const { getConfigStatus } = require('./config')
+      const status = getConfigStatus()
+      console.warn('🔧 Supabase Configuration Status:', status)
+      console.warn('💡 To enable real data, configure your Supabase environment variables in .env.local')
+    }
     
     // Return a comprehensive mock client for development
     return {
