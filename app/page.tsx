@@ -473,7 +473,6 @@ export default function HomePage() {
                 Searches within 5m radius • Configurable in settings
               </p>
               <p className="text-gray-300">
-                Our smart geolocation finds live shows happening near you in real-time
               </p>
             </motion.div>
 
