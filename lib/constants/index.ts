@@ -28,7 +28,7 @@ export const GEOLOCATION_CONFIG = {
   ]
 } as const
 
-const DONATION_CONFIG = {
+export const DONATION_CONFIG = {
   defaultAmounts: [5, 10, 25, 50, 100],
   minAmount: 1,
   maxAmount: 1000,
@@ -42,7 +42,7 @@ const DONATION_CONFIG = {
   artistPayoutRate: 0.80 // 80% to artist (platform keeps 20% including referrals)
 } as const
 
-const UI_CONFIG = {
+export const UI_CONFIG = {
   animations: {
     duration: {
       fast: 0.2,
@@ -59,7 +59,7 @@ const UI_CONFIG = {
   }
 } as const
 
-const API_ENDPOINTS = {
+export const API_ENDPOINTS = {
   artists: '/api/artists',
   venues: '/api/venues',
   shows: '/api/shows',
@@ -67,7 +67,7 @@ const API_ENDPOINTS = {
   geolocation: '/api/geolocation'
 } as const
 
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   userLocation: 'truefans_user_location',
   preferences: 'truefans_preferences',
   recentSearches: 'truefans_recent_searches',
