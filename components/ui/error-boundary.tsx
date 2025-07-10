@@ -16,41 +16,31 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      hasError: false,
-      error: null,
-      errorInfo: null
-    }
+  public state: State = {
+    hasError: false,
+    error: null,
+    errorInfo: null
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  public static getDerivedStateFromError(error: Error): State {
     // Update state so the next render will show the fallback UI
-    return {
-      hasError: true,
-      error,
-      errorInfo: null
-    }
+    return { hasError: true, error, errorInfo: null }
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // Log the error to an error reporting service
-    console.error('ErrorBoundary caught an error', error, errorInfo)
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    this.setState({ errorInfo })
     
-    this.setState({
-      error,
-      errorInfo
-    })
+    // You can also log the error to an error reporting service
+    console.error('Uncaught error:', error, errorInfo)
   }
 
-  render() {
+  public render(): ReactNode {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       if (this.props.fallback) {
         return this.props.fallback
       }
-      
+
       return (
         <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
           <GlassCard variant="elevated" className="max-w-lg w-full">
@@ -63,25 +53,15 @@ export class ErrorBoundary extends Component<Props, State> {
                 An unexpected error occurred. Please try refreshing the page.
               </p>
               {this.state.error && (
-                <div className="mt-4 p-4 bg-white/5 rounded-lg text-left">
-                  <p className="text-sm text-red-300 font-mono mb-2">
+                <div className="mt-4 p-4 bg-black/30 rounded-lg text-left">
+                  <p className="text-sm font-mono text-red-300 break-words">
                     {this.state.error.toString()}
                   </p>
-                  {this.state.errorInfo && (
-                    <details className="mt-2">
-                      <summary className="text-sm text-gray-400 cursor-pointer">
-                        Stack trace
-                      </summary>
-                      <pre className="mt-2 text-xs text-gray-400 overflow-auto p-2 bg-black/20 rounded">
-                        {this.state.errorInfo.componentStack}
-                      </pre>
-                    </details>
-                  )}
                 </div>
               )}
               <button
                 onClick={() => window.location.reload()}
-                className="mt-6 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+                className="mt-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
               >
                 Refresh Page
               </button>
