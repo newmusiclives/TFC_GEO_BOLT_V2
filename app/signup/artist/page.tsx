@@ -48,9 +48,10 @@ export default function ArtistSignUpPage() {
   }, [searchParams])
 
   const musicGenres = [
-    'Rock', 'Pop', 'Hip Hop', 'Electronic', 'Jazz', 'Blues', 'Country', 
-    'Folk', 'Classical', 'R&B', 'Reggae', 'Punk', 'Metal', 'Indie', 
-    'Alternative', 'Funk', 'Soul', 'Gospel', 'Latin', 'World', 'Other'
+    'Alternative', 'Americana', 'Blues', 'Classical', 'Country', 
+    'Electronic', 'Folk', 'Funk', 'Gospel', 'Hip Hop', 'Indie', 
+    'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 'R&B', 'Reggae', 
+    'Rock', 'Singer Songwriter', 'Soul', 'Tribute - Cover Band', 'World', 'Other'
   ]
 
   const handleInputChange = (field: string, value: string | boolean) => {
