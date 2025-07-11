@@ -6,7 +6,7 @@ export const createClient = () => {
     const realClient = createRealClient()
   
     // Check if we're in demo mode
-    if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('demo_mode') === 'true') {
       return createDemoClient()
     }
     
@@ -18,38 +18,40 @@ export const createClient = () => {
 }
 
 function createDemoClient() {
-  const demoUser = typeof window !== 'undefined' ? 
-    JSON.parse(localStorage.getItem('demo_user') || 'null') : null
-  const demoProfile = typeof window !== 'undefined' ? 
-    JSON.parse(localStorage.getItem('demo_profile') || 'null') : null
+  const demoUserId = typeof window !== 'undefined' ? 
+    sessionStorage.getItem('demo_user_id') : null
+  const demoRole = typeof window !== 'undefined' ? 
+    sessionStorage.getItem('demo_role') : null
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('Demo client - user:', demoUser) // Debug log in development only
-    console.log('Demo client - profile:', demoProfile) // Debug log in development only
+    console.log('Demo client - user ID:', demoUserId) // Debug log in development only
+    console.log('Demo client - role:', demoRole) // Debug log in development only
   }
 
   // Mock artist data based on user role
   const mockArtistData = {
-    id: demoUser?.id || 'demo-artist',
-    slug: demoProfile?.role === 'admin' ? 'admin-user' : 
-          demoProfile?.role === 'artist' ? 'luna-rodriguez' : 
-          demoProfile?.role === 'venue_owner' ? 'blue-note-manager' : 'fan-user',
-    name: demoProfile?.display_name || 'Demo User',
-    bio: demoProfile?.role === 'admin' ? 
+    id: demoUserId || 'demo-artist',
+    slug: demoRole === 'admin' ? 'admin-user' : 
+          demoRole === 'artist' ? 'luna-rodriguez' : 
+          demoRole === 'venue_owner' ? 'blue-note-manager' : 'fan-user',
+    name: demoRole === 'admin' ? 'Admin User' :
+          demoRole === 'artist' ? 'Luna Rodriguez' :
+          demoRole === 'venue_owner' ? 'Blue Note Manager' : 'Demo User',
+    bio: demoRole === 'admin' ? 
       'Platform administrator with full access to all features and analytics.' :
-      demoProfile?.role === 'artist' ?
+      demoRole === 'artist' ?
       'Acoustic storyteller with a voice that captivates audiences nationwide.' :
-      demoProfile?.role === 'venue_owner' ?
+      demoRole === 'venue_owner' ?
       'Venue owner and manager of multiple music venues in the NYC area.' :
       'Music fan and supporter of local artists.',
-    avatar_url: demoProfile?.avatar_url || 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=200',
+    avatar_url: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=200',
     banner_url: 'https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=800',
-    genres: demoProfile?.role === 'admin' ? ['admin'] : 
-            demoProfile?.role === 'artist' ? ['indie', 'folk', 'acoustic'] : 
-            demoProfile?.role === 'venue_owner' ? ['venue'] : ['fan'],
+    genres: demoRole === 'admin' ? ['admin'] : 
+            demoRole === 'artist' ? ['indie', 'folk', 'acoustic'] : 
+            demoRole === 'venue_owner' ? ['venue'] : ['fan'],
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
-    setlist: demoProfile?.role === 'artist' ? {
+    setlist: demoRole === 'artist' ? {
       id: '11111111-aaaa-1111-aaaa-111111111111',
       title: 'Acoustic Evening 2025',
       description: 'My standard acoustic set with a mix of originals and covers',
@@ -66,7 +68,7 @@ function createDemoClient() {
         { id: '10', title: 'Whispers in the Wind', artist: null, is_cover: false, duration: '4:30', position: 10 }
       ]
     } : null,
-    shows: demoProfile?.role === 'admin' ? [
+    shows: demoRole === 'admin' ? [
       {
         id: 'show-1',
         title: 'Platform Analytics Overview',

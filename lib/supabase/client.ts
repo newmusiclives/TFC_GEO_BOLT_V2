@@ -45,16 +45,20 @@ export const createClient = () => {
         })
       }),
       rpc: (functionName: string, params?: any) => {
-        console.log(`🎭 Mock RPC call: ${functionName}`, params)
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`🎭 Mock RPC call: ${functionName}`, params)
+        }
         return Promise.resolve({ data: [], error: null })
       },
       channel: (name: string) => ({
         on: (event: string, callback: Function) => ({
           on: (event: string, callback: Function) => ({
-            subscribe: (callback?: Function) => {
-              console.log(`🎭 Mock subscription: ${name}`)
-              return { unsubscribe: () => {} }
-            }
+                    subscribe: (callback?: Function) => {
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`🎭 Mock subscription: ${name}`)
+          }
+          return { unsubscribe: () => {} }
+        }
           })
         }),
         send: (event: string, payload: any) => Promise.resolve('ok'),
@@ -63,7 +67,9 @@ export const createClient = () => {
       removeChannel: (channel: any) => Promise.resolve('ok'),
       functions: {
         invoke: (functionName: string, options?: any) => {
-          console.log(`🎭 Mock function call: ${functionName}`, options)
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`🎭 Mock function call: ${functionName}`, options)
+          }
           return Promise.resolve({ data: null, error: null })
         }
       },

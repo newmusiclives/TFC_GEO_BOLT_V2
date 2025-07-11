@@ -83,10 +83,10 @@ export default function DemoLoginPage() {
         updated_at: new Date().toISOString()
       }
 
-      // Store in localStorage for demo purposes
-      localStorage.setItem('demo_user', JSON.stringify(demoUser))
-      localStorage.setItem('demo_profile', JSON.stringify(demoProfile))
-      localStorage.setItem('demo_mode', 'true')
+      // Store minimal demo data in sessionStorage (cleared on tab close)
+      sessionStorage.setItem('demo_user_id', account.id)
+      sessionStorage.setItem('demo_role', account.role)
+      sessionStorage.setItem('demo_mode', 'true')
 
       console.log('Demo login - storing user:', demoUser) // Debug log
       console.log('Demo login - storing profile:', demoProfile) // Debug log
@@ -104,9 +104,9 @@ export default function DemoLoginPage() {
   }
 
   const handleClearDemo = () => {
-    localStorage.removeItem('demo_user')
-    localStorage.removeItem('demo_profile')
-    localStorage.removeItem('demo_mode')
+    sessionStorage.removeItem('demo_user_id')
+    sessionStorage.removeItem('demo_role')
+    sessionStorage.removeItem('demo_mode')
     window.location.reload()
   }
 

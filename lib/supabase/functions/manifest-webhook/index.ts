@@ -12,7 +12,7 @@ const MANIFEST_WEBHOOK_SECRET = Deno.env.get("MANIFEST_WEBHOOK_SECRET") || "";
 // Create Supabase client with service role key for admin access
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-// Verify Manifest webhook signature
+// Verify Manifest webhook signature using crypto
 function verifySignature(payload: string, signature: string): boolean {
   if (!MANIFEST_WEBHOOK_SECRET) {
     console.error("MANIFEST_WEBHOOK_SECRET is not set");
@@ -20,14 +20,41 @@ function verifySignature(payload: string, signature: string): boolean {
   }
 
   try {
-    // In a real implementation, you would verify the signature using crypto
-    // This is a placeholder for the actual verification logic
-    // const hmac = crypto.createHmac('sha256', MANIFEST_WEBHOOK_SECRET);
-    // const expectedSignature = hmac.update(payload).digest('hex');
-    // return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
+    // Create HMAC SHA256 signature
+    const encoder = new TextEncoder();
+    const key = encoder.encode(MANIFEST_WEBHOOK_SECRET);
+    const message = encoder.encode(payload);
     
-    // For now, we'll just check if the signature exists
-    return signature.length > 0;
+    // Use Web Crypto API to create HMAC
+    const cryptoKey = crypto.subtle.importKey(
+      'raw',
+      key,
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['sign']
+    );
+    
+    const signatureBuffer = crypto.subtle.sign(
+      'HMAC',
+      cryptoKey,
+      message
+    );
+    
+    const expectedSignature = Array.from(new Uint8Array(signatureBuffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+    
+    // Compare signatures using timing-safe comparison
+    if (signature.length !== expectedSignature.length) {
+      return false;
+    }
+    
+    let result = 0;
+    for (let i = 0; i < signature.length; i++) {
+      result |= signature.charCodeAt(i) ^ expectedSignature.charCodeAt(i);
+    }
+    
+    return result === 0;
   } catch (error) {
     console.error("Error verifying signature:", error);
     return false;
@@ -77,7 +104,10 @@ serve(async (req: Request) => {
     } else if (eventType === "transfer.succeeded") {
       await handleSuccessfulTransfer(payload.data);
     } else {
-      console.log(`Unhandled event type: ${eventType}`);
+      // Only log in development
+      if (Deno.env.get("NODE_ENV") === "development") {
+        console.log(`Unhandled event type: ${eventType}`);
+      }
     }
     
     return new Response(JSON.stringify({ success: true }), {
@@ -138,7 +168,10 @@ async function handleSuccessfulCharge(data: any) {
       throw error;
     }
     
-    console.log("Donation processed successfully:", result);
+    // Only log in development
+    if (Deno.env.get("NODE_ENV") === "development") {
+      console.log("Donation processed successfully:", result);
+    }
     return result;
   } catch (error) {
     console.error("Error handling successful charge:", error);
@@ -167,7 +200,10 @@ async function handleFailedCharge(data: any) {
       }
     }
     
-    console.log("Failed charge handled:", manifestPaymentId);
+    // Only log in development
+    if (Deno.env.get("NODE_ENV") === "development") {
+      console.log("Failed charge handled:", manifestPaymentId);
+    }
   } catch (error) {
     console.error("Error handling failed charge:", error);
     throw error;
@@ -195,7 +231,10 @@ async function handleSuccessfulTransfer(data: any) {
       }
     }
     
-    console.log("Transfer processed:", transferId);
+    // Only log in development
+    if (Deno.env.get("NODE_ENV") === "development") {
+      console.log("Transfer processed:", transferId);
+    }
   } catch (error) {
     console.error("Error handling successful transfer:", error);
     throw error;

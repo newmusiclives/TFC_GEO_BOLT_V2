@@ -118,6 +118,21 @@
 
   // Create the form HTML
   function createFormHTML(config) {
+    // Sanitize config values to prevent XSS
+    const sanitize = (str) => {
+      if (typeof str !== 'string') return '';
+      return str.replace(/[&<>"'`]/g, (char) => {
+        const entities = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#x27;',
+          '`': '&#x60;'
+        };
+        return entities[char] || char;
+      });
+    };
     const musicIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>`;
     const uploadIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>`;
     const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
@@ -132,14 +147,14 @@
                   <div style="color: ${config.primaryColor};">${musicIcon}</div>
                 </div>
               ` : ''}
-              <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">${config.venueName}</h2>
+              <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">${sanitize(config.venueName)}</h2>
               <p style="font-size: 14px; opacity: 0.8;">Live Music Submission</p>
             </div>
           ` : ''}
           
           ${config.customMessage ? `
             <div style="margin-bottom: 24px; padding: 16px; border-radius: 8px; background-color: ${config.primaryColor}20;">
-              <p style="font-size: 14px;">${config.customMessage}</p>
+              <p style="font-size: 14px;">${sanitize(config.customMessage)}</p>
             </div>
           ` : ''}
           
