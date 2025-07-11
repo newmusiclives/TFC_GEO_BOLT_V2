@@ -170,14 +170,6 @@ export default function VenueDashboardPage() {
                 <h1 className="text-3xl font-bold text-white mb-2">Venue Dashboard</h1>
                 <p className="text-gray-300">Manage your venue, shows, and partnerships</p>
               </div>
-              <div className="flex gap-3">
-                <Link href="/dashboard/venue/submission-form">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Submission Form
-                  </Button>
-                </Link>
-              </div>
             </div>
 
             {/* Venue Info */}
@@ -384,6 +376,23 @@ export default function VenueDashboardPage() {
               </GlassCard>
             </TabsContent>
           </Tabs>
+          
+          {/* Submission Form Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mt-8"
+          >
+            <GlassCard variant="minimal">
+              <div className="p-6 text-center">
+                <h3 className="text-lg font-semibold text-white mb-3">Create a Live Music Submission form for your Venue</h3>
+                <Link href="/dashboard/venue/submission-form">
+                  <Button className="bg-blue-600 hover:bg-blue-700">Live Music Submission Form</Button>
+                </Link>
+              </div>
+            </GlassCard>
+          </motion.div>
         </div>
       </div>
     </GradientBg>
