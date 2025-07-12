@@ -44,6 +44,14 @@ if [ ${#MISSING_VARS[@]} -ne 0 ]; then
     done
     echo ""
     echo "Please set these environment variables before deploying."
+    echo "Example:"
+    echo "export NEXT_PUBLIC_SUPABASE_URL=\"your_supabase_url\""
+    echo "export NEXT_PUBLIC_SUPABASE_ANON_KEY=\"your_supabase_anon_key\""
+    echo "export SUPABASE_SERVICE_ROLE_KEY=\"your_supabase_service_role_key\""
+    echo "export NEXT_PUBLIC_APP_URL=\"https://fansdock.xenpac.org:3009\""
+    echo "export NEXT_PUBLIC_MANIFEST_PUBLIC_KEY=\"your_manifest_public_key\""
+    echo "export MANIFEST_API_KEY=\"your_manifest_api_key\""
+    echo "export MANIFEST_WEBHOOK_SECRET=\"your_manifest_webhook_secret\""
     exit 1
 fi
 
@@ -51,7 +59,7 @@ echo "✅ All required environment variables are set"
 
 # Build the Docker image
 echo "🔨 Building Docker image..."
-docker build -t $APP_NAME .
+docker build -t $APP_NAME:latest .
 
 if [ $? -ne 0 ]; then
     echo "❌ Docker build failed"
@@ -96,20 +104,18 @@ echo "✅ Deployment configuration created"
 echo "🚀 Deploying to Dockploy..."
 
 # Using curl to deploy to Dockploy
-DEPLOY_RESPONSE=$(curl -s -X POST \
+DEPLOY_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
   -H "Authorization: Bearer $DOCKPLOY_API_KEY" \
   -H "Content-Type: application/json" \
   -d @dockploy-deploy.json \
   "$DOCKPLOY_URL/api/deploy")
 
-if [ $? -ne 0 ]; then
-    echo "❌ Failed to connect to Dockploy"
-    exit 1
-fi
+# Extract HTTP status code from the last line
+HTTP_STATUS=$(echo "$DEPLOY_RESPONSE" | tail -n1)
+DEPLOY_BODY=$(echo "$DEPLOY_RESPONSE" | head -n -1)
 
-# Check if deployment was successful
-if echo "$DEPLOY_RESPONSE" | grep -q "success\|deployed\|running"; then
-    echo "✅ Deployment successful!"
+if [ "$HTTP_STATUS" -eq 200 ] || [ "$HTTP_STATUS" -eq 201 ]; then
+    echo "✅ Deployment successful! (HTTP $HTTP_STATUS)"
     echo ""
     echo "🌐 Your application should be available at:"
     echo "   $DOCKPLOY_URL:$EXTERNAL_PORT"
@@ -119,9 +125,11 @@ if echo "$DEPLOY_RESPONSE" | grep -q "success\|deployed\|running"; then
     echo ""
     echo "🔍 To check deployment status, visit:"
     echo "   $DOCKPLOY_URL/dashboard"
+    echo ""
+    echo "📝 Response: $DEPLOY_BODY"
 else
-    echo "❌ Deployment failed"
-    echo "Response: $DEPLOY_RESPONSE"
+    echo "❌ Deployment failed (HTTP $HTTP_STATUS)"
+    echo "Response: $DEPLOY_BODY"
     exit 1
 fi
 

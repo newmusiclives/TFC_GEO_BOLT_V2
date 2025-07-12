@@ -8,23 +8,57 @@ This guide will help you deploy your Next.js application to Dockploy using your 
 - All environment variables configured
 - Dockploy API key: `edwKwxrXDqhfdtpQyALOUyrNemlzljcaCMQumBbgpXnlimnDsotTXdqgcSLXyTlgnje`
 
-## Required Environment Variables
+## Quick Start
 
-Before deploying, ensure these environment variables are set:
+### Option 1: Automated Setup (Recommended)
+
+1. **Run the setup script:**
+   ```bash
+   ./setup-dockploy.sh
+   ```
+   
+   This interactive script will:
+   - Guide you through setting up all required environment variables
+   - Create a `.env` file with your configuration
+   - Make the deployment script executable
+   - Provide clear next steps
+
+2. **Deploy your application:**
+   ```bash
+   ./deploy-dockploy.sh
+   ```
+
+### Option 2: Manual Environment Setup
+
+If you prefer to set environment variables manually:
 
 ```bash
 export NEXT_PUBLIC_SUPABASE_URL="your_supabase_url"
 export NEXT_PUBLIC_SUPABASE_ANON_KEY="your_supabase_anon_key"
 export SUPABASE_SERVICE_ROLE_KEY="your_supabase_service_role_key"
-export NEXT_PUBLIC_APP_URL="your_app_url"
+export NEXT_PUBLIC_APP_URL="https://fansdock.xenpac.org:3009"
 export NEXT_PUBLIC_MANIFEST_PUBLIC_KEY="your_manifest_public_key"
 export MANIFEST_API_KEY="your_manifest_api_key"
 export MANIFEST_WEBHOOK_SECRET="your_manifest_webhook_secret"
 ```
 
-## Quick Deployment
+## Required Environment Variables
 
-### Option 1: Using the Automated Script
+Before deploying, ensure these environment variables are set:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | `https://your-project.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key (public) | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (private) | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| `NEXT_PUBLIC_APP_URL` | Your app's public URL | `https://fansdock.xenpac.org:3009` |
+| `NEXT_PUBLIC_MANIFEST_PUBLIC_KEY` | Manifest public key for payments | `pk_test_...` |
+| `MANIFEST_API_KEY` | Manifest API key for payments | `sk_test_...` |
+| `MANIFEST_WEBHOOK_SECRET` | Manifest webhook secret | `whsec_...` |
+
+## Deployment Process
+
+### Automated Deployment
 
 1. **Run the deployment script:**
    ```bash
@@ -32,16 +66,17 @@ export MANIFEST_WEBHOOK_SECRET="your_manifest_webhook_secret"
    ```
 
    This script will:
-   - Check all required environment variables
-   - Build the Docker image
-   - Deploy to Dockploy automatically
-   - Provide deployment status and URLs
+   - ✅ Check all required environment variables
+   - ✅ Build the Docker image with production optimizations
+   - ✅ Deploy to Dockploy automatically
+   - ✅ Provide deployment status and URLs
+   - ✅ Show health check information
 
-### Option 2: Manual Deployment
+### Manual Deployment
 
 1. **Build the Docker image:**
    ```bash
-   docker build -t tfc-geo-bolt-v2 .
+   docker build -t tfc-geo-bolt-v2:latest .
    ```
 
 2. **Deploy to Dockploy:**
@@ -108,15 +143,17 @@ https://fansdock.xenpac.org/dashboard
 ### Common Issues
 
 1. **Environment Variables Missing**
+   - Run `./setup-dockploy.sh` to configure all variables
    - Ensure all required environment variables are set
    - The deployment script will check this automatically
 
 2. **Docker Build Fails**
-   - Check that Docker is running
+   - Check that Docker is running: `docker --version`
    - Ensure all dependencies are properly configured
+   - Try cleaning Docker cache: `docker system prune -a`
 
 3. **Application Not Starting**
-   - Check the health endpoint
+   - Check the health endpoint: `https://fansdock.xenpac.org:3009/api/health`
    - Review logs in the Dockploy dashboard
    - Verify environment variables are correctly set
 
@@ -139,6 +176,20 @@ Your deployment includes:
 - ✅ Secure environment variable handling
 - ✅ Health check monitoring
 - ✅ Production-optimized Docker configuration
+- ✅ Standalone Next.js output for minimal attack surface
+
+## Development vs Production
+
+### Local Development
+```bash
+npm run dev
+```
+
+### Production Deployment
+```bash
+./setup-dockploy.sh    # First time setup
+./deploy-dockploy.sh   # Deploy to production
+```
 
 ## Support
 
@@ -147,6 +198,7 @@ If you encounter issues:
 2. Verify all environment variables are correctly set
 3. Ensure Docker is running and accessible
 4. Check the health endpoint for application status
+5. Review the troubleshooting section above
 
 ## Next Steps
 

@@ -1,60 +1,42 @@
-# 🚀 Quick Deployment Reference
+# 🚀 Quick Deployment Guide
 
-## Port Configuration
-- **Container Port**: 3000 (internal)
-- **Host Port**: 3009 (external)
-- **Access URL**: `http://localhost:3009`
-- **Health Check**: `http://localhost:3009/api/health`
+## One-Command Setup & Deploy
 
-## Dockploy Settings
-| Setting | Value |
-|---------|-------|
-| **Port** | `3009` |
-| **Health Check Path** | `/api/health` |
-| **Build Command** | `(leave empty)` |
-| **Start Command** | `(leave empty)` |
-
-## Environment Variables (Required)
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
-NEXT_PUBLIC_APP_URL=https://your-dockploy-domain.com
+# 1. Setup environment variables (first time only)
+./setup-dockploy.sh
+
+# 2. Deploy to production
+./deploy-dockploy.sh
 ```
 
-## Quick Commands
+## Your App URLs
 
-### Local Docker
-```bash
-# Deploy locally
-./deploy.sh
+- **Production App:** https://fansdock.xenpac.org:3009
+- **Health Check:** https://fansdock.xenpac.org:3009/api/health
+- **Dashboard:** https://fansdock.xenpac.org/dashboard
 
-# Or manually
-docker-compose up -d
+## Environment Variables Needed
 
-# Check status
-curl http://localhost:3009/api/health
-```
+You'll need these values from your Supabase and Manifest accounts:
 
-### Dockploy
-1. Connect repository
-2. Set port to `3009`
-3. Set health check to `/api/health`
-4. Add environment variables
-5. Deploy
-
-## Health Check Response
-```json
-{
-  "status": "healthy",
-  "timestamp": "2024-01-01T00:00:00.000Z",
-  "uptime": 123.456,
-  "environment": "production",
-  "version": "1.0.0"
-}
-```
+- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase public key
+- `SUPABASE_SERVICE_ROLE_KEY` - Supabase private key
+- `NEXT_PUBLIC_APP_URL` - Set to: `https://fansdock.xenpac.org:3009`
+- `NEXT_PUBLIC_MANIFEST_PUBLIC_KEY` - Manifest public key
+- `MANIFEST_API_KEY` - Manifest private key
+- `MANIFEST_WEBHOOK_SECRET` - Manifest webhook secret
 
 ## Troubleshooting
-- **Port 3009 in use**: Change to 3010 in docker-compose.yml
-- **Health check fails**: Wait 1-2 minutes after deployment
-- **Environment variables**: Ensure all required vars are set 
+
+- **Docker not running:** `docker --version`
+- **Build fails:** `docker system prune -a`
+- **App not starting:** Check health endpoint
+- **Missing env vars:** Run `./setup-dockploy.sh`
+
+## Development
+
+```bash
+npm run dev  # Local development
+``` 
