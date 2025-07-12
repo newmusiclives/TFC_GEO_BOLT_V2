@@ -22,6 +22,9 @@ docker-compose up -d
 
 # Check logs
 docker-compose logs -f app
+
+# Access application
+# Application will be available at: http://localhost:3009
 ```
 
 ## 🔧 Troubleshooting
@@ -55,12 +58,12 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ### Port Conflicts
 
-**Problem**: Port 3000 is already in use.
+**Problem**: Port 3009 is already in use.
 
 **Solution**: Change the port in `docker-compose.yml`:
 ```yaml
 ports:
-  - "3001:3000"  # Use port 3001 on host
+  - "3010:3000"  # Use port 3010 on host
 ```
 
 ### Build Failures
@@ -89,7 +92,7 @@ ports:
 
 2. **Check health endpoint**:
    ```bash
-   curl http://localhost:3000/api/health
+   curl http://localhost:3009/api/health
    ```
 
 3. **Verify environment variables**:
@@ -150,7 +153,7 @@ docker-compose down --rmi all --volumes --remove-orphans
 
 ### Network Security
 - Application runs on internal network
-- Only port 3000 is exposed
+- Only port 3009 is exposed
 - Health checks monitor application status
 
 ## 🚀 Production Deployment
@@ -186,6 +189,7 @@ kubectl apply -f k8s/
 - Application exposes `/api/health` endpoint
 - Docker health check monitors application status
 - Logs are available via `docker-compose logs`
+- Health check URL: `http://localhost:3009/api/health`
 
 ### Metrics
 - Application uptime available via health endpoint
@@ -226,7 +230,14 @@ If you encounter issues:
 | `NEXT_PUBLIC_SUPABASE_URL` | Yes | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes | Supabase anonymous key |
 | `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase service role key |
-| `NEXT_PUBLIC_APP_URL` | Yes | Application URL |
+| `NEXT_PUBLIC_APP_URL` | Yes | Application URL (use port 3009 for local) |
 | `NEXT_PUBLIC_MANIFEST_PUBLIC_KEY` | No | Manifest Financial public key |
 | `MANIFEST_API_KEY` | No | Manifest Financial API key |
-| `MANIFEST_WEBHOOK_SECRET` | No | Manifest Financial webhook secret | 
+| `MANIFEST_WEBHOOK_SECRET` | No | Manifest Financial webhook secret |
+
+## 🌐 Port Configuration
+
+- **Container Port**: 3000 (internal)
+- **Host Port**: 3009 (external)
+- **Access URL**: `http://localhost:3009`
+- **Health Check**: `http://localhost:3009/api/health` 
