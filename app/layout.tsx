@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000') : 'http://localhost:3000'),
 }
 
 export default function RootLayout({
