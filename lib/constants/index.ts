@@ -1,10 +1,10 @@
 // Application constants for better maintainability
-const APP_CONFIG = {
+export const APP_CONFIG = {
   name: 'TrueFans CONNECT™',
   description: 'Live Music Discovery & Artist Support',
   version: '1.0.0',
   author: 'TrueFans',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+  url: typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000') : 'http://localhost:3000'
 } as const
 
 export const GEOLOCATION_CONFIG = {
