@@ -147,6 +147,7 @@ function checkRateLimit(ip: string): boolean {
 3. **Webhook Secrets**: Update webhook secrets in production environment
 4. **CSP Headers**: Test Content Security Policy doesn't break functionality
 5. **Rate Limiting**: Monitor rate limiting impact on legitimate users
+6. **Port Configuration**: Application runs on port 3009 (mapped from container port 3000)
 
 ## 📝 Files Changed
 
@@ -154,6 +155,12 @@ function checkRateLimit(ip: string): boolean {
 - `middleware.ts` - Next.js middleware for request-level security
 - `lib/utils/security.ts` - Security utilities and input validation
 - `SECURITY_IMPROVEMENTS.md` - This documentation
+
+### Docker Configuration
+- `Dockerfile` - Production-ready Docker configuration (port 3000 internal)
+- `docker-compose.yml` - Docker Compose setup (port 3009 external)
+- `deploy.sh` - Automated deployment script (port 3009)
+- `DOCKER_DEPLOYMENT.md` - Comprehensive Docker deployment guide
 
 ### Modified Files
 - `lib/supabase/functions/manifest-webhook/index.ts` - Webhook signature verification
