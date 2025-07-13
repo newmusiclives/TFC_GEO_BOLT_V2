@@ -36,7 +36,7 @@ export function SongRequestDashboard({
         schema: 'public',
         table: 'song_requests',
         filter: `show_id=eq.${showId}`
-      }, (payload) => {
+      }, (payload: any) => {
         // Refresh the requests when a new one comes in
         loadSongRequests()
         // Show notification
@@ -62,8 +62,6 @@ export function SongRequestDashboard({
           {
             id: '1',
             songId: '5',
-            songTitle: 'Hallelujah',
-            songArtist: 'Leonard Cohen',
             fanName: 'Sarah Johnson',
             dedication: 'This song reminds me of our first date. Love you, Mike!',
             isAnonymous: false,
@@ -73,8 +71,6 @@ export function SongRequestDashboard({
           {
             id: '2',
             songId: '4',
-            songTitle: 'Fast Car',
-            songArtist: 'Tracy Chapman',
             fanName: 'Music Lover',
             dedication: 'Your version of this song is even better than the original!',
             isAnonymous: true,
@@ -84,8 +80,6 @@ export function SongRequestDashboard({
           {
             id: '3',
             songId: '1',
-            songTitle: 'Midnight Whispers',
-            songArtist: undefined,
             fanName: 'Biggest Fan',
             dedication: 'This song changed my life. Thank you for writing it.',
             isAnonymous: false,
@@ -109,8 +103,6 @@ export function SongRequestDashboard({
         const formattedRequests: SongRequest[] = (parsedData || []).map((item: any) => ({
           id: item.id,
           songId: item.song.id,
-          songTitle: item.song.title,
-          songArtist: item.song.artist,
           fanName: item.fan_name,
           dedication: item.dedication,
           isAnonymous: item.is_anonymous,
@@ -274,7 +266,7 @@ export function SongRequestDashboard({
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-medium text-white">{request.songTitle}</h4>
+                      <h4 className="font-medium text-white">Song Request #{request.songId}</h4>
                       <Badge className={getStatusColor(request.status)}>
                         {request.status}
                       </Badge>

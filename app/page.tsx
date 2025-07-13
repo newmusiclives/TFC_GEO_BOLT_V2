@@ -291,7 +291,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredArtists?.map((artist, index) => (
+            {featuredArtists?.map((artist: any, index: any) => (
               <motion.div
                 key={artist.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -333,7 +333,7 @@ export default function HomePage() {
                       {/* Genres */}
                       {artist.genres && Array.isArray(artist.genres) && artist.genres.length > 0 && (
                         <div className="flex gap-2 mb-4">
-                          {artist.genres.slice(0, 2).map((genre) => (
+                          {artist.genres.slice(0, 2).map((genre: any) => (
                             <Badge key={genre} variant="secondary" className="bg-purple-500/20 text-purple-300">
                               {genre}
                             </Badge>
@@ -388,7 +388,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {liveShows?.slice(0, 5).map((show, index) => (
+            {liveShows?.slice(0, 5).map((show: any, index: any) => (
               <motion.div
                 key={show.id}
                 initial={{ opacity: 0, y: 20 }}

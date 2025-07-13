@@ -26,8 +26,12 @@ import { ReferralStats } from '@/components/referral/referral-stats'
 import { ReferralTree } from '@/components/referral/referral-tree'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 export default function ArtistDashboardPage() {
+  // Initialize Supabase client
+  const supabase = createClient()
+  
   // Mock data - in a real app, this would come from Supabase
   const artist = {
     id: '11111111-1111-1111-1111-111111111111',
@@ -126,6 +130,7 @@ export default function ArtistDashboardPage() {
     directReferrals: [
       {
         id: '66666666-6666-6666-6666-666666666666',
+        name: 'John Smith',
         displayName: 'John Smith',
         role: 'fan',
         createdAt: '2024-05-15',
@@ -133,6 +138,7 @@ export default function ArtistDashboardPage() {
       },
       {
         id: '77777777-7777-7777-7777-777777777777',
+        name: 'Emily Davis',
         displayName: 'Emily Davis',
         role: 'artist',
         createdAt: '2024-05-20',
@@ -200,21 +206,10 @@ export default function ArtistDashboardPage() {
         }
         setSetlist(mockSetlist)
         console.log('Mock setlist created:', mockSetlist)
-      } else if (artist && artist.setlist) {
-        // Get setlist from artist data for non-demo mode
-        setSetlist({
-          id: artist.setlist.id,
-          title: artist.setlist.title,
-          description: artist.setlist.description,
-          songs: artist.setlist.setlist_songs.map((song: any) => ({
-            id: song.id,
-            title: song.title,
-            artist: song.artist,
-            isCover: song.is_cover,
-            duration: song.duration,
-            position: song.position
-          }))
-        })
+      } else {
+        // For non-demo mode, you would typically fetch setlist from database
+        // For now, we'll use a default empty setlist
+        setSetlist(null)
       }
     } catch (error) {
       console.error('Error loading setlist:', error)

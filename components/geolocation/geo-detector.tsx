@@ -315,7 +315,7 @@ export function GeoDetector({ onBack }: GeoDetectorProps) {
                     <Button 
                       onClick={handleRetry}
                       className="bg-purple-600 hover:bg-purple-700"
-                      disabled={status === 'detecting'}
+                      disabled={false}
                     >
                       <RefreshCw className="w-4 h-4 mr-2" />
                       Try Again

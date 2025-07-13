@@ -100,7 +100,7 @@ export function SongRequestForm({
         if (songsError) throw songsError
         
         // Map to our SetlistSong type
-        const formattedSongs: SetlistSong[] = songsData.map(song => ({
+        const formattedSongs: SetlistSong[] = songsData.map((song: any) => ({
           id: song.id,
           title: song.title,
           artist: song.artist || undefined,

@@ -23,7 +23,6 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
     apple: '/icons/apple-touch-icon.png',
   },
-  themeColor: '#8B5CF6',
   openGraph: {
     title: 'TrueFans CONNECT™',
     description: 'Discover live music near you and support your favorite artists',
@@ -35,9 +34,14 @@ export const metadata: Metadata = {
     title: 'TrueFans CONNECT™',
     description: 'Discover live music near you and support your favorite artists',
   },
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   metadataBase: new URL(typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000') : 'http://localhost:3000'),
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#8B5CF6',
 }
 
 export default function RootLayout({

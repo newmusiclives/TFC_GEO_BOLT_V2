@@ -118,7 +118,7 @@ export function SetlistManager({
         if (songsError) throw songsError
         
         // Map to our SetlistSong type
-        const formattedSongs: SetlistSong[] = songsData.map(song => ({
+        const formattedSongs: SetlistSong[] = songsData.map((song: any) => ({
           id: song.id,
           title: song.title,
           artist: song.artist || undefined,
@@ -340,7 +340,7 @@ export function SetlistManager({
         
         toast.success('Setlist saved successfully')
         
-        if (onSave) {
+        if (onSave && savedSetlistId) {
           onSave(savedSetlistId)
         }
       }
