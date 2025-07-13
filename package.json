@@ -18,9 +18,9 @@
     "url": "https://github.com/truefans/geoconnect.git"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev",
+    "dev": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0",
     "build": "NODE_OPTIONS=\"--max-old-space-size=16384\" next build",
-    "start": "next start",
+    "start": "next start -H 0.0.0.0",
     "lint": "next lint",
     "clean:next": "rm -rf .next",
     "clean:deps": "npx rimraf node_modules package-lock.json",
