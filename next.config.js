@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  // Ensure the server binds to all interfaces
+  experimental: {
+    serverComponentsExternalPackages: [],
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
