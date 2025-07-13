@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/footer'
 import { Toaster } from '@/components/ui/sonner'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
+import { ComingSoonOverlay } from '@/components/ui/coming-soon-overlay'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -60,6 +61,7 @@ export default function RootLayout({
             </main>
             <Footer />
             <Toaster />
+            <ComingSoonOverlay />
           </QueryProvider>
         </ErrorBoundary>
       </body>
