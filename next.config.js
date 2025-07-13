@@ -3,7 +3,11 @@ const nextConfig = {
   output: 'standalone',
   // Ensure the server binds to all interfaces
   experimental: {
-    serverComponentsExternalPackages: [],
+    // Removed deprecated serverComponentsExternalPackages
+  },
+  // Configure server to bind to all interfaces
+  serverRuntimeConfig: {
+    hostname: '0.0.0.0',
   },
   eslint: {
     ignoreDuringBuilds: true,

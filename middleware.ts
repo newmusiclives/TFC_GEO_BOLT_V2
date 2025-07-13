@@ -109,11 +109,10 @@ export function middleware(request: NextRequest) {
   }
   
   // Block requests with suspicious headers (only in production)
+  // Note: Removed blocking of x-forwarded-* headers as they're commonly used by reverse proxies
   if (process.env.NODE_ENV === 'production') {
-    const suspiciousHeaders = [
-      'x-forwarded-host',
-      'x-forwarded-proto',
-      'x-real-ip'
+    const suspiciousHeaders: string[] = [
+      // Removed x-forwarded-host, x-forwarded-proto, x-real-ip as they're legitimate in production
     ]
     
     for (const header of suspiciousHeaders) {

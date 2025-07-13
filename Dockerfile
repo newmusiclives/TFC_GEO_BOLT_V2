@@ -51,8 +51,8 @@ USER nextjs
 EXPOSE 3009
 
 ENV PORT=3009
-# set hostname to localhost
-ENV HOSTNAME="0.0.0.0"
+# set hostname to bind to all interfaces
+ENV HOSTNAME=0.0.0.0
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
