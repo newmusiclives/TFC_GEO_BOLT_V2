@@ -1,0 +1,52 @@
+# Dynamic configuration for automatic SSL
+# This file should be placed in /data/coolify/proxy/dynamic/traefik-dynamic.yml
+
+http:
+  middlewares:
+    # Automatic HTTPS redirect for all HTTP traffic
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    
+    # Security headers for HTTPS
+    security-headers:
+      headers:
+        frameDeny: true
+        sslRedirect: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 31536000
+        customFrameOptionsValue: "SAMEORIGIN"
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+    
+    # Gzip compression
+    gzip:
+      compress: {}
+    
+    # Rate limiting
+    rate-limit:
+      rateLimit:
+        burst: 100
+        average: 50
+
+  routers:
+    # Default HTTPS redirect for all HTTP traffic
+    http-to-https:
+      rule: "HostRegexp(`{host:.+}`)"
+      entryPoints:
+        - http
+      middlewares:
+        - https-redirect
+      priority: 1
+      service: noop
+
+  services:
+    noop:
+      loadBalancer:
+        servers:
+          - url: "http://localhost" 
