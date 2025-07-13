@@ -156,7 +156,7 @@ export default function ArtistSetlistsPage() {
       
       // Create new songs with the new setlist ID
       if (originalSongs.length > 0) {
-        const newSongs = originalSongs.map(song => ({
+        const newSongs = originalSongs.map((song: any) => ({
           setlist_id: newSetlist.id,
           title: song.title,
           artist: song.artist,

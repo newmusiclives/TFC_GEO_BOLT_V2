@@ -6,10 +6,10 @@ const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 
 // Rate limiting configuration
 const RATE_LIMIT_WINDOW = 60 * 1000 // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 100 // requests per window
+const RATE_LIMIT_MAX_REQUESTS = process.env.NODE_ENV === 'production' ? 100 : 1000 // More lenient in development
 
-// Security headers
-const securityHeaders = {
+// Security headers (less restrictive in development)
+const securityHeaders = process.env.NODE_ENV === 'production' ? {
   'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'origin-when-cross-origin',
@@ -17,6 +17,9 @@ const securityHeaders = {
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self), interest-cohort=()',
   'X-XSS-Protection': '1; mode=block',
   'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://api.manifest.financial https://api.truefans.connect; frame-src https://js.stripe.com https://checkout.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self';"
+} : {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'origin-when-cross-origin'
 }
 
 // Rate limiting function
@@ -80,42 +83,46 @@ export function middleware(request: NextRequest) {
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   }
   
-  // Block suspicious requests
-  const userAgent = request.headers.get('user-agent') || ''
-  const suspiciousPatterns = [
-    /bot/i,
-    /crawler/i,
-    /spider/i,
-    /scraper/i,
-    /curl/i,
-    /wget/i
-  ]
-  
-  // Allow legitimate bots but block suspicious ones
-  const isSuspicious = suspiciousPatterns.some(pattern => 
-    pattern.test(userAgent) && !userAgent.includes('googlebot') && !userAgent.includes('bingbot')
-  )
-  
-  if (isSuspicious) {
-    return new NextResponse(JSON.stringify({ error: 'Access denied' }), {
-      status: 403,
-      headers: { 'Content-Type': 'application/json' }
-    })
-  }
-  
-  // Block requests with suspicious headers
-  const suspiciousHeaders = [
-    'x-forwarded-host',
-    'x-forwarded-proto',
-    'x-real-ip'
-  ]
-  
-  for (const header of suspiciousHeaders) {
-    if (request.headers.get(header)) {
-      return new NextResponse(JSON.stringify({ error: 'Invalid request' }), {
-        status: 400,
+  // Block suspicious requests (only in production)
+  if (process.env.NODE_ENV === 'production') {
+    const userAgent = request.headers.get('user-agent') || ''
+    const suspiciousPatterns = [
+      /bot/i,
+      /crawler/i,
+      /spider/i,
+      /scraper/i,
+      /curl/i,
+      /wget/i
+    ]
+    
+    // Allow legitimate bots but block suspicious ones
+    const isSuspicious = suspiciousPatterns.some(pattern => 
+      pattern.test(userAgent) && !userAgent.includes('googlebot') && !userAgent.includes('bingbot')
+    )
+    
+    if (isSuspicious) {
+      return new NextResponse(JSON.stringify({ error: 'Access denied' }), {
+        status: 403,
         headers: { 'Content-Type': 'application/json' }
       })
+    }
+  }
+  
+  // Block requests with suspicious headers (only in production)
+  if (process.env.NODE_ENV === 'production') {
+    const suspiciousHeaders = [
+      'x-forwarded-host',
+      'x-forwarded-proto',
+      'x-real-ip'
+    ]
+    
+    for (const header of suspiciousHeaders) {
+      if (request.headers.get(header)) {
+        return new NextResponse(JSON.stringify({ error: 'Invalid request' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        })
+      }
     }
   }
   

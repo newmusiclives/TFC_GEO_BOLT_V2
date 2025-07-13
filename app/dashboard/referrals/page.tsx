@@ -48,6 +48,7 @@ export default function ReferralsPage() {
     directReferrals: [
       {
         id: '66666666-6666-6666-6666-666666666666',
+        name: 'John Smith',
         displayName: 'John Smith',
         role: 'fan',
         createdAt: '2024-05-15',
@@ -55,6 +56,7 @@ export default function ReferralsPage() {
       },
       {
         id: '77777777-7777-7777-7777-777777777777',
+        name: 'Emily Davis',
         displayName: 'Emily Davis',
         role: 'artist',
         createdAt: '2024-05-20',
@@ -62,6 +64,7 @@ export default function ReferralsPage() {
       },
       {
         id: '88888888-8888-8888-8888-888888888888',
+        name: 'Venue Manager',
         displayName: 'Venue Manager',
         role: 'venue_owner',
         createdAt: '2024-06-01',

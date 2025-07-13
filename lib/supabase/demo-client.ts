@@ -28,6 +28,22 @@ function createDemoClient() {
     console.log('Demo client - role:', demoRole) // Debug log in development only
   }
 
+  // Mock user and profile objects
+  const demoUser = {
+    id: demoUserId || 'demo-user-id',
+    email: 'demo@truefans.ai',
+    created_at: new Date().toISOString()
+  }
+
+  const demoProfile = {
+    id: demoUserId || 'demo-user-id',
+    role: demoRole || 'fan',
+    name: demoRole === 'admin' ? 'Admin User' :
+          demoRole === 'artist' ? 'Luna Rodriguez' :
+          demoRole === 'venue_owner' ? 'Blue Note Manager' : 'Demo User',
+    created_at: new Date().toISOString()
+  }
+
   // Mock artist data based on user role
   const mockArtistData = {
     id: demoUserId || 'demo-artist',
@@ -85,7 +101,7 @@ function createDemoClient() {
         live_stats: { total_donations: 0, fan_count: 0, energy_level: 0 },
         venue: { name: 'Control Center', city: 'System', state: 'Global' }
       }
-    ] : demoProfile?.role === 'artist' ? [
+    ] : demoRole === 'artist' ? [
       {
         id: 'show-1',
         title: 'Acoustic Evening with Luna Rodriguez',
@@ -104,7 +120,7 @@ function createDemoClient() {
         live_stats: { total_donations: 450, fan_count: 32, energy_level: 95 },
         venue: { name: 'Central Park Bandshell', city: 'New York', state: 'NY' }
       }
-    ] : demoProfile?.role === 'venue_owner' ? [
+    ] : demoRole === 'venue_owner' ? [
       {
         id: 'show-1',
         title: 'Jazz Night at The Blue Note',
@@ -124,7 +140,7 @@ function createDemoClient() {
         artist: { name: 'The Midnight Echoes', slug: 'midnight-echoes' }
       }
     ] : [], // Fans don't have shows
-    donations: demoProfile?.role === 'admin' ? [
+    donations: demoRole === 'admin' ? [
       {
         amount: 125,
         created_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
@@ -140,7 +156,7 @@ function createDemoClient() {
         created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
         status: 'completed'
       }
-    ] : demoProfile?.role === 'artist' ? [
+    ] : demoRole === 'artist' ? [
       {
         amount: 25,
         created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
@@ -156,7 +172,7 @@ function createDemoClient() {
         created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
         status: 'completed'
       }
-    ] : demoProfile?.role === 'venue_owner' ? [
+    ] : demoRole === 'venue_owner' ? [
       {
         amount: 890,
         created_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),

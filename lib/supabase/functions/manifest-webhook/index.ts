@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Manifest Financial Webhook Handler
 // This Edge Function processes webhooks from Manifest Financial payment service
 

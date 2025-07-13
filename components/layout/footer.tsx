@@ -128,7 +128,6 @@ export function Footer() {
                   <li key={`${section.title}-${link.label}`}>
                     <Link 
                       href={link.href}
-                      target={link.target}
                       className="text-gray-300 hover:text-white transition-colors text-xs lg:text-sm"
                     >
                       {link.label}
