@@ -2,23 +2,13 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    container_name: truefans-app
+    restart: unless-stopped
     environment:
       - NODE_ENV=production
       - PORT=3009
       - HOSTNAME=0.0.0.0
-      - NEXT_TELEMETRY_DISABLED=1
-      # Add your environment variables here
-      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
-      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
-      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
-      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
-      - NEXT_PUBLIC_MANIFEST_PUBLIC_KEY=${NEXT_PUBLIC_MANIFEST_PUBLIC_KEY}
-      - MANIFEST_API_KEY=${MANIFEST_API_KEY}
-      - MANIFEST_WEBHOOK_SECRET=${MANIFEST_WEBHOOK_SECRET}
-    restart: unless-stopped
     networks:
       - traefik-network
     labels:
@@ -27,12 +17,12 @@ services:
       
       # HTTP Router (redirects to HTTPS)
       - "traefik.http.routers.truefans-http.entryPoints=web"
-      - "traefik.http.routers.truefans-http.rule=Host(`${DOMAIN:-truefansconnect.com}`)"
+      - "traefik.http.routers.truefans-http.rule=Host(`truefansconnect.com`)"
       - "traefik.http.routers.truefans-http.middlewares=redirect-to-https"
       
       # HTTPS Router (main application)
       - "traefik.http.routers.truefans-https.entryPoints=websecure"
-      - "traefik.http.routers.truefans-https.rule=Host(`${DOMAIN:-truefansconnect.com}`)"
+      - "traefik.http.routers.truefans-https.rule=Host(`truefansconnect.com`)"
       - "traefik.http.routers.truefans-https.tls=true"
       - "traefik.http.routers.truefans-https.tls.certresolver=letsencrypt"
       - "traefik.http.routers.truefans-https.middlewares=gzip"
