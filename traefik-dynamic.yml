@@ -39,7 +39,7 @@ http:
     http-to-https:
       rule: "HostRegexp(`{host:.+}`)"
       entryPoints:
-        - http
+        - web
       middlewares:
         - https-redirect
       priority: 1
