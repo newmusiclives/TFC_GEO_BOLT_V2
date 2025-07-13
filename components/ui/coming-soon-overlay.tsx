@@ -23,7 +23,7 @@ export function ComingSoonOverlay() {
 
   const handleEmailSignup = () => {
     // You can implement email signup functionality here
-    window.open('mailto:hello@truefans.ai?subject=Coming Soon Notification Request', '_blank')
+    window.open('mailto:paul@newmusiclives.com?subject=Coming Soon Notification Request', '_blank')
   }
 
   const socialLinks = [
@@ -142,7 +142,7 @@ export function ComingSoonOverlay() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="mb-8"
             >
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex justify-center">
                 <Button 
                   size="lg" 
                   className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 text-lg"
@@ -150,15 +150,6 @@ export function ComingSoonOverlay() {
                 >
                   <Mail className="w-5 h-5 mr-2" />
                   Get Notified
-                </Button>
-                
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg"
-                  onClick={() => window.open('https://truefans.ai', '_blank')}
-                >
-                  Learn More
                 </Button>
               </div>
             </motion.div>
