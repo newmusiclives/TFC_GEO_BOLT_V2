@@ -43,4 +43,6 @@ EXPOSE 3009
 ENV PORT=3009
 ENV HOSTNAME=0.0.0.0
 
+WORKDIR /app/.next/standalone
+
 CMD ["node", "server.js"] 
