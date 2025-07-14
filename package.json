@@ -18,7 +18,8 @@
     "url": "https://github.com/truefans/geoconnect.git"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https",
+    "migrate:local": "for f in supabase/migrations/*.sql; do PGPASSWORD=your-super-secret-and-long-postgres-password psql -h fansdb.xenpac.org -U postgres -d postgres -f \"$f\"; done",
+    "dev": "npm run migrate:local && NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https",
     "dev:ssl": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https --experimental-https-key ./ssl/localhost.key --experimental-https-cert ./ssl/localhost.crt",
     "build": "NODE_OPTIONS=\"--max-old-space-size=16384\" next build",
     "start": "next start -H 0.0.0.0",
@@ -35,6 +36,7 @@
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop",
     "supabase:reset": "supabase db reset",
+    "supabase:push": "supabase db push",
     "analyze": "ANALYZE=true next build",
     "clean": "rm -rf .next node_modules/.cache .next/cache"
   },
