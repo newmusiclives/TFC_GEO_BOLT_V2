@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
 import { ComingSoonOverlay } from '@/components/ui/coming-soon-overlay'
+import { DemoModeDisabler } from '@/components/providers/demo-mode-disabler'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -53,17 +54,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${inter.variable}`}>
       <body className={inter.className}>
-        <ErrorBoundary>
-          <QueryProvider>
-            <Navigation />
-            <main className="pt-24">
-              {children}
-            </main>
-            <Footer />
-            <Toaster />
-            <ComingSoonOverlay />
-          </QueryProvider>
-        </ErrorBoundary>
+        <DemoModeDisabler>
+          <ErrorBoundary>
+            <QueryProvider>
+              <Navigation />
+              <main className="pt-24">
+                {children}
+              </main>
+              <Footer />
+              <Toaster />
+              <ComingSoonOverlay />
+            </QueryProvider>
+          </ErrorBoundary>
+        </DemoModeDisabler>
       </body>
     </html>
   )

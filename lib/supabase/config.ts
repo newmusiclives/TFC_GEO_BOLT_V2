@@ -1,3 +1,5 @@
+console.log('ENV URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+console.log('ENV ANON KEY:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 // Supabase configuration with proper environment variable handling
 export const supabaseConfig = {
   url: typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_SUPABASE_URL || '') : '',
