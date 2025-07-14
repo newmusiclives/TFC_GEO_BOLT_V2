@@ -7,9 +7,13 @@ import { Badge } from '@/components/ui/badge'
 import { GlassCard } from '@/components/ui/glass-card'
 import { GradientBg } from '@/components/ui/gradient-bg'
 import { useEffect, useState } from 'react'
+import { Input } from '@/components/ui/input'
 
 export function ComingSoonOverlay() {
   const [shouldShow, setShouldShow] = useState(false)
+  const [formOpen, setFormOpen] = useState(false)
+  const [formData, setFormData] = useState({ name: '', email: '', artist: '', website: '' })
+  const [submitted, setSubmitted] = useState(false)
 
   useEffect(() => {
     // Check if we're on the truefansconnect.com domain
@@ -17,9 +21,19 @@ export function ComingSoonOverlay() {
     const isTrueFansConnect = hostname === 'truefansconnect.com' || 
                              hostname === 'www.truefansconnect.com' ||
                              hostname.includes('truefansconnect.com')
-    
     setShouldShow(isTrueFansConnect)
   }, [])
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitted(true)
+    // For now, just log the data. Later, connect to CRM.
+    console.log('Notify Form Submission:', formData)
+  }
 
   const handleEmailSignup = () => {
     // You can implement email signup functionality here
@@ -143,14 +157,52 @@ export function ComingSoonOverlay() {
               className="mb-8"
             >
               <div className="flex justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 text-lg"
-                  onClick={handleEmailSignup}
-                >
-                  <Mail className="w-5 h-5 mr-2" />
-                  Get Notified
-                </Button>
+                {submitted ? (
+                  <div className="bg-green-600/20 border border-green-400/30 rounded-lg p-6 text-center max-w-md mx-auto">
+                    <h4 className="text-2xl font-bold text-green-300 mb-2">Thank you!</h4>
+                    <p className="text-white mb-2">We'll notify you when we launch.</p>
+                  </div>
+                ) : formOpen ? (
+                  <form onSubmit={handleFormSubmit} className="bg-white/5 border border-white/10 rounded-lg p-6 max-w-md mx-auto w-full flex flex-col gap-4">
+                    <Input
+                      name="name"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleFormChange}
+                      required
+                    />
+                    <Input
+                      name="email"
+                      type="email"
+                      placeholder="Your Email"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      required
+                    />
+                    <Input
+                      name="artist"
+                      placeholder="Artist's Name"
+                      value={formData.artist}
+                      onChange={handleFormChange}
+                    />
+                    <Input
+                      name="website"
+                      placeholder="Your Website (optional)"
+                      value={formData.website}
+                      onChange={handleFormChange}
+                    />
+                    <Button type="submit" className="bg-gradient-to-r from-purple-500 to-purple-600 text-white mt-2">Submit</Button>
+                  </form>
+                ) : (
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 text-lg"
+                    onClick={() => setFormOpen(true)}
+                  >
+                    <Mail className="w-5 h-5 mr-2" />
+                    Get Notified
+                  </Button>
+                )}
               </div>
             </motion.div>
 
