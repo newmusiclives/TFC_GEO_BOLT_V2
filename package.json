@@ -18,8 +18,7 @@
     "url": "https://github.com/truefans/geoconnect.git"
   },
   "scripts": {
-    "migrate:local": "for f in supabase/migrations/*.sql; do PGPASSWORD=your-super-secret-and-long-postgres-password psql -h fansdb.xenpac.org -U postgres -d postgres -f \"$f\"; done",
-    "dev": "npm run migrate:local && NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https",
+    "dev": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https",
     "dev:ssl": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https --experimental-https-key ./ssl/localhost.key --experimental-https-cert ./ssl/localhost.crt",
     "build": "NODE_OPTIONS=\"--max-old-space-size=16384\" next build",
     "start": "next start -H 0.0.0.0",
@@ -55,6 +54,7 @@
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "bufferutil": "^4.0.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "eslint": "8.49.0",
@@ -70,7 +70,8 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "utf-8-validate": "^6.0.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
