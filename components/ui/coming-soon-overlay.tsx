@@ -181,7 +181,7 @@ export function ComingSoonOverlay() {
               transition={{ duration: 0.8, delay: 1.0 }}
               className="mt-12 text-gray-400 text-sm"
             >
-              <p>© 2025 TrueFans CONNECT™. Made with ❤️ for the music community. © TrueFans CONNECT™ is a subsidiary of New Music Lives, which is owned and operated by Lightwork Digital. © 2025 New Music Lives. All Rights Reserved.</p>
+              <p>© 2025 TrueFans CONNECT™. Made with ❤️ for the music community.</p>
             </motion.div>
           </div>
         </div>
