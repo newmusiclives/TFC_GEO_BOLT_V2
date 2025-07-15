@@ -2,6 +2,21 @@ import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from '@/lib/database.types'
 import { isSupabaseConfigured, supabaseConfig } from './config'
 
+// Dynamic import wrapper to prevent critical dependency warnings
+const createSupabaseClient = async () => {
+  if (typeof window === 'undefined') {
+    // Server-side: return null or basic client
+    return null
+  }
+
+  try {
+    return createBrowserClient<Database>(supabaseConfig.url, supabaseConfig.anonKey)
+  } catch (error) {
+    console.error('Failed to create Supabase client:', error)
+    return null
+  }
+}
+
 export const createClient = () => {
   const { url, anonKey } = supabaseConfig
 
@@ -89,3 +104,6 @@ export const createClient = () => {
     throw new Error(`Invalid Supabase configuration: ${error}`)
   }
 }
+
+// Export the dynamic client creator for realtime functionality
+export { createSupabaseClient }
