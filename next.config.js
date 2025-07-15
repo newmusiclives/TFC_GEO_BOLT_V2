@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
-  // Ensure the server binds to all interfaces
+  // Ensure standalone output is properly configured
   experimental: {
     // Removed deprecated serverComponentsExternalPackages
+    outputFileTracingRoot: process.cwd(),
   },
   // Configure server to bind to all interfaces
   serverRuntimeConfig: {
