@@ -55,19 +55,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/.next/server ./.next/server
 
-# Copy manifest files conditionally (only if they exist)
-COPY --from=builder --chown=nextjs:nodejs /app/.next/BUILD_ID ./.next/BUILD_ID 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/prerender-manifest.json ./.next/prerender-manifest.json 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/prerender-manifest.js ./.next/prerender-manifest.js 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/routes-manifest.json ./.next/routes-manifest.json 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/build-manifest.json ./.next/build-manifest.json 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/app-build-manifest.json ./.next/app-build-manifest.json 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/app-path-routes-manifest.json ./.next/app-path-routes-manifest.json 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/required-server-files.json ./.next/required-server-files.json 2>/dev/null || true
-COPY --from=builder --chown=nextjs:nodejs /app/.next/images-manifest.json ./.next/images-manifest.json 2>/dev/null || true
-
-# Copy server manifest files conditionally
-COPY --from=builder --chown=nextjs:nodejs /app/.next/server/middleware-manifest.json ./.next/server/middleware-manifest.json 2>/dev/null || true
+# Copy all remaining .next files (manifests, etc.)
+COPY --from=builder --chown=nextjs:nodejs /app/.next/*.json ./.next/
+COPY --from=builder --chown=nextjs:nodejs /app/.next/BUILD_ID ./.next/
 
 # Verify the server.js file exists
 RUN ls -la server.js || (echo "server.js not found in standalone build" && exit 1)
