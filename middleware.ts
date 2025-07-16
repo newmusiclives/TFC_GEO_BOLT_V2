@@ -55,6 +55,14 @@ function cleanupRateLimitStore() {
 setInterval(cleanupRateLimitStore, 5 * 60 * 1000)
 
 export function middleware(request: NextRequest) {
+  // Domain-based routing for truefansconnect.com
+  const hostname = request.headers.get('host') || ''
+  if (hostname === 'truefansconnect.com' || hostname.includes('truefansconnect.com')) {
+    // Redirect all routes to coming-soon page for truefansconnect.com
+    const comingSoonUrl = new URL('/coming-soon', request.url)
+    return NextResponse.redirect(comingSoonUrl)
+  }
+  
   const response = NextResponse.next()
   
   // Get client IP
