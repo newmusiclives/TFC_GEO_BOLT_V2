@@ -6,8 +6,11 @@ import { Footer } from '@/components/layout/footer'
 import { Toaster } from '@/components/ui/sonner'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
-import { ComingSoonOverlay } from '@/components/ui/coming-soon-overlay'
 import { DemoModeDisabler } from '@/components/providers/demo-mode-disabler'
+import dynamic from 'next/dynamic'
+import React from 'react'
+
+const ComingSoonPage = dynamic(() => import('@/components/coming-soon'), { ssr: false })
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -46,11 +49,29 @@ export const viewport = {
   themeColor: '#8B5CF6',
 }
 
+function ForcedComingSoon() {
+  // Only render ComingSoonPage if running in browser and domain matches
+  if (typeof window !== 'undefined' && window.location.hostname === 'truefansconnect.com') {
+    return (
+      <html lang="en" className={`dark ${inter.variable}`}>
+        <body className={inter.className}>
+          <ComingSoonPage />
+        </body>
+      </html>
+    );
+  }
+  return null;
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // If in browser and domain matches, show only ComingSoonPage (no header/footer)
+  if (typeof window !== 'undefined' && window.location.hostname === 'truefansconnect.com') {
+    return <ForcedComingSoon />;
+  }
   return (
     <html lang="en" className={`dark ${inter.variable}`}>
       <body className={inter.className}>
@@ -63,7 +84,6 @@ export default function RootLayout({
               </main>
               <Footer />
               <Toaster />
-              <ComingSoonOverlay />
             </QueryProvider>
           </ErrorBoundary>
         </DemoModeDisabler>

@@ -101,11 +101,6 @@ export function Navigation() {
               </>
             ) : (
               <>
-                <Link href="/demo-login">
-                  <Button variant="ghost" className="text-white hover:bg-white/10">
-                    Demo Login
-                  </Button>
-                </Link>
                 <Link href="/login">
                   <Button variant="ghost" className="text-white hover:bg-white/10">
                     Sign In
@@ -181,11 +176,6 @@ export function Navigation() {
                   </>
                 ) : (
                   <>
-                    <Link href="/demo-login">
-                      <Button variant="ghost" className="justify-start text-white hover:bg-white/10 w-full">
-                        Demo Login
-                      </Button>
-                    </Link>
                     <Link href="/login">
                       <Button variant="ghost" className="justify-start text-white hover:bg-white/10 w-full">
                         <User className="w-4 h-4 mr-2" />
