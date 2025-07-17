@@ -109,10 +109,6 @@ export default function ComingSoonPage() {
                 </a>
               ))}
             </div>
-            {/* Footer */}
-            <div className="mt-6 text-gray-400 text-xs">
-              <p>© 2025 TrueFans CONNECT™. Made with ❤️ for the music community.</p>
-            </div>
           </motion.div>
         </div>
       </section>
