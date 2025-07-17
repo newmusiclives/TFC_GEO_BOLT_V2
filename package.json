@@ -21,6 +21,7 @@
     "dev": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https",
     "dev:ssl": "NODE_OPTIONS=\"--max-old-space-size=16384\" next dev -H 0.0.0.0 --experimental-https --experimental-https-key ./ssl/localhost.key --experimental-https-cert ./ssl/localhost.crt",
     "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build --no-lint",
+    "postbuild": "cp .next/static/css/*.css public/coming-soon.css",
     "start": "next start -H 0.0.0.0",
     "start:ssl": "next start -H 0.0.0.0 --experimental-https --experimental-https-key ./ssl/localhost.key --experimental-https-cert ./ssl/localhost.crt",
     "lint": "next lint",
