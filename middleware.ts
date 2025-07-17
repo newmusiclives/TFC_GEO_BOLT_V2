@@ -7,15 +7,15 @@ const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 const RATE_LIMIT_WINDOW = 60 * 1000 // 1 minute
 const RATE_LIMIT_MAX_REQUESTS = process.env.NODE_ENV === 'production' ? 100 : 1000 // More lenient in development
 
-// Security headers (less restrictive in development)
+// Updated: Allow embedding https://track.newmusiclives.com in iframes and remove X-Frame-Options DENY for production
 const securityHeaders = process.env.NODE_ENV === 'production' ? {
-  'X-Frame-Options': 'DENY',
+  // 'X-Frame-Options': 'DENY', // Removed to allow iframe embedding
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'origin-when-cross-origin',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self), interest-cohort=()',
   'X-XSS-Protection': '1; mode=block',
-  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://api.manifest.financial https://api.truefans.connect; frame-src https://js.stripe.com https://checkout.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self';"
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://api.manifest.financial https://api.truefans.connect; frame-src https://js.stripe.com https://checkout.stripe.com https://track.newmusiclives.com; object-src 'none'; base-uri 'self'; form-action 'self';"
 } : {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'origin-when-cross-origin'
