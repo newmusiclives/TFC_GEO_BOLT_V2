@@ -5,8 +5,8 @@
     <title>TrueFans CONNECT™ - Coming Soon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/coming-soon.css" />
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons CDN (jsdelivr for reliability) -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
     <!-- Favicon, etc. -->
   </head>
   <body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen flex items-center justify-center p-4">
@@ -17,7 +17,7 @@
           <div class="max-w-3xl w-full mx-auto text-center bg-white/10 rounded-2xl shadow-lg p-8">
             <div class="flex items-center justify-center gap-3 mb-6">
               <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
-                <i data-lucide="music" class="w-8 h-8 text-white"></i>
+                <i data-lucide="music" class="w-8 h-8 text-white" aria-label="TrueFans Logo"></i>
               </div>
               <div class="text-left">
                 <h1 class="text-3xl md:text-4xl font-bold text-white">TrueFans CONNECT™</h1>
@@ -25,7 +25,7 @@
               </div>
             </div>
             <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 text-lg font-semibold mb-6 inline-flex items-center justify-center rounded-full">
-              <i data-lucide="clock" class="w-4 h-4 mr-2"></i> Coming Soon
+              <i data-lucide="clock" class="w-4 h-4 mr-2" aria-label="Coming Soon"></i> Coming Soon
             </span>
             <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
               Something Amazing is
@@ -39,28 +39,28 @@
             <div class="grid md:grid-cols-3 gap-6 mb-8">
               <div class="text-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i data-lucide="music" class="w-6 h-6 text-white"></i>
+                  <i data-lucide="music" class="w-6 h-6 text-white" aria-label="Live Show Detection"></i>
                 </div>
                 <h4 class="text-lg font-semibold text-white mb-2">Live Show Detection</h4>
                 <p class="text-gray-300 text-sm">Advanced geolocation finds live performances happening near you</p>
               </div>
               <div class="text-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                  <i data-lucide="heart" class="w-6 h-6 text-white" aria-label="Instant Support"></i>
                 </div>
                 <h4 class="text-lg font-semibold text-white mb-2">Instant Support</h4>
                 <p class="text-gray-300 text-sm">Send donations directly to artists during their performances</p>
               </div>
               <div class="text-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i data-lucide="clock" class="w-6 h-6 text-white"></i>
+                  <i data-lucide="clock" class="w-6 h-6 text-white" aria-label="Real-Time Impact"></i>
                 </div>
                 <h4 class="text-lg font-semibold text-white mb-2">Real-Time Impact</h4>
                 <p class="text-gray-300 text-sm">Watch your support boost the energy of live performances</p>
               </div>
             </div>
-            <button id="open-modal" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 text-lg mb-4 rounded-lg flex items-center justify-center mx-auto">
-              <i data-lucide="mail" class="w-5 h-5 mr-2"></i> Sign up for Early Access
+            <button id="open-modal" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 text-lg mb-4 rounded-lg flex items-center justify-center mx-auto" aria-label="Sign up for Early Access">
+              <i data-lucide="mail" class="w-5 h-5 mr-2" aria-label="Mail"></i> Sign up for Early Access
             </button>
             <div class="flex justify-center gap-6 mt-6 mb-2">
               <a href="https://instagram.com/truefans" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
@@ -87,12 +87,26 @@
                   class="w-full h-full border-0 rounded-2xl"
                   title="TrueFans CONNECT - Coming Soon"
                   allowfullscreen
+                  aria-label="Early Access Signup Form"
+                  onerror="this.style.display='none';document.getElementById('iframe-fallback').style.display='block';"
                 ></iframe>
+                <div id="iframe-fallback" style="display:none;" class="flex flex-col items-center justify-center h-full p-6">
+                  <p class="text-red-600 font-semibold mb-2">Form could not be loaded.</p>
+                  <a href="https://track.newmusiclives.com/widget/form/kV4YXpdHZWU0ybxHRLl3" target="_blank" rel="noopener noreferrer" class="text-purple-600 underline">Click here to sign up for early access</a>
+                </div>
               </div>
             </div>
           </div>
+          <noscript>
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
+              <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 text-center">
+                <h2 class="text-2xl font-bold mb-4 text-gray-900">Sign up for Early Access</h2>
+                <p class="mb-4">JavaScript is required to use this form. You can <a href='https://track.newmusiclives.com/widget/form/kV4YXpdHZWU0ybxHRLl3' class='text-purple-600 underline' target='_blank'>sign up here</a>.</p>
+              </div>
+            </div>
+          </noscript>
         `;
-        // Wait for Lucide to be available, then create icons
+        // Always re-render icons after HTML injection
         function tryCreateIcons() {
           if (window.lucide && typeof lucide.createIcons === 'function') {
             lucide.createIcons();
