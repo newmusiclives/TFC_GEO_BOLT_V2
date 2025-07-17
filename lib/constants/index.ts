@@ -35,7 +35,6 @@ export const DONATION_CONFIG = {
   currency: 'USD',
   platformFeeRate: 0.15, // 15% platform fee (includes referral fees)
   processingFeeRate: 0.029, // 2.9% payment processing fee
-  processingFeeCents: 30, // $0.30 fixed fee
   referralFeeRate: 0.05, // 5% total referral fees (2.5% direct + 2.5% tier2)
   directReferralRate: 0.025, // 2.5% to direct referrer
   tier2ReferralRate: 0.025, // 2.5% to tier2 referrer

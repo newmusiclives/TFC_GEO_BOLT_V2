@@ -7,7 +7,6 @@ import { Toaster } from '@/components/ui/sonner'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
 import { DemoModeDisabler } from '@/components/providers/demo-mode-disabler'
-import { usePathname } from 'next/navigation'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -51,20 +50,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname();
-  const isComingSoon = pathname === '/coming-soon';
-
   return (
     <html lang="en" className={`dark ${inter.variable}`}>
       <body className={inter.className}>
         <DemoModeDisabler>
           <ErrorBoundary>
             <QueryProvider>
-              {!isComingSoon && <Navigation />}
-              <main className={isComingSoon ? '' : 'pt-24'}>
+              <Navigation />
+              <main className="pt-24">
                 {children}
               </main>
-              {!isComingSoon && <Footer />}
+              <Footer />
               <Toaster />
             </QueryProvider>
           </ErrorBoundary>

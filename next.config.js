@@ -122,6 +122,15 @@ const nextConfig = {
       },
     ]
   },
+
+  async rewrites() {
+    return [
+      {
+        source: '/coming-soon',
+        destination: '/coming-soon.html',
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
