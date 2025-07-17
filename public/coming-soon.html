@@ -5,90 +5,103 @@
     <title>TrueFans CONNECT™ - Coming Soon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/coming-soon.css" />
-    <!-- Lucide Icons CDN (jsdelivr for reliability) -->
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
-    <!-- Favicon, etc. -->
   </head>
-  <body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen flex items-center justify-center p-4">
+  <body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
     <div id="coming-soon-root" class="w-full"></div>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('coming-soon-root').innerHTML = `
-          <div class="max-w-3xl w-full mx-auto text-center bg-white/10 rounded-3xl shadow-2xl p-0 overflow-hidden">
-            <div class="flex flex-col items-center justify-center gap-3 pt-10 pb-6 px-6 bg-gradient-to-br from-purple-700/80 to-pink-600/80">
-              <div class="flex items-center justify-center mb-4">
-                <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border-4 border-white/10">
-                  <i data-lucide="music" class="w-14 h-14 text-white" aria-label="TrueFans Logo"></i>
+          <section class="container mx-auto max-w-3xl px-4 py-12">
+            <!-- Hero -->
+            <div class="text-center mb-16">
+              <div class="flex flex-col items-center mb-6">
+                <div class="bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-400 p-1 rounded-full shadow-xl mb-4">
+                  <div class="bg-slate-900/80 rounded-full p-4 flex items-center justify-center">
+                    <i data-lucide="music" class="w-16 h-16 text-white drop-shadow-lg"></i>
+                  </div>
                 </div>
+                <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-5 py-1.5 text-base font-semibold rounded-full mb-4 shadow">
+                  <i data-lucide="clock" class="w-4 h-4 mr-2"></i> Coming Soon
+                </span>
               </div>
-              <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight drop-shadow-lg">Empowering Artists & Venues</h1>
-              <p class="text-purple-100 text-lg md:text-2xl max-w-2xl mx-auto mb-2 font-medium">The future of live music support is almost here. Unlock new revenue, real-time engagement, and seamless support for artists and venues with geolocation-powered technology.</p>
-              <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 text-lg font-semibold mt-4 mb-2 inline-flex items-center justify-center rounded-full shadow">
-                <i data-lucide="clock" class="w-4 h-4 mr-2" aria-label="Coming Soon"></i> Coming Soon
-              </span>
+              <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+                The Next Era for
+                <span class="block bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  Artists & Venues
+                </span>
+              </h1>
+              <p class="text-xl text-purple-200 mb-8 max-w-2xl mx-auto">
+                Unlock new revenue, real-time engagement, and seamless support with geolocation-powered technology.
+              </p>
             </div>
-            <div class="px-6 pb-10 pt-8">
-              <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="bg-white/10 rounded-2xl p-6 flex flex-col items-center shadow">
-                  <h2 class="text-xl font-bold text-white mb-3">For Artists</h2>
-                  <ul class="text-left text-gray-200 space-y-2">
-                    <li><b>Direct Fan Support:</b> Receive instant donations during live performances (80% payout).</li>
-                    <li><b>Real-Time Engagement:</b> Live donation feeds, song requests, audience insights.</li>
-                    <li><b>Geolocation Technology:</b> Automatic fan detection at your shows.</li>
-                    <li><b>Build Your Community:</b> Grow a dedicated following and get paid quickly.</li>
-                  </ul>
+
+            <!-- Benefits -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+              <div class="bg-white/10 rounded-2xl p-8 flex flex-col items-center shadow">
+                <h2 class="text-2xl font-bold text-white mb-3">For Artists</h2>
+                <ul class="text-left text-gray-200 space-y-2">
+                  <li><b>Direct Fan Support:</b> Receive instant donations during live performances (80% payout).</li>
+                  <li><b>Real-Time Engagement:</b> Live donation feeds, song requests, audience insights.</li>
+                  <li><b>Geolocation Technology:</b> Automatic fan detection at your shows.</li>
+                  <li><b>Build Your Community:</b> Grow a dedicated following and get paid quickly.</li>
+                </ul>
+              </div>
+              <div class="bg-white/10 rounded-2xl p-8 flex flex-col items-center shadow">
+                <h2 class="text-2xl font-bold text-white mb-3">For Venues</h2>
+                <ul class="text-left text-gray-200 space-y-2">
+                  <li><b>Increased Revenue:</b> Generate additional income through artist donations and fan engagement.</li>
+                  <li><b>Enhanced Fan Experience:</b> Give fans new ways to support their favorite artists during live shows.</li>
+                  <li><b>Artist Relationships:</b> Strengthen relationships with artists via innovative support tools.</li>
+                  <li><b>Seamless Integration:</b> Works with your existing systems—minimal setup required.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="mb-16">
+              <h2 class="text-3xl font-bold text-white mb-6 text-center">How It Works</h2>
+              <div class="grid md:grid-cols-4 gap-6 text-left text-gray-200">
+                <div>
+                  <span class="block text-purple-300 font-bold text-lg mb-1">1. Artists</span>
+                  <span>Create a profile and list shows at any venue.</span>
                 </div>
-                <div class="bg-white/10 rounded-2xl p-6 flex flex-col items-center shadow">
-                  <h2 class="text-xl font-bold text-white mb-3">For Venues</h2>
-                  <ul class="text-left text-gray-200 space-y-2">
-                    <li><b>Increased Revenue:</b> Generate additional income through artist donations and fan engagement.</li>
-                    <li><b>Enhanced Fan Experience:</b> Give fans new ways to support their favorite artists during live shows.</li>
-                    <li><b>Artist Relationships:</b> Strengthen relationships with artists via innovative support tools.</li>
-                    <li><b>Seamless Integration:</b> Works with your existing systems—minimal setup required.</li>
-                  </ul>
+                <div>
+                  <span class="block text-purple-300 font-bold text-lg mb-1">2. Venues</span>
+                  <span>Set up a geofence and integrate with TrueFans (no hardware required).</span>
+                </div>
+                <div>
+                  <span class="block text-purple-300 font-bold text-lg mb-1">3. During Shows</span>
+                  <span>Fans are detected automatically and can send instant donations and song requests.</span>
+                </div>
+                <div>
+                  <span class="block text-purple-300 font-bold text-lg mb-1">4. Get Paid</span>
+                  <span>Artists and venues access real-time analytics and fast payouts.</span>
                 </div>
               </div>
-              <div class="border-t border-white/10 my-10"></div>
-              <div class="mb-12">
-                <h2 class="text-2xl font-bold text-white mb-6">How It Works</h2>
-                <div class="grid md:grid-cols-4 gap-6 text-left text-gray-200">
-                  <div>
-                    <span class="block text-purple-300 font-bold text-lg mb-1">1. Artists</span>
-                    <span>Create a profile and list shows at any venue.</span>
-                  </div>
-                  <div>
-                    <span class="block text-purple-300 font-bold text-lg mb-1">2. Venues</span>
-                    <span>Set up a geofence and integrate with TrueFans (no hardware required).</span>
-                  </div>
-                  <div>
-                    <span class="block text-purple-300 font-bold text-lg mb-1">3. During Shows</span>
-                    <span>Fans are detected automatically and can send instant donations and song requests.</span>
-                  </div>
-                  <div>
-                    <span class="block text-purple-300 font-bold text-lg mb-1">4. Get Paid</span>
-                    <span>Artists and venues access real-time analytics and fast payouts.</span>
-                  </div>
-                </div>
-              </div>
-              <button id="open-modal" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 text-lg mb-4 rounded-lg flex items-center justify-center mx-auto shadow-lg" aria-label="Sign up for Early Access">
-                <i data-lucide="mail" class="w-5 h-5 mr-2" aria-label="Mail"></i> Sign up for Early Access
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center mb-10">
+              <button id="open-modal" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-10 py-5 text-xl rounded-lg flex items-center justify-center mx-auto shadow-lg font-bold gap-2" aria-label="Sign up for Early Access">
+                <i data-lucide="mail" class="w-6 h-6 mr-2" aria-label="Mail"></i> Sign up for Early Access
               </button>
-              <div class="flex justify-center gap-6 mt-6 mb-2">
-                <a href="https://instagram.com/truefans" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-                  <i data-lucide="instagram" class="w-6 h-6"></i>
-                </a>
-                <a href="https://twitter.com/truefans" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
-                  <i data-lucide="twitter" class="w-6 h-6"></i>
-                </a>
-                <a href="https://facebook.com/truefans" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
-                  <i data-lucide="facebook" class="w-6 h-6"></i>
-                </a>
-              </div>
-              <div class="mt-6 text-gray-400 text-xs text-center">
-                <p>© 2025 TrueFans CONNECT™. Made with ❤️ for the music community.</p>
-              </div>
             </div>
-          </div>
+            <div class="flex justify-center gap-6 mt-6 mb-2">
+              <a href="https://instagram.com/truefans" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+                <i data-lucide="instagram" class="w-6 h-6"></i>
+              </a>
+              <a href="https://twitter.com/truefans" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+                <i data-lucide="twitter" class="w-6 h-6"></i>
+              </a>
+              <a href="https://facebook.com/truefans" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+                <i data-lucide="facebook" class="w-6 h-6"></i>
+              </a>
+            </div>
+            <div class="mt-6 text-gray-400 text-xs text-center">
+              <p>© 2025 TrueFans CONNECT™. Made with ❤️ for the music community.</p>
+            </div>
+          </section>
           <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
             <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative">
               <button id="close-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold" aria-label="Close">&times;</button>
