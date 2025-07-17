@@ -27,6 +27,7 @@ import { ReferralTree } from '@/components/referral/referral-tree'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { SongRequestDashboard } from '@/components/setlist/song-request-dashboard'
 
 export default function ArtistDashboardPage() {
   // Initialize Supabase client
@@ -661,6 +662,25 @@ export default function ArtistDashboardPage() {
                           </Link>
                         </div>
                       )}
+                    </div>
+                  </GlassCard>
+                </motion.div>
+
+                {/* Live Song Requests View */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="lg:col-span-2"
+                >
+                  <GlassCard variant="elevated">
+                    <div className="p-6">
+                      <h3 className="text-lg font-semibold text-white flex items-center gap-2 mb-6">
+                        <Heart className="w-5 h-5 text-red-400" />
+                        Live Song Requests
+                      </h3>
+                      {/* For demo, use show-1 and artist.id */}
+                      <SongRequestDashboard showId="show-1" artistId={artist.id} />
                     </div>
                   </GlassCard>
                 </motion.div>

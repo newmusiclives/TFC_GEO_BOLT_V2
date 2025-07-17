@@ -424,10 +424,10 @@ export function SongRequestForm({
                 Request Song
               </>
             )}
-            <div className="text-xs text-gray-400 mt-2 text-center">
-              Includes ${donationAmount.toFixed(2)} donation to {artistName}
-            </div>
           </Button>
+          <div className="text-xs text-gray-400 mt-2 text-center">
+            Includes ${donationAmount.toFixed(2)} donation to {artistName}
+          </div>
         </form>
       </div>
     </GlassCard>

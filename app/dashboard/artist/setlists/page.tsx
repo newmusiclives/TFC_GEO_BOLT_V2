@@ -3,7 +3,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Music, Plus, FileText, Copy, Trash2, Calendar, ArrowRight, Edit } from 'lucide-react'
-import { createClient } from '@/lib/supabase/demo-client'
 import { GradientBg } from '@/components/ui/gradient-bg'
 import { GlassCard } from '@/components/ui/glass-card'
 import { Button } from '@/components/ui/button'
@@ -13,63 +12,16 @@ import { toast } from 'sonner'
 import Link from 'next/link'
 
 export default function ArtistSetlistsPage() {
-  const supabase = createClient()
   const [setlists, setSetlists] = React.useState<any[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
   const [isCreating, setIsCreating] = React.useState(false)
   const [editingSetlistId, setEditingSetlistId] = React.useState<string | null>(null)
-  const [artistId, setArtistId] = React.useState<string | null>(null)
-  
+
   React.useEffect(() => {
-    const getCurrentUser = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (user) {
-          setArtistId(user.id)
-          loadSetlists(user.id)
-        }
-      } catch (error) {
-        console.error('Error getting user:', error)
-        // For demo mode, create mock setlists
-        if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
-          createMockSetlists()
-        }
-      }
-    }
-    
-    getCurrentUser()
+    createMockSetlists()
   }, [])
-  
-  const loadSetlists = async (userId: string) => {
-    setIsLoading(true)
-    
-    try {
-      // For demo mode, create mock setlists
-      if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
-        createMockSetlists()
-      } else {
-        const { data, error } = await supabase
-          .from('setlists')
-          .select(`
-            *,
-            setlist_songs:setlist_songs(count)
-          `)
-          .eq('artist_id', userId)
-          .order('updated_at', { ascending: false })
-        
-        if (error) throw error
-        
-        setSetlists(data || [])
-      }
-    } catch (error) {
-      console.error('Error loading setlists:', error)
-      toast.error('Failed to load setlists')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-  
-  // Create mock setlists for demo mode
+
+  // Always show demo setlists
   const createMockSetlists = () => {
     const mockSetlists = [
       {
@@ -93,112 +45,41 @@ export default function ArtistSetlistsPage() {
         setlist_songs: { count: 12 }
       }
     ]
-    
     setSetlists(mockSetlists)
     setIsLoading(false)
   }
-  
+
   const handleDeleteSetlist = async (setlistId: string) => {
-    if (!confirm('Are you sure you want to delete this setlist?')) {
-      return
-    }
-    
-    try {
-      const { error } = await supabase
-        .from('setlists')
-        .delete()
-        .eq('id', setlistId)
-      
-      if (error) throw error
-      
-      // Update local state
-      setSetlists(setlists.filter(setlist => setlist.id !== setlistId))
-      toast.success('Setlist deleted successfully')
-    } catch (error) {
-      console.error('Error deleting setlist:', error)
-      toast.error('Failed to delete setlist')
-    }
+    setSetlists(setlists.filter(setlist => setlist.id !== setlistId))
+    toast.success('Setlist deleted successfully')
   }
-  
+
   const handleDuplicateSetlist = async (setlistId: string) => {
-    try {
-      // Get the original setlist
-      const { data: originalSetlist, error: setlistError } = await supabase
-        .from('setlists')
-        .select('*')
-        .eq('id', setlistId)
-        .single()
-      
-      if (setlistError) throw setlistError
-      
-      // Create a new setlist
-      const { data: newSetlist, error: createError } = await supabase
-        .from('setlists')
-        .insert({
-          artist_id: originalSetlist.artist_id,
-          title: `${originalSetlist.title} (Copy)`,
-          description: originalSetlist.description,
-          is_template: originalSetlist.is_template
-        })
-        .select()
-        .single()
-      
-      if (createError) throw createError
-      
-      // Get the original songs
-      const { data: originalSongs, error: songsError } = await supabase
-        .from('setlist_songs')
-        .select('*')
-        .eq('setlist_id', setlistId)
-        .order('position', { ascending: true })
-      
-      if (songsError) throw songsError
-      
-      // Create new songs with the new setlist ID
-      if (originalSongs.length > 0) {
-        const newSongs = originalSongs.map((song: any) => ({
-          setlist_id: newSetlist.id,
-          title: song.title,
-          artist: song.artist,
-          is_cover: song.is_cover,
-          duration: song.duration,
-          position: song.position,
-          notes: song.notes
-        }))
-        
-        const { error: insertError } = await supabase
-          .from('setlist_songs')
-          .insert(newSongs)
-        
-        if (insertError) throw insertError
-      }
-      
-      // Reload setlists
-      if (artistId) {
-        loadSetlists(artistId)
-      }
-      
-      toast.success('Setlist duplicated successfully')
-    } catch (error) {
-      console.error('Error duplicating setlist:', error)
-      toast.error('Failed to duplicate setlist')
+    const originalSetlist = setlists.find(s => s.id === setlistId)
+    if (!originalSetlist) return
+    const newSetlist = {
+      ...originalSetlist,
+      id: Math.random().toString(36).slice(2),
+      title: `${originalSetlist.title} (Copy)`,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     }
+    setSetlists([newSetlist, ...setlists])
+    toast.success('Setlist duplicated successfully')
   }
-  
+
   const handleSetlistSaved = () => {
     setIsCreating(false)
     setEditingSetlistId(null)
-    if (artistId) {
-      loadSetlists(artistId)
-    }
+    createMockSetlists()
   }
-  
+
   if (isCreating || editingSetlistId) {
     return (
       <GradientBg variant="primary">
         <div className="container mx-auto px-4 py-8">
           <SetlistManager
-            artistId={artistId || ''}
+            artistId={''}
             setlistId={editingSetlistId || undefined}
             onSave={handleSetlistSaved}
             onCancel={() => {
@@ -210,7 +91,7 @@ export default function ArtistSetlistsPage() {
       </GradientBg>
     )
   }
-  
+
   return (
     <GradientBg variant="primary">
       <div className="container mx-auto px-4 py-8">
@@ -241,7 +122,6 @@ export default function ArtistSetlistsPage() {
             </div>
           </div>
         </motion.div>
-        
         {/* Setlists Grid */}
         {isLoading ? (
           <div className="text-center py-12">
@@ -299,11 +179,9 @@ export default function ArtistSetlistsPage() {
                         </div>
                       </div>
                     </div>
-                    
                     {setlist.description && (
                       <p className="text-gray-300 text-sm mb-4">{setlist.description}</p>
                     )}
-                    
                     <div className="mt-auto pt-4 flex flex-wrap gap-2">
                       <Button
                         variant="outline"
@@ -313,7 +191,6 @@ export default function ArtistSetlistsPage() {
                         <Edit className="w-4 h-4 mr-2" />
                         Edit
                       </Button>
-                      
                       <Button
                         variant="outline"
                         className="border-white/20 text-white hover:bg-white/10"
@@ -322,7 +199,6 @@ export default function ArtistSetlistsPage() {
                         <Copy className="w-4 h-4 mr-2" />
                         Duplicate
                       </Button>
-                      
                       <Button
                         variant="outline"
                         className="border-red-400/30 text-red-300 hover:bg-red-500/10"
@@ -338,7 +214,6 @@ export default function ArtistSetlistsPage() {
             ))}
           </div>
         )}
-        
         {/* Tips Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -349,7 +224,6 @@ export default function ArtistSetlistsPage() {
           <GlassCard variant="minimal">
             <div className="p-6">
               <h3 className="text-lg font-semibold text-white mb-4">Setlist Tips</h3>
-              
               <div className="grid md:grid-cols-3 gap-6 text-sm">
                 <div>
                   <h4 className="font-medium text-white mb-2">Create Templates</h4>
@@ -357,14 +231,12 @@ export default function ArtistSetlistsPage() {
                     Save time by creating template setlists that you can reuse for multiple shows.
                   </p>
                 </div>
-                
                 <div>
                   <h4 className="font-medium text-white mb-2">Enable Fan Requests</h4>
                   <p className="text-gray-300">
                     Assign a setlist to your show to allow fans to request songs and add dedications.
                   </p>
                 </div>
-                
                 <div>
                   <h4 className="font-medium text-white mb-2">Real-Time Updates</h4>
                   <p className="text-gray-300">
