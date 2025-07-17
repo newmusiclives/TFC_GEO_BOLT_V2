@@ -14,24 +14,19 @@
         document.getElementById('coming-soon-root').innerHTML = `
           <section class="container mx-auto max-w-3xl px-4 py-12">
             <!-- Hero -->
-            <div class="text-center mb-16">
-              <div class="flex flex-col items-center mb-6">
-                <div class="bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-400 p-1 rounded-full shadow-xl mb-4">
-                  <div class="bg-slate-900/80 rounded-full p-4 flex items-center justify-center">
-                    <i data-lucide="music" class="w-16 h-16 text-white drop-shadow-lg"></i>
-                  </div>
+            <div class="text-center mb-10">
+              <div class="flex flex-col items-center">
+                <div class="bg-slate-900/80 rounded-full p-4 flex items-center justify-center mb-1">
+                  <i data-lucide="music" class="w-16 h-16 text-white drop-shadow-lg"></i>
                 </div>
-                <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-5 py-1.5 text-base font-semibold rounded-full mb-4 shadow">
-                  <i data-lucide="clock" class="w-4 h-4 mr-2"></i> Coming Soon
-                </span>
               </div>
-              <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+              <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 mt-0" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
                 The Next Era for
-                <span class="block bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                <span class="block text-white font-extrabold" style="text-shadow: 0 2px 8px rgba(0,0,0,0.7);">
                   Artists & Venues
                 </span>
               </h1>
-              <p class="text-xl text-purple-200 mb-8 max-w-2xl mx-auto">
+              <p class="text-xl text-white mb-6 max-w-2xl mx-auto" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
                 Unlock new revenue, real-time engagement, and seamless support with geolocation-powered technology.
               </p>
             </div>
@@ -83,8 +78,8 @@
 
             <!-- CTA -->
             <div class="text-center mb-10">
-              <button id="open-modal" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-10 py-5 text-xl rounded-lg flex items-center justify-center mx-auto shadow-lg font-bold gap-2" aria-label="Sign up for Early Access">
-                <i data-lucide="mail" class="w-6 h-6 mr-2" aria-label="Mail"></i> Sign up for Early Access
+              <button id="open-modal" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 text-lg rounded-md flex items-center justify-center mx-auto shadow font-semibold gap-2 transition-colors duration-150" aria-label="Sign up for Early Access">
+                Sign up for Early Access
               </button>
             </div>
             <div class="flex justify-center gap-6 mt-6 mb-2">
@@ -103,29 +98,31 @@
             </div>
           </section>
           <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-            <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative">
-              <button id="close-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold" aria-label="Close">&times;</button>
-              <h2 class="text-2xl font-bold mb-4 text-gray-900">Get Early Access</h2>
-              <p class="mb-4 text-gray-700">Be the first to experience the next generation of live music support.<br>Artists and venues: sign up now for exclusive early access.</p>
-              <div class="w-full h-[500px] relative">
-                <iframe
-                  src="https://track.newmusiclives.com/widget/form/kV4YXpdHZWU0ybxHRLl3"
-                  style="width:100%;height:100%;border:none;border-radius:25px"
-                  id="inline-kV4YXpdHZWU0ybxHRLl3"
-                  data-layout='{"id":"INLINE"}'
-                  data-trigger-type="alwaysShow"
-                  data-trigger-value=""
-                  data-activation-type="alwaysActivated"
-                  data-activation-value=""
-                  data-deactivation-type="neverDeactivate"
-                  data-deactivation-value=""
-                  data-form-name="TrueFans CONNECT - Coming Soon"
-                  data-height="1216"
-                  data-layout-iframe-id="inline-kV4YXpdHZWU0ybxHRLl3"
-                  data-form-id="kV4YXpdHZWU0ybxHRLl3"
-                  title="TrueFans CONNECT - Coming Soon"
-                ></iframe>
-                <div id="iframe-fallback" style="display:none;" class="flex flex-col items-center justify-center h-full p-6">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] relative flex flex-col items-stretch overflow-y-auto">
+              <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold z-10" aria-label="Close">&times;</button>
+              <div class="px-0 pb-4">
+                <div class="overflow-hidden bg-gray-50 rounded-xl">
+                  <iframe
+                    src="https://track.newmusiclives.com/widget/form/kV4YXpdHZWU0ybxHRLl3"
+                    style="width:100%;min-height:320px;max-height:60vh;border:none;display:block;background:#fafaff;"
+                    class="w-full sm:max-h-[70vh] max-h-[60vh]"
+                    id="inline-kV4YXpdHZWU0ybxHRLl3"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="TrueFans CONNECT - Coming Soon"
+                    data-height="1216"
+                    data-layout-iframe-id="inline-kV4YXpdHZWU0ybxHRLl3"
+                    data-form-id="kV4YXpdHZWU0ybxHRLl3"
+                    title="TrueFans CONNECT - Coming Soon"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div id="iframe-fallback" style="display:none;" class="flex flex-col items-center justify-center h-full p-4">
                   <p class="text-red-600 font-semibold mb-2">Form could not be loaded.</p>
                   <a href="https://track.newmusiclives.com/widget/form/kV4YXpdHZWU0ybxHRLl3" target="_blank" rel="noopener noreferrer" class="text-purple-600 underline">Click here to sign up for early access</a>
                 </div>
