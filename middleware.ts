@@ -56,7 +56,10 @@ setInterval(cleanupRateLimitStore, 5 * 60 * 1000)
 export function middleware(request: NextRequest) {
   // Domain-based routing for truefansconnect.com
   const hostname = request.headers.get('host') || ''
-  if (hostname === 'truefansconnect.com' || hostname.includes('truefansconnect.com')) {
+  if (
+    (hostname === 'truefansconnect.com' || hostname.includes('truefansconnect.com')) &&
+    !request.nextUrl.pathname.startsWith('/coming-soon')
+  ) {
     // Redirect all requests to /coming-soon so the React/Next.js page is rendered
     return NextResponse.redirect(new URL('/coming-soon', request.url))
   }
