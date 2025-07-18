@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Music, Plus, FileText, Copy, Trash2, Calendar, ArrowRight, Edit } from 'lucide-react'
 import { GradientBg } from '@/components/ui/gradient-bg'
@@ -10,44 +10,83 @@ import { Badge } from '@/components/ui/badge'
 import { SetlistManager } from '@/components/setlist/setlist-manager'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
+import { Input } from '@/components/ui/input'
 
 export default function ArtistSetlistsPage() {
-  const [setlists, setSetlists] = React.useState<any[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [isCreating, setIsCreating] = React.useState(false)
-  const [editingSetlistId, setEditingSetlistId] = React.useState<string | null>(null)
+  const supabase = createClient()
+  const [setlists, setSetlists] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [isCreating, setIsCreating] = useState(false)
+  const [editingSetlistId, setEditingSetlistId] = useState<string | null>(null)
+  const [editSetlist, setEditSetlist] = useState<any>(null)
+  const [savingSetlist, setSavingSetlist] = useState(false)
 
-  React.useEffect(() => {
-    createMockSetlists()
+  useEffect(() => {
+    async function fetchSetlists() {
+      setIsLoading(true)
+      setError(null)
+      try {
+        // Get current user
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
+        if (userError || !user) throw new Error('User not found')
+
+        // Fetch setlists for the artist
+        const { data: setlistData, error: setlistError } = await supabase
+          .from('setlists')
+          .select('*')
+          .eq('artist_id', user.id)
+          .order('created_at', { ascending: false })
+        if (setlistError) throw setlistError
+        setSetlists(setlistData || [])
+      } catch (err: any) {
+        setError(err.message || 'Failed to load setlists')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchSetlists()
   }, [])
 
-  // Always show demo setlists
-  const createMockSetlists = () => {
-    const mockSetlists = [
-      {
-        id: '11111111-aaaa-1111-aaaa-111111111111',
-        artist_id: '11111111-1111-1111-1111-111111111111',
-        title: 'Acoustic Evening 2025',
-        description: 'My standard acoustic set with a mix of originals and covers',
-        is_template: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        setlist_songs: { count: 10 }
-      },
-      {
-        id: '22222222-bbbb-2222-bbbb-222222222222',
-        artist_id: '11111111-1111-1111-1111-111111111111',
-        title: 'Summer Tour 2025',
-        description: 'Upbeat set for outdoor venues and festivals',
-        is_template: false,
-        created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-        updated_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-        setlist_songs: { count: 12 }
-      }
-    ]
-    setSetlists(mockSetlists)
-    setIsLoading(false)
+  const handleEditSetlist = (setlist: any) => {
+    setEditSetlist(setlist)
+    setIsCreating(true)
   }
+
+  const handleSetlistChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditSetlist({ ...editSetlist, [e.target.name]: e.target.value })
+  }
+
+  const handleSetlistSave = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSavingSetlist(true)
+    setError(null)
+    try {
+      const { error: updateError } = await supabase
+        .from('setlists')
+        .update(editSetlist)
+        .eq('id', editSetlist.id)
+      if (updateError) throw updateError
+      setIsCreating(false)
+      setEditSetlist(null)
+      // Refresh setlists
+      const { data: setlistData } = await supabase
+        .from('setlists')
+        .select('*')
+        .eq('artist_id', editSetlist.artist_id)
+        .order('created_at', { ascending: false })
+      setSetlists(setlistData || [])
+      toast.success('Setlist updated!')
+    } catch (err: any) {
+      setError(err.message || 'Failed to update setlist')
+    } finally {
+      setSavingSetlist(false)
+    }
+  }
+
+  if (isLoading) return <div>Loading setlists...</div>
+  if (error) return <div className="text-red-500">{error}</div>
 
   const handleDeleteSetlist = async (setlistId: string) => {
     setSetlists(setlists.filter(setlist => setlist.id !== setlistId))
@@ -71,7 +110,30 @@ export default function ArtistSetlistsPage() {
   const handleSetlistSaved = () => {
     setIsCreating(false)
     setEditingSetlistId(null)
-    createMockSetlists()
+    // Re-fetch setlists after saving
+    async function fetchSetlists() {
+      setIsLoading(true)
+      setError(null)
+      try {
+        // Get current user
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
+        if (userError || !user) throw new Error('User not found')
+
+        // Fetch setlists for the artist
+        const { data: setlistData, error: setlistError } = await supabase
+          .from('setlists')
+          .select('*')
+          .eq('artist_id', user.id)
+          .order('created_at', { ascending: false })
+        if (setlistError) throw setlistError
+        setSetlists(setlistData || [])
+      } catch (err: any) {
+        setError(err.message || 'Failed to load setlists')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchSetlists()
   }
 
   if (isCreating || editingSetlistId) {
@@ -79,7 +141,7 @@ export default function ArtistSetlistsPage() {
       <GradientBg variant="primary">
         <div className="container mx-auto px-4 py-8">
           <SetlistManager
-            artistId={''}
+            artistId={''} // This will need to be passed from the parent or fetched
             setlistId={editingSetlistId || undefined}
             onSave={handleSetlistSaved}
             onCancel={() => {

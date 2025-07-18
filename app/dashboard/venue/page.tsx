@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   Building, 
@@ -22,140 +22,97 @@ import { ReferralStats } from '@/components/referral/referral-stats'
 import { ReferralTree } from '@/components/referral/referral-tree'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
+import { Input } from '@/components/ui/input'
 
 export default function VenueDashboardPage() {
-  // Mock data - in a real app, this would come from Supabase
-  const venue = {
-    id: '44444444-4444-4444-4444-444444444444',
-    name: 'The Blue Note',
-    slug: 'blue-note-nyc',
-    address: '131 W 3rd St',
-    city: 'New York',
-    state: 'NY',
-    capacity: 200,
-    venue_type: 'music_venue',
-    images: ['https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=400']
-  }
+  const supabase = createClient()
+  const [venue, setVenue] = useState<any>(null)
+  const [stats, setStats] = useState<any>(null)
+  const [upcomingShows, setUpcomingShows] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState('overview')
+  const [referralLink, setReferralLink] = useState('')
+  const [editProfile, setEditProfile] = useState(false)
+  const [profileForm, setProfileForm] = useState<any>({})
+  const [savingProfile, setSavingProfile] = useState(false)
 
-  const stats = {
-    totalRevenue: 45000,
-    totalShows: 156,
-    totalArtists: 78,
-    totalAttendees: 12500,
-    upcomingShows: 8,
-    monthlyGrowth: 12
-  }
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
+      try {
+        // Get current user
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
+        if (userError || !user) throw new Error('User not found')
 
-  const upcomingShows = [
-    {
-      id: 'show-1',
-      title: 'Jazz Night at The Blue Note',
-      artist: { name: 'Luna Rodriguez', slug: 'luna-rodriguez' },
-      date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
-      ticketsSold: 45,
-      capacity: 200
-    },
-    {
-      id: 'show-2',
-      title: 'Rock Revival Night',
-      artist: { name: 'The Midnight Echoes', slug: 'midnight-echoes' },
-      date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
-      ticketsSold: 120,
-      capacity: 200
-    },
-    {
-      id: 'show-3',
-      title: 'Cosmic Frequencies',
-      artist: { name: 'DJ Cosmic', slug: 'dj-cosmic' },
-      date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      ticketsSold: 80,
-      capacity: 200
+        // Fetch venue profile (assuming one venue per user)
+        const { data: venueData, error: venueError } = await supabase
+          .from('venues')
+          .select('*')
+          .eq('owner_id', user.id)
+          .single()
+        if (venueError) throw venueError
+        setVenue(venueData)
+        setProfileForm(venueData)
+
+        // Fetch upcoming shows for this venue
+        const { data: shows, error: showsError } = await supabase
+          .from('shows')
+          .select('*')
+          .eq('venue_id', venueData.id)
+          .order('start_time', { ascending: true })
+        if (showsError) throw showsError
+        setUpcomingShows(shows || [])
+
+        // Example stats calculation (customize for your schema)
+        setStats({
+          totalShows: shows?.length || 0,
+          // Add more stats as needed
+        })
+      } catch (err: any) {
+        setError(err.message || 'Failed to load data')
+      } finally {
+        setLoading(false)
+      }
     }
-  ]
+    fetchData()
+  }, [])
 
-  // Mock referral data
-  const referralStats = {
-    totalEarnings: 250.50,
-    directReferralEarnings: 175.25,
-    tier2ReferralEarnings: 75.25,
-    totalReferrals: 8,
-    directReferrals: 5,
-    earningsCount: 18,
-    recentEarnings: [
-      {
-        date: '2024-06-22',
-        amount: 15.50,
-        type: 'direct_referral' as const,
-        entityType: 'artist' as const
-      },
-      {
-        date: '2024-06-20',
-        amount: 12.25,
-        type: 'tier2_referral' as const,
-        entityType: 'venue' as const
-      },
-      {
-        date: '2024-06-18',
-        amount: 20.00,
-        type: 'direct_referral' as const,
-        entityType: 'artist' as const
-      }
-    ]
+  useEffect(() => {
+    if (venue?.id) {
+      const baseUrl = window.location.origin;
+      setReferralLink(`${baseUrl}/signup?ref=${venue.id}`);
+    }
+  }, [venue?.id]);
+
+  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileForm({ ...profileForm, [e.target.name]: e.target.value })
   }
 
-  const referralTree = {
-    directReferrals: [
-      {
-        id: '66666666-6666-6666-6666-666666666666',
-        name: 'John Smith',
-        displayName: 'John Smith',
-        role: 'fan',
-        createdAt: '2024-05-15',
-        totalEarningsGenerated: 25.50
-      },
-      {
-        id: '77777777-7777-7777-7777-777777777777',
-        name: 'Emily Davis',
-        displayName: 'Emily Davis',
-        role: 'artist',
-        createdAt: '2024-05-20',
-        totalEarningsGenerated: 85.25
-      }
-    ],
-    artistsReferred: [
-      {
-        id: '99999999-9999-9999-9999-999999999999',
-        name: 'The Jazz Quartet',
-        slug: 'jazz-quartet',
-        avatar: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=150',
-        createdAt: '2024-05-25',
-        totalEarningsGenerated: 65.75
-      }
-    ],
-    venuesReferred: [
-      {
-        id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-        name: 'Downtown Music Hall',
-        slug: 'downtown-music-hall',
-        createdAt: '2024-06-10',
-        totalEarningsGenerated: 24.50
-      }
-    ]
+  const handleProfileSave = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSavingProfile(true)
+    setError(null)
+    try {
+      const { error: updateError } = await supabase
+        .from('venues')
+        .update(profileForm)
+        .eq('id', venue.id)
+      if (updateError) throw updateError
+      setVenue(profileForm)
+      setEditProfile(false)
+      toast.success('Profile updated!')
+    } catch (err: any) {
+      setError(err.message || 'Failed to update profile')
+    } finally {
+      setSavingProfile(false)
+    }
   }
 
-  const [activeTab, setActiveTab] = React.useState('overview')
-  const [referralLink, setReferralLink] = React.useState('')
-  
-  React.useEffect(() => {
-    // Generate referral link based on venue ID
-    const baseUrl = window.location.origin
-    setReferralLink(`${baseUrl}/signup?ref=${venue.id}`)
-  }, [venue.id])
-  
-  const copyReferralLink = () => {
-    navigator.clipboard.writeText(referralLink)
-    toast.success('Referral link copied to clipboard')
-  }
+  if (loading) return <div>Loading...</div>
+  if (error) return <div className="text-red-500">{error}</div>
 
   return (
     <GradientBg variant="primary">
@@ -180,9 +137,9 @@ export default function VenueDashboardPage() {
                 <Building className="w-8 h-8 text-blue-400" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white">{venue.name}</h2>
+                <h2 className="text-2xl font-bold text-white">{venue?.name}</h2>
                 <p className="text-gray-300">
-                  {venue.address}, {venue.city}, {venue.state} • {venue.capacity} capacity
+                  {venue?.address}, {venue?.city}, {venue?.state} • {venue?.capacity} capacity
                 </p>
               </div>
             </div>
@@ -199,7 +156,7 @@ export default function VenueDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <DollarSign className="w-6 h-6 text-green-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">${stats.totalRevenue}</div>
+                  <div className="text-xl font-bold text-white">${stats?.totalRevenue || '0'}</div>
                   <div className="text-xs text-gray-400">Total Revenue</div>
                 </div>
               </GlassCard>
@@ -207,7 +164,7 @@ export default function VenueDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <Calendar className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">{stats.totalShows}</div>
+                  <div className="text-xl font-bold text-white">{stats?.totalShows || '0'}</div>
                   <div className="text-xs text-gray-400">Total Shows</div>
                 </div>
               </GlassCard>
@@ -215,7 +172,7 @@ export default function VenueDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <Music className="w-6 h-6 text-purple-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">{stats.totalArtists}</div>
+                  <div className="text-xl font-bold text-white">{stats?.totalArtists || '0'}</div>
                   <div className="text-xs text-gray-400">Artists Hosted</div>
                 </div>
               </GlassCard>
@@ -223,7 +180,7 @@ export default function VenueDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <Users className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">{stats.totalAttendees}</div>
+                  <div className="text-xl font-bold text-white">{stats?.totalAttendees || '0'}</div>
                   <div className="text-xs text-gray-400">Total Attendees</div>
                 </div>
               </GlassCard>
@@ -231,7 +188,7 @@ export default function VenueDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <Calendar className="w-6 h-6 text-red-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">{stats.upcomingShows}</div>
+                  <div className="text-xl font-bold text-white">{stats?.upcomingShows || '0'}</div>
                   <div className="text-xs text-gray-400">Upcoming Shows</div>
                 </div>
               </GlassCard>
@@ -239,7 +196,7 @@ export default function VenueDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <TrendingUp className="w-6 h-6 text-pink-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">+{stats.monthlyGrowth}%</div>
+                  <div className="text-xl font-bold text-white">+{stats?.monthlyGrowth || '0'}%</div>
                   <div className="text-xs text-gray-400">Monthly Growth</div>
                 </div>
               </GlassCard>
@@ -266,7 +223,7 @@ export default function VenueDashboardPage() {
                   </div>
                   
                   <Button 
-                    onClick={copyReferralLink}
+                    onClick={() => navigator.clipboard.writeText(referralLink)}
                     className="bg-blue-600 hover:bg-blue-700"
                   >
                     <Copy className="w-4 h-4 mr-2" />
@@ -356,7 +313,7 @@ export default function VenueDashboardPage() {
             <TabsContent value="referrals">
               <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2">
-                  <ReferralStats userId={venue.id} stats={referralStats} />
+                  <ReferralStats userId={venue?.id} stats={referralStats} />
                 </div>
                 <div>
                   <ReferralTree 

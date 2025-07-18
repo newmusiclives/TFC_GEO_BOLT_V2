@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   Heart, 
@@ -23,149 +23,123 @@ import { ReferralStats } from '@/components/referral/referral-stats'
 import { ReferralTree } from '@/components/referral/referral-tree'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
+import { Input } from '@/components/ui/input'
 
 export default function FanDashboardPage() {
-  // Mock data - in a real app, this would come from Supabase
-  const fan = {
-    id: '55555555-5555-5555-5555-555555555555',
-    name: 'Sarah Johnson',
-    avatar_url: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'
-  }
+  const supabase = createClient()
+  const [profile, setProfile] = useState<any>(null)
+  const [stats, setStats] = useState<any>(null)
+  const [supportedArtists, setSupportedArtists] = useState<any[]>([])
+  const [upcomingShows, setUpcomingShows] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState('overview')
+  const [referralLink, setReferralLink] = useState('')
+  const [editProfile, setEditProfile] = useState(false)
+  const [profileForm, setProfileForm] = useState<any>({})
+  const [savingProfile, setSavingProfile] = useState(false)
 
-  const stats = {
-    totalDonated: 125,
-    artistsSupported: 8,
-    showsAttended: 12,
-    upcomingShows: 3
-  }
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
+      try {
+        // Get current user
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
+        if (userError || !user) throw new Error('User not found')
 
-  const supportedArtists = [
-    {
-      id: '1',
-      name: 'Luna Rodriguez',
-      slug: 'luna-rodriguez',
-      avatar: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=150',
-      totalDonated: 50,
-      lastDonation: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
-    },
-    {
-      id: '2',
-      name: 'The Midnight Echoes',
-      slug: 'midnight-echoes',
-      avatar: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=150',
-      totalDonated: 35,
-      lastDonation: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
-    },
-    {
-      id: '3',
-      name: 'DJ Cosmic',
-      slug: 'dj-cosmic',
-      avatar: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=150',
-      totalDonated: 40,
-      lastDonation: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString()
+        // Fetch fan profile
+        const { data: profileData, error: profileError } = await supabase
+          .from('user_profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single()
+        if (profileError) throw profileError
+        setProfile(profileData)
+        setProfileForm(profileData)
+
+        // Fetch supported artists (customize for your schema)
+        const { data: donations, error: donationsError } = await supabase
+          .from('donations')
+          .select('artist_id')
+          .eq('fan_id', user.id)
+        if (donationsError) throw donationsError
+        const artistIds = donations?.map((d: any) => d.artist_id) || []
+        let artists: any[] = []
+        if (artistIds.length > 0) {
+          const { data: artistData, error: artistError } = await supabase
+            .from('artists')
+            .select('*')
+            .in('id', artistIds)
+          if (artistError) throw artistError
+          artists = artistData || []
+        }
+        setSupportedArtists(artists)
+
+        // Fetch upcoming shows (customize for your schema)
+        const { data: shows, error: showsError } = await supabase
+          .from('shows')
+          .select('*')
+          .order('start_time', { ascending: true })
+        if (showsError) throw showsError
+        setUpcomingShows(shows || [])
+
+        // Example stats calculation (customize for your schema)
+        setStats({
+          totalDonated: donations?.length || 0,
+          artistsSupported: artists.length,
+          showsAttended: 0, // Add logic if you track attendance
+          upcomingShows: shows?.length || 0
+        })
+      } catch (err: any) {
+        setError(err.message || 'Failed to load data')
+      } finally {
+        setLoading(false)
+      }
     }
-  ]
+    fetchData()
+  }, [])
 
-  const upcomingShows = [
-    {
-      id: 'show-1',
-      title: 'Acoustic Evening with Luna Rodriguez',
-      artist: { name: 'Luna Rodriguez', slug: 'luna-rodriguez' },
-      venue: { name: 'The Blue Note', city: 'New York', state: 'NY' },
-      date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString()
-    },
-    {
-      id: 'show-2',
-      title: 'Rock Revival Night',
-      artist: { name: 'The Midnight Echoes', slug: 'midnight-echoes' },
-      venue: { name: 'Underground Hall', city: 'Brooklyn', state: 'NY' },
-      date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString()
-    },
-    {
-      id: 'show-3',
-      title: 'Cosmic Frequencies',
-      artist: { name: 'DJ Cosmic', slug: 'dj-cosmic' },
-      venue: { name: 'Electric Garden', city: 'Manhattan', state: 'NY' },
-      date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+  useEffect(() => {
+    if (profile?.id) {
+      const baseUrl = window.location.origin;
+      setReferralLink(`${baseUrl}/signup?ref=${profile.id}`);
     }
-  ]
+  }, [profile?.id]);
 
-  // Mock referral data
-  const referralStats = {
-    totalEarnings: 75.25,
-    directReferralEarnings: 50.75,
-    tier2ReferralEarnings: 24.50,
-    totalReferrals: 4,
-    directReferrals: 2,
-    earningsCount: 8,
-    recentEarnings: [
-      {
-        date: '2024-06-21',
-        amount: 10.50,
-        type: 'direct_referral' as const,
-        entityType: 'artist' as const
-      },
-      {
-        date: '2024-06-19',
-        amount: 5.25,
-        type: 'tier2_referral' as const,
-        entityType: 'fan' as const
-      },
-      {
-        date: '2024-06-15',
-        amount: 8.00,
-        type: 'direct_referral' as const,
-        entityType: 'fan' as const
-      }
-    ]
-  }
-
-  const referralTree = {
-    directReferrals: [
-      {
-        id: '66666666-6666-6666-6666-666666666666',
-        name: 'John Smith',
-        displayName: 'John Smith',
-        role: 'fan',
-        createdAt: '2024-05-15',
-        totalEarningsGenerated: 25.50
-      },
-      {
-        id: '77777777-7777-7777-7777-777777777777',
-        name: 'Emily Davis',
-        displayName: 'Emily Davis',
-        role: 'artist',
-        createdAt: '2024-05-20',
-        totalEarningsGenerated: 50.75
-      }
-    ],
-    artistsReferred: [
-      {
-        id: '99999999-9999-9999-9999-999999999999',
-        name: 'The Jazz Quartet',
-        slug: 'jazz-quartet',
-        avatar: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=150',
-        createdAt: '2024-05-25',
-        totalEarningsGenerated: 35.75
-      }
-    ],
-    venuesReferred: []
-  }
-
-  const [activeTab, setActiveTab] = React.useState('overview')
-  const [referralLink, setReferralLink] = React.useState('')
-  
-  React.useEffect(() => {
-    // Generate referral link based on fan ID
-    const baseUrl = window.location.origin
-    setReferralLink(`${baseUrl}/signup?ref=${fan.id}`)
-  }, [fan.id])
-  
   const copyReferralLink = () => {
     navigator.clipboard.writeText(referralLink)
     toast.success('Referral link copied to clipboard')
   }
 
+  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileForm({ ...profileForm, [e.target.name]: e.target.value })
+  }
+
+  const handleProfileSave = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSavingProfile(true)
+    setError(null)
+    try {
+      const { error: updateError } = await supabase
+        .from('user_profiles')
+        .update(profileForm)
+        .eq('id', profile.id)
+      if (updateError) throw updateError
+      setProfile(profileForm)
+      setEditProfile(false)
+      toast.success('Profile updated!')
+    } catch (err: any) {
+      setError(err.message || 'Failed to update profile')
+    } finally {
+      setSavingProfile(false)
+    }
+  }
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div className="text-red-500">{error}</div>
+  
   return (
     <GradientBg variant="primary">
       <div className="min-h-screen py-8">
@@ -194,13 +168,13 @@ export default function FanDashboardPage() {
             {/* Fan Info */}
             <div className="flex items-center gap-4">
               <Avatar className="w-16 h-16 border-2 border-purple-500/50">
-                <AvatarImage src={fan.avatar_url} alt={fan.name} />
+                <AvatarImage src={profile?.avatar_url} alt={profile?.display_name || profile?.name} />
                 <AvatarFallback className="bg-purple-500 text-white">
-                  {fan.name.charAt(0)}
+                  {profile?.display_name?.charAt(0) || profile?.name?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="text-2xl font-bold text-white">{fan.name}</h2>
+                <h2 className="text-2xl font-bold text-white">{profile?.display_name || profile?.name}</h2>
                 <p className="text-gray-300">Music Enthusiast</p>
               </div>
             </div>
@@ -217,7 +191,7 @@ export default function FanDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <DollarSign className="w-6 h-6 text-green-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">${stats.totalDonated}</div>
+                  <div className="text-xl font-bold text-white">${stats?.totalDonated}</div>
                   <div className="text-xs text-gray-400">Total Donated</div>
                 </div>
               </GlassCard>
@@ -225,7 +199,7 @@ export default function FanDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <Music className="w-6 h-6 text-purple-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">{stats.artistsSupported}</div>
+                  <div className="text-xl font-bold text-white">{stats?.artistsSupported}</div>
                   <div className="text-xs text-gray-400">Artists Supported</div>
                 </div>
               </GlassCard>
@@ -233,7 +207,7 @@ export default function FanDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <Calendar className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">{stats.showsAttended}</div>
+                  <div className="text-xl font-bold text-white">{stats?.showsAttended}</div>
                   <div className="text-xs text-gray-400">Shows Attended</div>
                 </div>
               </GlassCard>
@@ -241,7 +215,7 @@ export default function FanDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-4 text-center">
                   <TrendingUp className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                  <div className="text-xl font-bold text-white">{stats.upcomingShows}</div>
+                  <div className="text-xl font-bold text-white">{stats?.upcomingShows}</div>
                   <div className="text-xs text-gray-400">Upcoming Shows</div>
                 </div>
               </GlassCard>
@@ -332,7 +306,7 @@ export default function FanDashboardPage() {
                             <div className="flex justify-between items-start mb-2">
                               <div className="flex items-center gap-3">
                                 <Avatar className="w-10 h-10">
-                                  <AvatarImage src={artist.avatar} alt={artist.name} />
+                                  <AvatarImage src={artist.avatar_url} alt={artist.name} />
                                   <AvatarFallback className="bg-purple-500 text-white">
                                     {artist.name.charAt(0)}
                                   </AvatarFallback>
@@ -344,12 +318,12 @@ export default function FanDashboardPage() {
                                     </h4>
                                   </Link>
                                   <p className="text-xs text-gray-400">
-                                    Last supported: {new Date(artist.lastDonation).toLocaleDateString()}
+                                    Last supported: {new Date(artist.last_donation_at).toLocaleDateString()}
                                   </p>
                                 </div>
                               </div>
                               <Badge className="bg-green-500/20 text-green-300">
-                                ${artist.totalDonated}
+                                ${artist.total_donated}
                               </Badge>
                             </div>
                             <div className="flex justify-end">
@@ -391,15 +365,15 @@ export default function FanDashboardPage() {
                               <div>
                                 <h4 className="font-semibold text-white">{show.title}</h4>
                                 <div className="flex items-center gap-1 text-sm text-gray-300">
-                                  <Link href={`/artist/${show.artist.slug}`} className="text-purple-300 hover:underline">
-                                    {show.artist.name}
+                                  <Link href={`/artist/${show.artist_slug}`} className="text-purple-300 hover:underline">
+                                    {show.artist_name}
                                   </Link>
                                   <span>•</span>
-                                  <span>{show.venue.name}, {show.venue.city}</span>
+                                  <span>{show.venue_name}, {show.venue_city}</span>
                                 </div>
                               </div>
                               <Badge className="bg-blue-500/20 text-blue-300">
-                                {new Date(show.date).toLocaleDateString()}
+                                {new Date(show.start_time).toLocaleDateString()}
                               </Badge>
                             </div>
                             <div className="flex justify-end">
@@ -422,14 +396,14 @@ export default function FanDashboardPage() {
             <TabsContent value="referrals">
               <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2">
-                  <ReferralStats userId={fan.id} stats={referralStats} />
+                  {/* <ReferralStats userId={profile?.id} stats={referralStats} /> */}
                 </div>
                 <div>
-                  <ReferralTree 
+                  {/* <ReferralTree 
                     directReferrals={referralTree.directReferrals}
                     artistsReferred={referralTree.artistsReferred}
                     venuesReferred={referralTree.venuesReferred}
-                  />
+                  /> */}
                 </div>
               </div>
             </TabsContent>
@@ -439,7 +413,46 @@ export default function FanDashboardPage() {
               <GlassCard variant="elevated">
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-white mb-6">Profile Settings</h3>
-                  <p className="text-gray-300">Profile settings would go here</p>
+                  <form onSubmit={handleProfileSave} className="space-y-4">
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="display_name" className="text-sm font-medium text-white">Display Name</label>
+                      <Input
+                        id="display_name"
+                        name="display_name"
+                        value={profileForm.display_name || ''}
+                        onChange={handleProfileChange}
+                        className="bg-white/10 border-white/20 text-white"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="avatar_url" className="text-sm font-medium text-white">Avatar URL</label>
+                      <Input
+                        id="avatar_url"
+                        name="avatar_url"
+                        value={profileForm.avatar_url || ''}
+                        onChange={handleProfileChange}
+                        className="bg-white/10 border-white/20 text-white"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="bio" className="text-sm font-medium text-white">Bio</label>
+                      <Input
+                        id="bio"
+                        name="bio"
+                        value={profileForm.bio || ''}
+                        onChange={handleProfileChange}
+                        className="bg-white/10 border-white/20 text-white"
+                      />
+                    </div>
+                    <Button type="submit" disabled={savingProfile} className="bg-purple-600 hover:bg-purple-700">
+                      {savingProfile ? 'Saving...' : 'Save Profile'}
+                    </Button>
+                    {editProfile && (
+                      <Button type="button" onClick={() => setEditProfile(false)} className="bg-red-600 hover:bg-red-700">
+                        Cancel
+                      </Button>
+                    )}
+                  </form>
                 </div>
               </GlassCard>
             </TabsContent>

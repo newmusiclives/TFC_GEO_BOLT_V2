@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/demo-client'
+import { createClient } from '@/lib/supabase/client'
 
 export default function DashboardPage() {
   const router = useRouter()

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link, Users, DollarSign, Copy, ExternalLink, Share2 } from 'lucide-react'
 import { GradientBg } from '@/components/ui/gradient-bg'
@@ -10,126 +10,54 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ReferralStats } from '@/components/referral/referral-stats'
 import { ReferralTree } from '@/components/referral/referral-tree'
 import { toast } from 'sonner'
+import { createClient } from '@/lib/supabase/client'
 
 export default function ReferralsPage() {
-  // Mock data - in a real app, this would come from an API call
-  const mockUserId = '55555555-5555-5555-5555-555555555555'
-  
-  const mockReferralStats = {
-    totalEarnings: 125.75,
-    directReferralEarnings: 85.25,
-    tier2ReferralEarnings: 40.50,
-    totalReferrals: 5,
-    directReferrals: 3,
-    earningsCount: 12,
-    recentEarnings: [
-      {
-        date: '2024-06-20',
-        amount: 12.50,
-        type: 'direct_referral' as const,
-        entityType: 'artist' as const
-      },
-      {
-        date: '2024-06-18',
-        amount: 7.25,
-        type: 'tier2_referral' as const,
-        entityType: 'artist' as const
-      },
-      {
-        date: '2024-06-15',
-        amount: 15.00,
-        type: 'direct_referral' as const,
-        entityType: 'artist' as const
-      }
-    ]
-  }
-  
-  const mockReferralTree = {
-    directReferrals: [
-      {
-        id: '66666666-6666-6666-6666-666666666666',
-        name: 'John Smith',
-        displayName: 'John Smith',
-        role: 'fan',
-        createdAt: '2024-05-15',
-        totalEarningsGenerated: 25.50
-      },
-      {
-        id: '77777777-7777-7777-7777-777777777777',
-        name: 'Emily Davis',
-        displayName: 'Emily Davis',
-        role: 'artist',
-        createdAt: '2024-05-20',
-        totalEarningsGenerated: 85.25
-      },
-      {
-        id: '88888888-8888-8888-8888-888888888888',
-        name: 'Venue Manager',
-        displayName: 'Venue Manager',
-        role: 'venue_owner',
-        createdAt: '2024-06-01',
-        totalEarningsGenerated: 15.00
-      }
-    ],
-    artistsReferred: [
-      {
-        id: '99999999-9999-9999-9999-999999999999',
-        name: 'The Jazz Quartet',
-        slug: 'jazz-quartet',
-        avatar: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=150',
-        createdAt: '2024-05-25',
-        totalEarningsGenerated: 65.75
-      },
-      {
-        id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-        name: 'Electronic Vibes',
-        slug: 'electronic-vibes',
-        avatar: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=150',
-        createdAt: '2024-06-05',
-        totalEarningsGenerated: 35.50
-      }
-    ],
-    venuesReferred: [
-      {
-        id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-        name: 'Downtown Music Hall',
-        slug: 'downtown-music-hall',
-        createdAt: '2024-06-10',
-        totalEarningsGenerated: 24.50
-      }
-    ]
-  }
-  
-  const [activeTab, setActiveTab] = React.useState('overview')
-  const [referralLink, setReferralLink] = React.useState('')
-  
-  React.useEffect(() => {
-    // Generate referral link based on user ID
-    const baseUrl = window.location.origin
-    setReferralLink(`${baseUrl}/signup?ref=${mockUserId}`)
-  }, [])
-  
-  const copyReferralLink = () => {
-    navigator.clipboard.writeText(referralLink)
-    toast.success('Referral link copied to clipboard')
-  }
-  
-  const shareReferralLink = async () => {
-    if (navigator.share) {
+  const supabase = createClient()
+  const [stats, setStats] = useState<any>(null)
+  const [tree, setTree] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState('overview')
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
       try {
-        await navigator.share({
-          title: 'Join TrueFans CONNECT',
-          text: 'Support artists and earn referral commissions with TrueFans CONNECT!',
-          url: referralLink
-        })
-      } catch (error) {
-        console.error('Error sharing:', error)
+        // Get current user
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
+        if (userError || !user) throw new Error('User not found')
+
+        // Fetch referral stats (customize for your schema)
+        const { data: statsData, error: statsError } = await supabase
+          .from('referral_stats')
+          .select('*')
+          .eq('user_id', user.id)
+          .single()
+        if (statsError) throw statsError
+        setStats(statsData)
+
+        // Fetch referral tree (customize for your schema)
+        const { data: treeData, error: treeError } = await supabase
+          .from('referral_tree')
+          .select('*')
+          .eq('user_id', user.id)
+          .single()
+        if (treeError) throw treeError
+        setTree(treeData)
+      } catch (err: any) {
+        setError(err.message || 'Failed to load data')
+      } finally {
+        setLoading(false)
       }
-    } else {
-      copyReferralLink()
     }
-  }
-  
+    fetchData()
+  }, [])
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div className="text-red-500">{error}</div>
+
   return (
     <GradientBg variant="primary">
       <div className="min-h-screen py-8">
@@ -159,7 +87,7 @@ export default function ReferralsPage() {
               <GlassCard variant="elevated">
                 <div className="p-6 text-center">
                   <DollarSign className="w-8 h-8 text-green-400 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-white">${mockReferralStats.totalEarnings.toFixed(2)}</div>
+                  <div className="text-2xl font-bold text-white">${stats?.totalEarnings?.toFixed(2) || '0.00'}</div>
                   <div className="text-sm text-gray-400">Total Earnings</div>
                 </div>
               </GlassCard>
@@ -167,7 +95,7 @@ export default function ReferralsPage() {
               <GlassCard variant="elevated">
                 <div className="p-6 text-center">
                   <Users className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-white">{mockReferralStats.totalReferrals}</div>
+                  <div className="text-2xl font-bold text-white">{stats?.totalReferrals || 0}</div>
                   <div className="text-sm text-gray-400">Total Referrals</div>
                 </div>
               </GlassCard>
@@ -195,22 +123,26 @@ export default function ReferralsPage() {
                 
                 <div className="flex flex-col md:flex-row gap-4 mb-4">
                   <div className="flex-1 bg-white/10 border border-white/20 rounded-lg p-3 text-sm text-gray-300 overflow-hidden overflow-ellipsis">
-                    {referralLink}
+                    {/* Referral link generation logic removed */}
+                    {/* For now, a placeholder or a message */}
+                    <p>Referral link will be generated here.</p>
                   </div>
                   
                   <div className="flex gap-2">
                     <Button 
-                      onClick={copyReferralLink}
+                      onClick={() => toast.info('Referral link generation not implemented yet')}
                       className="bg-purple-600 hover:bg-purple-700"
+                      disabled
                     >
                       <Copy className="w-4 h-4 mr-2" />
                       Copy
                     </Button>
                     
                     <Button 
-                      onClick={shareReferralLink}
+                      onClick={() => toast.info('Referral link sharing not implemented yet')}
                       variant="outline" 
                       className="border-white/20 text-white hover:bg-white/10"
+                      disabled
                     >
                       <Share2 className="w-4 h-4 mr-2" />
                       Share
@@ -250,14 +182,14 @@ export default function ReferralsPage() {
               </TabsList>
               
               <TabsContent value="overview">
-                <ReferralStats userId={mockUserId} stats={mockReferralStats} />
+                <ReferralStats userId={''} stats={stats} />
               </TabsContent>
               
               <TabsContent value="network">
                 <ReferralTree 
-                  directReferrals={mockReferralTree.directReferrals}
-                  artistsReferred={mockReferralTree.artistsReferred}
-                  venuesReferred={mockReferralTree.venuesReferred}
+                  directReferrals={tree?.directReferrals || []}
+                  artistsReferred={tree?.artistsReferred || []}
+                  venuesReferred={tree?.venuesReferred || []}
                 />
               </TabsContent>
             </Tabs>

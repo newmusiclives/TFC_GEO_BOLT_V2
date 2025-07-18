@@ -4,7 +4,7 @@ import React from 'react'
 import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Music, Calendar, MapPin, Users, Heart, ArrowLeft, FileText, Plus, Edit } from 'lucide-react'
-import { createClient } from '@/lib/supabase/demo-client'
+import { createClient } from '@/lib/supabase/client'
 import { GradientBg } from '@/components/ui/gradient-bg'
 import { GlassCard } from '@/components/ui/glass-card'
 import { Button } from '@/components/ui/button'
@@ -38,43 +38,6 @@ export default function ArtistShowDetailPage() {
   
   const loadShowDetails = async (id: string) => {
     setIsLoading(true)
-    
-    // For demo mode, always create mock show data to ensure it works
-    if (typeof window !== 'undefined' && localStorage.getItem('demo_mode') === 'true') {
-      console.log('Creating mock show data for artist dashboard, ID:', id)
-      const mockShow = {
-        id: id,
-        title: 'Acoustic Evening with Luna Rodriguez',
-        status: 'upcoming',
-        start_time: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-        live_stats: { total_donations: 125, fan_count: 15, energy_level: 85 },
-        venue: { 
-          name: 'The Blue Note', 
-          city: 'New York', 
-          state: 'NY' 
-        },
-        setlist: {
-          id: '11111111-aaaa-1111-aaaa-111111111111',
-          title: 'Acoustic Evening 2025',
-          description: 'My standard acoustic set with a mix of originals and covers',
-          setlist_songs: [
-            { id: '1', title: 'Midnight Whispers', artist: null, is_cover: false, duration: '4:15', position: 1 },
-            { id: '2', title: 'Landslide', artist: 'Fleetwood Mac', is_cover: true, duration: '3:20', position: 2 },
-            { id: '3', title: 'Ocean Memories', artist: null, is_cover: false, duration: '3:45', position: 3 },
-            { id: '4', title: 'Fast Car', artist: 'Tracy Chapman', is_cover: true, duration: '4:55', position: 4 },
-            { id: '5', title: 'Hallelujah', artist: 'Leonard Cohen', is_cover: true, duration: '5:30', position: 5 },
-            { id: '6', title: 'City Lights Fading', artist: null, is_cover: false, duration: '5:10', position: 6 },
-            { id: '7', title: 'Skinny Love', artist: 'Bon Iver', is_cover: true, duration: '3:55', position: 7 },
-            { id: '8', title: 'Both Sides Now', artist: 'Joni Mitchell', is_cover: true, duration: '4:05', position: 8 },
-            { id: '9', title: 'Jolene', artist: 'Dolly Parton', is_cover: true, duration: '3:40', position: 9 },
-            { id: '10', title: 'Whispers in the Wind', artist: null, is_cover: false, duration: '4:30', position: 10 }
-          ]
-        }
-      };
-      setShow(mockShow);
-      setIsLoading(false);
-      return;
-    }
     
     try {
       // Real Supabase query for production
