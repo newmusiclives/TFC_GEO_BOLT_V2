@@ -1,6 +1,6 @@
-# Contributing to TrueFans GeoConnect
+# Contributing to TrueFans CONNECT™
 
-Thank you for your interest in contributing to TrueFans GeoConnect! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to TrueFans CONNECT™! This document provides guidelines and information for contributors.
 
 ## 🚀 Getting Started
 
@@ -292,4 +292,4 @@ Contributors will be recognized in:
 - Annual contributor highlights
 - Special Discord roles and badges
 
-Thank you for contributing to TrueFans GeoConnect! 🎵
+Thank you for contributing to TrueFans CONNECT™! 🎵

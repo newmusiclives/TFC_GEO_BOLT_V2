@@ -62,7 +62,7 @@ export default function LoginPage() {
               <Music className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-            <p className="text-gray-300">Sign in to your TrueFans GeoConnect account</p>
+            <p className="text-gray-300">Sign in to your TrueFans CONNECT™ account</p>
           </div>
 
           <Card className="bg-white/5 backdrop-blur border-white/10">

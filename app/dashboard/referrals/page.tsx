@@ -27,7 +27,8 @@ export default function ReferralsPage() {
       try {
         // Get current user
         const { data: { user }, error: userError } = await supabase.auth.getUser()
-        if (userError || !user) throw new Error('User not found')
+        const isDemoMode = typeof window !== 'undefined' && sessionStorage.getItem('demo_mode') === 'true';
+        if ((userError || !user) && !isDemoMode) throw new Error('User not found')
 
         // Fetch referral stats (customize for your schema)
         const { data: statsData, error: statsError } = await supabase

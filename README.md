@@ -1,4 +1,4 @@
-# TrueFans GeoConnect
+# TrueFans CONNECT™
 
 > **🎵 Support Artists in Real-Time with Geolocation-Powered Donations**
 

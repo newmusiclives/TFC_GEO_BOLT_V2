@@ -47,13 +47,14 @@ export default function FanDashboardPage() {
       try {
         // Get current user
         const { data: { user }, error: userError } = await supabase.auth.getUser()
-        if (userError || !user) throw new Error('User not found')
+        const isDemoMode = typeof window !== 'undefined' && sessionStorage.getItem('demo_mode') === 'true';
+        if ((userError || !user) && !isDemoMode) throw new Error('User not found')
 
         // Fetch fan profile
         const { data: profileData, error: profileError } = await supabase
           .from('user_profiles')
           .select('*')
-          .eq('id', user.id)
+          .eq('id', user?.id || profile?.id) // Use user.id if available, otherwise profile.id
           .single()
         if (profileError) throw profileError
         setProfile(profileData)
@@ -63,7 +64,7 @@ export default function FanDashboardPage() {
         const { data: donations, error: donationsError } = await supabase
           .from('donations')
           .select('artist_id')
-          .eq('fan_id', user.id)
+          .eq('fan_id', user?.id || profile?.id) // Use user.id if available, otherwise profile.id
         if (donationsError) throw donationsError
         const artistIds = donations?.map((d: any) => d.artist_id) || []
         let artists: any[] = []

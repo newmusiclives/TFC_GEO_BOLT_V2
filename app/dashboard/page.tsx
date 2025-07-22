@@ -14,11 +14,32 @@ export default function DashboardPage() {
     async function checkUserRole() {
       try {
         const { data: { user } } = await supabase.auth.getUser()
-        
-        if (!user) {
-          // If no user is found, redirect to login
+        const isDemoMode = typeof window !== 'undefined' && sessionStorage.getItem('demo_mode') === 'true';
+        if (!user && !isDemoMode) {
+          // If no user and not in demo mode, redirect to login
           router.push('/login')
           return
+        }
+        if (isDemoMode) {
+          // In demo mode, redirect based on demo_role
+          const demoRole = sessionStorage.getItem('demo_role');
+          switch (demoRole) {
+            case 'artist':
+              router.push('/dashboard/artist');
+              break;
+            case 'venue_owner':
+              router.push('/dashboard/venue');
+              break;
+            case 'admin':
+              router.push('/admin/dashboard');
+              break;
+            case 'fan':
+              router.push('/dashboard/fan');
+              break;
+            default:
+              router.push('/dashboard/fan');
+          }
+          return;
         }
         
         // Get user profile to determine role

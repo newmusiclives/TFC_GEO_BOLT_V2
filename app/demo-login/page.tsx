@@ -126,7 +126,7 @@ export default function DemoLoginPage() {
               Demo Login Portal
             </h1>
             <p className="text-gray-300 mb-6">
-              Choose a demo account to explore TrueFans GeoConnect features
+              Choose a demo account to explore TrueFans CONNECT™ features
             </p>
             <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/30">
               Development Mode - No Real Authentication Required

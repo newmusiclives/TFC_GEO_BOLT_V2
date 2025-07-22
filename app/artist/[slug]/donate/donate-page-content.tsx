@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
+import { DonationBreakdown } from '@/components/donation/donation-breakdown'
 
 export default function DonatePageContent() {
   const params = useParams()
@@ -272,6 +273,11 @@ export default function DonatePageContent() {
                     </div>
                   </div>
                 </div>
+
+                {/* Donation Breakdown */}
+                {(selectedAmount || customAmount) && (
+                  <DonationBreakdown amount={selectedAmount || parseFloat(customAmount)} />
+                )}
 
                 {/* Message */}
                 <div>

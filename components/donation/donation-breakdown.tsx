@@ -21,7 +21,7 @@ export function DonationBreakdown({
   const breakdown = manifestClient.calculateDonationBreakdown(amount)
   
   // Calculate what the fan actually pays (donation + processing fee)
-  const processingFee = amount * DONATION_CONFIG.processingFeeRate;
+  const processingFee = amount * DONATION_CONFIG.processingFeeRate + DONATION_CONFIG.processingFeeCents;
   const fanPayment = amount + processingFee;
   
   return (
@@ -42,7 +42,7 @@ export function DonationBreakdown({
             <div className="flex justify-between items-center text-xs">
               <span className="text-gray-400 flex items-center gap-1">
                 <DollarSign className="w-3 h-3 text-blue-400" />
-                Processing Fee ({(DONATION_CONFIG.processingFeeRate * 100).toFixed(1)}%)
+                Processing Fee ({(DONATION_CONFIG.processingFeeRate * 100).toFixed(1)}% + ${DONATION_CONFIG.processingFeeCents.toFixed(2)})
               </span>
               <span className="text-gray-400">+${processingFee.toFixed(2)}</span>
             </div>

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: 'TrueFans CONNECT™ - Live Music Discovery & Artist Support',
   description: 'Discover live music near you and support your favorite artists with instant donations. Advanced geolocation-powered music discovery platform.',
   keywords: ['live music', 'artist support', 'music discovery', 'donations', 'concerts', 'venues'],
-  authors: [{ name: 'TrueFans' }],
+  authors: [{ name: 'TrueFans CONNECT™' }],
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.ico',
@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${inter.variable}`}>
       <body className={inter.className}>
-        <DemoModeDisabler>
+        {/* <DemoModeDisabler> */}
           <ErrorBoundary>
             <QueryProvider>
               <Navigation />
@@ -64,7 +64,7 @@ export default function RootLayout({
               <Toaster />
             </QueryProvider>
           </ErrorBoundary>
-        </DemoModeDisabler>
+        {/* </DemoModeDisabler> */}
       </body>
     </html>
   )
