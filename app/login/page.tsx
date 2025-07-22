@@ -58,7 +58,7 @@ export default function LoginPage() {
           className="w-full max-w-md"
         >
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#48517F] to-[#F98017] rounded-full flex items-center justify-center mx-auto mb-4">
               <Music className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
@@ -117,7 +117,7 @@ export default function LoginPage() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700"
+                  className="w-full bg-[#F98017] hover:bg-[#48517F] text-white"
                   size="lg"
                 >
                   {isLoading ? (
@@ -134,7 +134,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setUseMagicLink(!useMagicLink)}
-                    className="text-purple-300 hover:text-white text-sm transition-colors"
+                    className="text-[#48517F] hover:text-[#F98017] text-sm transition-colors"
                   >
                     {useMagicLink ? 'Use password instead' : 'Use magic link instead'}
                   </button>
@@ -144,7 +144,7 @@ export default function LoginPage() {
               <div className="mt-6 pt-6 border-t border-white/10 text-center">
                 <p className="text-gray-400">
                   Don't have an account?{' '}
-                  <Link href="/signup" className="text-purple-300 hover:text-white transition-colors">
+                  <Link href="/signup" className="text-[#48517F] hover:text-[#F98017] transition-colors">
                     Sign up
                   </Link>
                 </p>

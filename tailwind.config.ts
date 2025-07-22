@@ -20,7 +20,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
-        background: 'hsl(var(--background))',
+        background: '#162961', // main background
         foreground: 'hsl(var(--foreground))',
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -31,7 +31,7 @@ const config: Config = {
           foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT: '#F98017', // logos, buttons, headlines
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
@@ -43,7 +43,7 @@ const config: Config = {
           foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
+          DEFAULT: '#48517F', // lighter blue
           foreground: 'hsl(var(--accent-foreground))',
         },
         destructive: {

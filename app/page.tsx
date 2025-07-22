@@ -186,10 +186,10 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-[#162961] via-[#48517F] to-[#162961]">
       {/* Hero Section */}
       <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#48517F]/20 to-[#F98017]/20" />
         <div className="container mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -198,7 +198,7 @@ export default function HomePage() {
           >
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
               Right Now Money
-              <span className="block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-[#48517F] to-[#F98017] bg-clip-text text-transparent">
                 and Fans Forever
               </span>
             </h1>

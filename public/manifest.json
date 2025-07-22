@@ -4,8 +4,8 @@
   "description": "Live Music Discovery & Artist Support with Advanced Geolocation",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1E1E2E",
-  "theme_color": "#8B5CF6",
+  "background_color": "#162961",
+  "theme_color": "#F98017",
   "icons": [
     {
       "src": "/icons/icon-192x192.png",

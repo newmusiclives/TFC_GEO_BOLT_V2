@@ -23,9 +23,9 @@ interface SubmissionFormWidgetProps {
 export function SubmissionFormWidget({
   venueId,
   venueName,
-  primaryColor = '#8B5CF6',
-  accentColor = '#EC4899',
-  backgroundColor = '#1F2937',
+  primaryColor = '#F98017',
+  accentColor = '#48517F',
+  backgroundColor = '#162961',
   textColor = '#FFFFFF',
   borderRadius = '8',
   showVenueLogo = true,

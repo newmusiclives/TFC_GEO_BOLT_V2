@@ -22,7 +22,7 @@ export default function DemoLoginPage() {
       avatar: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=200',
       description: 'Acoustic storyteller with verified artist status',
       icon: Music,
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-[#48517F] to-[#F98017]',
       stats: ['15 Shows', '$2,450 Earned', '89 Supporters']
     },
     {
@@ -33,7 +33,7 @@ export default function DemoLoginPage() {
       avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200',
       description: 'Full platform access with administrative privileges',
       icon: Shield,
-      color: 'from-blue-500 to-cyan-500',
+      color: 'from-[#48517F] to-[#F98017]',
       stats: ['All Access', 'Analytics', 'User Management']
     },
     {
@@ -44,7 +44,7 @@ export default function DemoLoginPage() {
       avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200',
       description: 'Venue owner with access to venue management and analytics',
       icon: Users,
-      color: 'from-orange-500 to-red-500',
+      color: 'from-[#48517F] to-[#F98017]',
       stats: ['4 Venues', '156 Shows', '$45K Revenue']
     },
     {
@@ -55,7 +55,7 @@ export default function DemoLoginPage() {
       avatar: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=200',
       description: 'Music lover and active supporter of local artists',
       icon: Users,
-      color: 'from-green-500 to-emerald-500',
+      color: 'from-[#48517F] to-[#F98017]',
       stats: ['$125 Donated', '8 Artists', '23 Shows']
     }
   ]
@@ -119,7 +119,7 @@ export default function DemoLoginPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#48517F] to-[#F98017] rounded-full flex items-center justify-center mx-auto mb-4">
               <Palette className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -128,7 +128,7 @@ export default function DemoLoginPage() {
             <p className="text-gray-300 mb-6">
               Choose a demo account to explore TrueFans CONNECT™ features
             </p>
-            <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/30">
+            <Badge className="bg-[#F98017]/20 text-[#F98017] border-[#F98017]/30">
               Development Mode - No Real Authentication Required
             </Badge>
           </motion.div>
@@ -160,9 +160,9 @@ export default function DemoLoginPage() {
                       <Badge 
                         variant="outline" 
                         className={`border-white/20 text-white mb-3 ${
-                          account.role === 'admin' ? 'bg-blue-500/20' :
-                          account.role === 'artist' ? 'bg-purple-500/20' :
-                          'bg-green-500/20'
+                          account.role === 'admin' ? 'bg-[#48517F]/20' :
+                          account.role === 'artist' ? 'bg-[#48517F]/20' :
+                          'bg-[#48517F]/20'
                         }`}
                       >
                         {account.role.charAt(0).toUpperCase() + account.role.slice(1)}
@@ -176,7 +176,7 @@ export default function DemoLoginPage() {
                     <div className="space-y-2 mb-6 flex-1">
                       {account.stats.map((stat, statIndex) => (
                         <div key={statIndex} className="flex items-center justify-center gap-2 text-sm text-gray-300">
-                          <div className="w-1.5 h-1.5 bg-purple-400 rounded-full" />
+                          <div className="w-1.5 h-1.5 bg-[#F98017] rounded-full" />
                           <span>{stat}</span>
                         </div>
                       ))}
@@ -219,29 +219,29 @@ export default function DemoLoginPage() {
                 <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <div className="w-1.5 h-1.5 bg-[#F98017] rounded-full" />
                       <span>Artist Dashboard & Analytics</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <div className="w-1.5 h-1.5 bg-[#F98017] rounded-full" />
                       <span>Fan Support History</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <div className="w-1.5 h-1.5 bg-[#F98017] rounded-full" />
                       <span>Live Show Detection</span>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <div className="w-1.5 h-1.5 bg-[#F98017] rounded-full" />
                       <span>Real-time Donations</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <div className="w-1.5 h-1.5 bg-[#F98017] rounded-full" />
                       <span>Artist Profiles</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <div className="w-1.5 h-1.5 bg-[#F98017] rounded-full" />
                       <span>Admin Controls</span>
                     </div>
                   </div>

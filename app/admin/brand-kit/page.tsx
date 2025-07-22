@@ -56,12 +56,9 @@ export default function BrandKitPage() {
     {
       category: 'Colors',
       items: [
-        { name: 'Primary Purple', hex: '#8B5CF6', rgb: '139, 92, 246' },
-        { name: 'Secondary Pink', hex: '#EC4899', rgb: '236, 72, 153' },
-        { name: 'Accent Blue', hex: '#3B82F6', rgb: '59, 130, 246' },
-        { name: 'Success Green', hex: '#10B981', rgb: '16, 185, 129' },
-        { name: 'Warning Yellow', hex: '#F59E0B', rgb: '245, 158, 11' },
-        { name: 'Error Red', hex: '#EF4444', rgb: '239, 68, 68' }
+        { name: 'Main Background', hex: '#162961', rgb: '22, 41, 97' },
+        { name: 'Primary Orange', hex: '#F98017', rgb: '249, 128, 23' },
+        { name: 'Accent Blue', hex: '#48517F', rgb: '72, 81, 127' },
       ] as ColorAsset[]
     },
     {

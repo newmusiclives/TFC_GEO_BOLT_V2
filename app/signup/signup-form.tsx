@@ -73,7 +73,7 @@ export default function SignUpForm() {
           className="w-full max-w-md"
         >
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#48517F] to-[#F98017] rounded-full flex items-center justify-center mx-auto mb-4">
               <Music className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Join TrueFans</h1>
@@ -177,7 +177,7 @@ export default function SignUpForm() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700"
+                  className="w-full bg-[#F98017] hover:bg-[#48517F] text-white"
                   size="lg"
                 >
                   {isLoading ? (
@@ -194,7 +194,7 @@ export default function SignUpForm() {
               <div className="mt-6 pt-6 border-t border-white/10 text-center">
                 <p className="text-gray-400">
                   Already have an account?{' '}
-                  <Link href="/login" className="text-purple-300 hover:text-white transition-colors">
+                  <Link href="/login" className="text-[#48517F] hover:text-[#F98017] transition-colors">
                     Sign in
                   </Link>
                 </p>
@@ -203,7 +203,7 @@ export default function SignUpForm() {
           </Card>
 
           {formData.referredBy && (
-            <div className="bg-purple-500/10 border border-purple-400/20 rounded-lg p-3 text-sm text-purple-200 mt-4">
+            <div className="bg-[#F98017]/10 border border-[#F98017]/20 rounded-lg p-3 text-sm text-[#F98017] mt-4">
               <p>You were referred by a friend! You'll both earn referral bonuses on donations.</p>
             </div>
           )}
