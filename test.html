@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page - TrueFans CONNECT™</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #162961 0%, #48517F 50%, #162961 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            color: #F98017;
+            margin-bottom: 2rem;
+        }
+        .status {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .button {
+            background: linear-gradient(45deg, #8B5CF6, #EC4899);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 TrueFans CONNECT™</h1>
+        <div class="subtitle">Live Music Discovery & Artist Support</div>
+        
+        <div class="status">
+            <h2>✅ Server Status</h2>
+            <p>If you can see this page, your browser can access local files!</p>
+            <p>This means the issue is with port forwarding, not the server itself.</p>
+        </div>
+
+        <div class="status">
+            <h2>🔧 Next Steps</h2>
+            <p>The Next.js development server is running on port 8080, but it's not accessible from your browser due to container networking.</p>
+            <p>Try these solutions:</p>
+            <ul style="text-align: left; max-width: 500px; margin: 0 auto;">
+                <li>Look for port forwarding options in Cursor/VS Code</li>
+                <li>Check if there's a "Ports" tab in your editor</li>
+                <li>Try accessing via the container's external IP</li>
+                <li>Use a different port (3000, 4000, 5000)</li>
+            </ul>
+        </div>
+
+        <a href="http://localhost:8080" class="button">Try Localhost:8080</a>
+        <a href="http://127.0.0.1:8080" class="button">Try 127.0.0.1:8080</a>
+        <a href="http://172.30.0.2:8080" class="button">Try Container IP</a>
+    </div>
+</body>
+</html>
