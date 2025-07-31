@@ -13,19 +13,19 @@ export default function VenuePartnerPage() {
     {
       icon: DollarSign,
       title: 'Increased Revenue',
-      description: 'Generate additional income through artist donations and enhanced fan engagement',
+      description: 'Generate additional income through music artist donations and enhanced fan engagement',
       color: 'text-green-400'
     },
     {
       icon: Users,
       title: 'Enhanced Fan Experience',
-      description: 'Provide fans with new ways to support their favorite artists during live shows',
+      description: 'Provide fans with new ways to support their favorite music artists during live shows',
       color: 'text-blue-400'
     },
     {
       icon: Heart,
-      title: 'Artist Relationships',
-      description: 'Strengthen relationships with artists by offering innovative support tools',
+      title: 'Music Artist Relationships',
+      description: 'Strengthen relationships with music artists by offering innovative support tools',
       color: 'text-red-400'
     },
     {
@@ -73,13 +73,13 @@ export default function VenuePartnerPage() {
 
   const testimonials = [
     {
-      quote: "Since partnering with TrueFans, we've seen a 30% increase in artist satisfaction and a significant boost in repeat bookings. The platform has become an essential part of our venue's offering.",
+      quote: "Since partnering with TrueFans CONNECT™, we've seen a 30% increase in artist satisfaction and a significant boost in repeat bookings. The platform has become an essential part of our venue's offering.",
       author: "Michael Stevens",
       role: "Owner, The Blue Note",
       image: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=100"
     },
     {
-      quote: "The geolocation technology is incredibly accurate, and our artists love the instant support they receive. It's transformed how we approach live music at our venue.",
+      quote: "The geolocation technology is incredibly accurate, and our music artists love the instant support they receive. It's transformed how we approach live music at our venue.",
       author: "Jessica Rivera",
       role: "Manager, Electric Garden",
       image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=100"
@@ -100,7 +100,7 @@ export default function VenuePartnerPage() {
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
             Join the revolution in live music support. Enhance your venue's experience 
-            while helping artists thrive through innovative geolocation-powered donations.
+            while helping music artists thrive through innovative geolocation-powered donations.
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/signup/venue">
@@ -127,7 +127,7 @@ export default function VenuePartnerPage() {
               Why Partner with Us?
             </h2>
             <p className="text-xl text-purple-200">
-              Transform your venue into a hub for artist support and fan engagement
+              Transform your venue into a hub for music artist support and fan engagement
             </p>
           </div>
 
@@ -180,7 +180,7 @@ export default function VenuePartnerPage() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">1. Venue Setup</h3>
                 <p className="text-gray-300">
-                  We create a custom geofence around your venue and integrate with your existing systems. Setup takes less than a day with no hardware required.
+                  We create a custom geofence around your venue. Setup takes less than a day with no hardware required.
                 </p>
               </GlassCard>
             </motion.div>
@@ -197,7 +197,7 @@ export default function VenuePartnerPage() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">2. Artist Performs</h3>
                 <p className="text-gray-300">
-                  When artists perform at your venue, our platform automatically detects fans in attendance through their mobile devices' geolocation.
+                  When music artists perform at your venue, our platform automatically detects fans in attendance through their mobile devices' geolocation.
                 </p>
               </GlassCard>
             </motion.div>
@@ -214,7 +214,7 @@ export default function VenuePartnerPage() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">3. Fans Support</h3>
                 <p className="text-gray-300">
-                  Fans receive notifications about the show and can instantly send donations to the performing artist, creating a more engaging live music experience.
+                  Fans receive notifications about the show and can instantly send donations to the performing music artist, creating a more engaging live music experience.
                 </p>
               </GlassCard>
             </motion.div>
@@ -236,7 +236,7 @@ export default function VenuePartnerPage() {
                 </h2>
                 <p className="text-gray-300 mb-6">
                   Everything you need to enhance your venue's live music experience 
-                  and support the artists who perform on your stage.
+                  and support the music artists who perform on your stage.
                 </p>
                 <div className="space-y-3">
                   {features.map((feature, index) => (
@@ -324,7 +324,7 @@ export default function VenuePartnerPage() {
               Trusted by Leading Venues
             </h2>
             <p className="text-lg text-gray-300">
-              Join venues across the country that are already supporting artists
+              Join venues across the country that are already supporting music artists
             </p>
           </div>
 
@@ -375,19 +375,19 @@ export default function VenuePartnerPage() {
           <GlassCard variant="elevated">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold text-purple-400 mb-2">500+</div>
+                <div className="text-3xl font-bold text-purple-400 mb-2">200+</div>
                 <div className="text-gray-300">Venue Partners</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-blue-400 mb-2">8,200+</div>
+                <div className="text-3xl font-bold text-blue-400 mb-2">Many</div>
                 <div className="text-gray-300">Shows Hosted</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-green-400 mb-2">$125K+</div>
+                <div className="text-3xl font-bold text-green-400 mb-2">xxx+</div>
                 <div className="text-gray-300">Artist Donations</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-yellow-400 mb-2">15K+</div>
+                <div className="text-3xl font-bold text-yellow-400 mb-2">xxx+</div>
                 <div className="text-gray-300">Active Fans</div>
               </div>
             </div>
@@ -411,7 +411,7 @@ export default function VenuePartnerPage() {
             <GlassCard variant="elevated">
               <h3 className="text-lg font-semibold text-white mb-3">How much does it cost to join?</h3>
               <p className="text-gray-300">
-                There are no setup fees or monthly charges. We only take a small 2.9% transaction fee on donations processed at your venue. This means you only pay when artists are earning.
+                There are no setup fees or monthly charges. A small 2.9% transaction fee is added to all donations processed at your venue. You earn commission on all donations they generate wherever they play, you also earn commission on artists that they refer - a win win opportunity.
               </p>
             </GlassCard>
 
@@ -425,14 +425,14 @@ export default function VenuePartnerPage() {
             <GlassCard variant="elevated">
               <h3 className="text-lg font-semibold text-white mb-3">How accurate is the geolocation?</h3>
               <p className="text-gray-300">
-                Our advanced PostGIS system creates precise geofences around your venue. We can detect fans within 10 meters of accuracy, and our system is designed to minimize false positives.
+                Our advanced Geolocation system creates a precise geofence around your venue. We can detect fans within 50 meters of accuracy, and our system is designed to minimize false positives.
               </p>
             </GlassCard>
 
             <GlassCard variant="elevated">
-              <h3 className="text-lg font-semibold text-white mb-3">Can I integrate with my existing systems?</h3>
+              <h3 className="text-lg font-semibold text-white mb-3">Does this have to integrate with my existing systems?</h3>
               <p className="text-gray-300">
-                Yes! We offer integrations with popular ticketing platforms, POS systems, and venue management software. Our API is also available for custom integrations.
+                No! Our system does not affect any popular ticketing platforms, POS systems, and venue management software that they are using. Our API is also available for custom integrations.
               </p>
             </GlassCard>
           </div>
@@ -450,8 +450,8 @@ export default function VenuePartnerPage() {
               Ready to Transform Your Venue?
             </h2>
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-              Join the TrueFans network and start supporting artists while enhancing 
-              your venue's live music experience. Setup is quick and easy.
+              Join the TrueFans CONNECT™ network and start supporting music artists while enhancing 
+              your venue's live music experience. Setup is quick, easy snd FREE.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup/venue">
