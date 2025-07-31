@@ -12,11 +12,11 @@ import Link from 'next/link'
 export default function BlogPage() {
   const featuredPost = {
     id: '1',
-    title: 'The Future of Live Music: How Geolocation is Revolutionizing Artist Support',
-    excerpt: 'Discover how cutting-edge geolocation technology is creating new opportunities for fans to support their favorite artists in real-time during live performances.',
+    title: 'The Future of Live Music: How Geolocation is Revolutionizing Music Artist Support',
+    excerpt: 'Discover how cutting-edge geolocation technology is creating new opportunities for fans to support their favorite music artists in real-time during live performances.',
     content: 'In an era where digital streaming dominates the music landscape, live performances remain the heartbeat of authentic musical connection...',
     author: {
-      name: 'Alex Chen',
+      name: 'Paul Saunders',
       role: 'CEO & Co-Founder',
       avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'
     },
@@ -47,10 +47,10 @@ export default function BlogPage() {
     {
       id: '3',
       title: 'Building the Perfect Venue Geofence: A Technical Deep Dive',
-      excerpt: 'Learn how we use PostGIS and advanced algorithms to create precise venue boundaries for accurate show detection.',
+      excerpt: 'Learn how we use Geolocation and advanced algorithms to create a precise venue boundary for accurate show detection.',
       author: {
-        name: 'David Kim',
-        role: 'Lead Engineer',
+        name: 'Matthew Wood',
+        role: 'CMO & Co-Founder',
         avatar: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=150'
       },
       publishedAt: '2024-01-10',
@@ -61,7 +61,7 @@ export default function BlogPage() {
     },
     {
       id: '4',
-      title: 'The Economics of Live Music: Why Direct Support Matters',
+      title: 'The Economics of Live Music: Why Direct Support Matters for Music Artists',
       excerpt: 'An analysis of how streaming royalties compare to live performance income and why direct fan support is crucial.',
       author: {
         name: 'Sarah Thompson',
@@ -77,7 +77,7 @@ export default function BlogPage() {
     {
       id: '5',
       title: 'Community Spotlight: Fans Making a Difference',
-      excerpt: 'Meet the fans who are going above and beyond to support their local music scenes through TrueFans GeoConnect.',
+      excerpt: 'Meet the TrueFans who are going above and beyond to support their local music scenes through TrueFans GeoConnect.',
       author: {
         name: 'Mike Johnson',
         role: 'Community Manager',
@@ -94,7 +94,7 @@ export default function BlogPage() {
       title: 'Privacy and Security: How We Protect Your Location Data',
       excerpt: 'Transparency about our data practices and the measures we take to ensure your privacy while using geolocation features.',
       author: {
-        name: 'Alex Chen',
+        name: 'Paul Saunders',
         role: 'CEO & Co-Founder',
         avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'
       },
@@ -129,7 +129,7 @@ export default function BlogPage() {
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
             Stories, insights, and updates from the world of live music technology. 
-            Discover how we're revolutionizing artist support and fan engagement.
+            Discover how we're revolutionizing music artist support and fan engagement.
           </p>
         </motion.div>
 
