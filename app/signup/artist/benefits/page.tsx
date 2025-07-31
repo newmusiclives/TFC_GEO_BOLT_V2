@@ -165,7 +165,7 @@ export default function ArtistBenefitsPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium text-white mb-1">Create Your Artist Profile</h3>
-                      <p className="text-gray-300 text-sm">Sign up and complete your artist profile with bio, photos, and music links.</p>
+                      <p className="text-gray-300 text-sm">Sign up and create your artist profile with bio, photos, music links and more.</p>
                     </div>
                   </div>
                   
