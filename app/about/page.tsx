@@ -25,13 +25,13 @@ export default function AboutPage() {
     {
       name: 'Matthew Wood',
       role: 'CMO & Co-Founder',
-      bio: 'Strategic Marketing and Brand Development.',
+      bio: 'Strategic Marketing and Brand Development. His focused to expand the reach of the platform to music artists on a global scale',
       avatar: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=150'
     },
     {
       name: 'Lou Bledsoe',
       role: 'CDO & Co-Founder',
-      bio: 'Million selling author and creative writer focused on educating and informing our community',
+      bio: 'Designer, Photographer and Web Developer focused on enabling music aertist to succeed',
       avatar: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=150'
     }
   ]
