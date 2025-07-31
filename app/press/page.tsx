@@ -88,7 +88,7 @@ export default function PressKitPage() {
     {
       name: 'Lou Bledsoe',
       role: 'CCO & Co-Founder',
-      bio: 'Web developer and photgraper with a passion for music applications. Bring years of creative design experience',
+      bio: 'Web developer and photgraper with a passion for music applications. Brings his years of  creative design experience to the business',
       image: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=200',
       linkedin: 'https://linkedin.com/in/loubledsoe',
       twitter: '@loubrledsor'
