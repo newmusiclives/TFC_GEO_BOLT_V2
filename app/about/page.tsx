@@ -49,8 +49,8 @@ export default function AboutPage() {
             About TrueFans CONNECT™
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
-            We're on a mission to revolutionize how fans support artists by connecting them 
-            in real-time during live performances through advanced geolocation technology.
+            We're on a mission to revolutionize how fans support music artists by connecting them 
+            in real-time during live performances through our advanced geolocation technology.
           </p>
         </motion.div>
 
@@ -65,17 +65,17 @@ export default function AboutPage() {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-white mb-6">Our Mission</h2>
               <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                Live music is the heartbeat of culture, but artists often struggle to receive 
+                Live music is the heartbeat of culture, but music artists often struggle to receive 
                 immediate support from their audience. We bridge this gap by using cutting-edge 
                 geolocation technology to detect when fans are at live shows and enable instant, 
-                seamless donations that directly support the artists they love.
+                seamless donations that directly support the music artists they love.
               </p>
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Heart className="w-8 h-8 text-purple-400" />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">Support Artists</h3>
+                  <h3 className="text-xl font-semibold text-white mb-2">Support Music Artists</h3>
                   <p className="text-gray-300">Direct financial support when it matters most</p>
                 </div>
                 <div className="text-center">
@@ -90,7 +90,7 @@ export default function AboutPage() {
                     <Globe className="w-8 h-8 text-green-400" />
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-2">Global Impact</h3>
-                  <p className="text-gray-300">Building a worldwide community of music supporters</p>
+                  <p className="text-gray-300">Building a worldwide community of music fans</p>
                 </div>
               </div>
             </div>
