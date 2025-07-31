@@ -12,7 +12,7 @@ export default function CareersPage() {
     {
       title: 'Senior Full-Stack Developer',
       department: 'Engineering',
-      location: 'San Francisco, CA',
+      location: 'Remote',
       type: 'Full-time',
       description: 'Join our engineering team to build cutting-edge geolocation and real-time features.',
       requirements: ['React/Next.js', 'Node.js', 'PostgreSQL', 'Real-time systems'],
@@ -23,14 +23,14 @@ export default function CareersPage() {
       department: 'Design',
       location: 'Remote',
       type: 'Full-time',
-      description: 'Design beautiful, intuitive experiences for artists and music fans.',
+      description: 'Design beautiful, intuitive experiences for music artists and music fans.',
       requirements: ['Figma', 'User Research', 'Mobile Design', 'Design Systems'],
       level: 'Mid-level'
     },
     {
       title: 'DevOps Engineer',
       department: 'Engineering',
-      location: 'New York, NY',
+      location: 'Remote',
       type: 'Full-time',
       description: 'Scale our infrastructure to support millions of real-time connections.',
       requirements: ['AWS/GCP', 'Kubernetes', 'CI/CD', 'Monitoring'],
@@ -39,7 +39,7 @@ export default function CareersPage() {
     {
       title: 'Artist Relations Manager',
       department: 'Business',
-      location: 'Austin, TX',
+      location: 'Remote',
       type: 'Full-time',
       description: 'Build relationships with artists and help them succeed on our platform.',
       requirements: ['Music Industry', 'Relationship Building', 'Communication', 'Analytics'],
@@ -73,7 +73,7 @@ export default function CareersPage() {
   const values = [
     {
       title: 'Artist First',
-      description: 'Every decision we make prioritizes the success and well-being of artists.',
+      description: 'Every decision we make prioritizes the success and well-being of music artists.',
       icon: '🎵'
     },
     {
@@ -106,7 +106,7 @@ export default function CareersPage() {
             Join Our Mission
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
-            Help us revolutionize how fans support artists. We're building the future of 
+            Help us revolutionize how fans support music artists. We're building the future of 
             live music technology, and we want you to be part of it.
           </p>
           <div className="flex gap-4 justify-center">
@@ -267,35 +267,35 @@ export default function CareersPage() {
                 <p className="text-gray-300 leading-relaxed mb-6">
                   We're a diverse team of music lovers, technologists, and creators who believe 
                   in the power of live music to bring people together. Our culture is built on 
-                  collaboration, innovation, and a shared passion for supporting artists.
+                  collaboration, innovation, and a shared passion for supporting music artists.
                 </p>
                 <ul className="space-y-3 text-gray-300">
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full" />
-                    <span>Remote-first with optional office spaces</span>
+                    <span>We are a entirely Remote-first company allow for great flexibility.</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full" />
-                    <span>Regular team events and music experiences</span>
+                    <span>Regular team events and music experiences.</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full" />
-                    <span>Collaborative decision-making and open communication</span>
+                    <span>Collaborative decision-making and open communication.</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full" />
-                    <span>Focus on work-life balance and personal growth</span>
+                    <span>Focus on work-life balance and personal growth.</span>
                   </li>
                 </ul>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white/5 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-purple-400 mb-1">50+</div>
+                  <div className="text-2xl font-bold text-purple-400 mb-1">5+</div>
                   <div className="text-sm text-gray-300">Team Members</div>
                 </div>
                 <div className="bg-white/5 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-400 mb-1">15+</div>
+                  <div className="text-2xl font-bold text-blue-400 mb-1">2+</div>
                   <div className="text-sm text-gray-300">Countries</div>
                 </div>
                 <div className="bg-white/5 rounded-lg p-4 text-center">
@@ -324,7 +324,7 @@ export default function CareersPage() {
             </h2>
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
               Don't see a position that fits? We're always looking for talented people who 
-              share our passion for music and technology. Send us your resume and let's talk.
+              share our passion for helping build the careers of music artists by using technology creativily. Send us your resume and let's talk.
             </p>
             <div className="flex gap-4 justify-center">
               <Button className="bg-purple-600 hover:bg-purple-700" size="lg">
