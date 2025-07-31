@@ -13,14 +13,14 @@ export default function ContactPage() {
       icon: Mail,
       title: 'Email Support',
       description: 'Get help with your account or technical issues',
-      contact: 'support@truefans.ai',
+      contact: 'support@truesconnect.com',
       action: 'Send Email'
     },
     {
       icon: Phone,
       title: 'Phone Support',
       description: 'Speak directly with our support team',
-      contact: '1-800-TRUEFANS',
+      contact: '1-(xxx)-xxx-xxxx',
       action: 'Call Now'
     },
     {
@@ -34,22 +34,10 @@ export default function ContactPage() {
 
   const offices = [
     {
-      city: 'San Francisco',
-      address: '123 Music Street, Suite 400',
-      state: 'CA 94102',
-      phone: '+1 (415) 555-0123'
-    },
-    {
-      city: 'New York',
-      address: '456 Broadway, Floor 12',
-      state: 'NY 10013',
-      phone: '+1 (212) 555-0456'
-    },
-    {
-      city: 'Austin',
-      address: '789 Live Music Blvd',
-      state: 'TX 78701',
-      phone: '+1 (512) 555-0789'
+      city: 'Corrales, NM',
+      address: '4101 Corrales Road, Unit 1776',
+      state: 'NM 87048',
+      phone: '+1 (xxx)-xxx-xxx'
     }
   ]
 
