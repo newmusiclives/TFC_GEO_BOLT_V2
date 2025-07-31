@@ -199,7 +199,7 @@ export default function HomePage() {
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
               Right Now Money
               <span className="block bg-gradient-to-r from-[#48517F] to-[#F98017] bg-clip-text text-transparent">
-                and Fans Forever
+                and TrueFans Forever
               </span>
             </h1>
             
