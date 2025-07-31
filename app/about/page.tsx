@@ -189,7 +189,7 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-gray-300">
                   We're building more than a platform - we're fostering a global 
-                  community of music lovers who actively support the artists they admire.
+                  community of TrueFans who actively support the music artists they love.
                 </p>
               </div>
               
