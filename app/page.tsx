@@ -229,7 +229,7 @@ export default function HomePage() {
                   }}
                 >
                   <Music className="w-5 h-5 mr-2" />
-                  I'm an Artist
+                  Join as an Artist
                 </Button>
               </Link>
               
