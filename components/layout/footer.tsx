@@ -64,10 +64,9 @@ export function Footer() {
   ]
 
   const socialLinks = [
-    { icon: Twitter, href: 'https://twitter.com/truefans', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com/truefans', label: 'Instagram' },
-    { icon: Facebook, href: 'https://facebook.com/truefans', label: 'Facebook' },
-    { icon: Github, href: 'https://github.com/truefans', label: 'GitHub' }
+    { icon: Twitter, href: 'https://twitter.com/', label: 'Twitter' },
+    { icon: Instagram, href: 'https://instagram.com/', label: 'Instagram' },
+    { icon: Facebook, href: 'https://facebook.com/', label: 'Facebook' },
   ]
 
   const legalLinks = [
@@ -94,7 +93,7 @@ export function Footer() {
                   Stay Connected
                 </h3>
                 <p className="text-gray-300 text-sm lg:text-base">
-                  Get updates on new features, artist spotlights, and live music events in your area.
+                  Get updates on new features, music artist spotlights, and live music events in your area.
                 </p>
               </div>
               
@@ -157,7 +156,7 @@ export function Footer() {
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-8">
               {/* Tagline */}
               <p className="text-gray-300 text-sm lg:text-base max-w-md mb-4 lg:mb-0">
-                Supporting artists in real-time with geolocation-powered donations. 
+                Supporting music artists in real-time with geolocation-powered donations. 
                 Discover live music near you and make a difference in artists' lives.
               </p>
 
@@ -165,15 +164,15 @@ export function Footer() {
               <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 lg:mt-0">
                 <div className="flex items-center gap-2 text-gray-300">
                   <Mail className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                  <span className="text-sm">support@truefans.ai</span>
+                  <span className="text-sm">support@truefansconnect.com</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-300">
                   <Phone className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                  <span className="text-sm">1-800-TRUEFANS</span>
+                  <span className="text-sm">1-xxx-xxx-xxxx</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-300">
                   <MapPin className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                  <span className="text-sm">San Francisco, CA</span>
+                  <span className="text-sm">Corrales, NM</span>
                 </div>
               </div>
             </div>
