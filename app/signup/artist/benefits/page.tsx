@@ -114,7 +114,7 @@ export default function ArtistBenefitsPage() {
               Why Artists Love TrueFans
             </h2>
             <p className="text-lg text-gray-300">
-              Our platform is designed specifically for musicians like you
+              Our platform is designed specifically for music artists like you
             </p>
           </div>
 
