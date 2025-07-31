@@ -31,7 +31,7 @@ export default function AboutPage() {
     {
       name: 'Lou Bledsoe',
       role: 'CCO & Co-Founder',
-      bio: 'Designer, Photographer and Web Developer focused on enabling music aertist to succeed',
+      bio: 'Designer, Photographer and Web Developer focused on enabling music aertist to succeed.',
       avatar: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=150'
     }
   ]
