@@ -185,7 +185,7 @@ export default function ArtistBenefitsPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium text-white mb-1">Perform and Receive Support</h3>
-                      <p className="text-gray-300 text-sm">As you perform, fans at your show can send instant donations and song requests.</p>
+                      <p className="text-gray-300 text-sm">As you perform, fans at your show can send instant donations and make song requests.</p>
                     </div>
                   </div>
                   
@@ -195,7 +195,7 @@ export default function ArtistBenefitsPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium text-white mb-1">Get Paid Quickly</h3>
-                      <p className="text-gray-300 text-sm">Receive your earnings with fast, secure payouts to your bank account.</p>
+                      <p className="text-gray-300 text-sm">Receive your earnings with fast, secure payout directly to your bank account.</p>
                     </div>
                   </div>
                 </div>
