@@ -464,7 +464,7 @@ export default function VenuePartnerPage() {
                 Download Partnership Guide
               </Button>
               <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" size="lg">
-                Contact Sales Team
+                Contact Us with Questions
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
