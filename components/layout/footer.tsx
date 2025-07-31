@@ -21,7 +21,7 @@ export function Footer() {
     {
       title: 'For Artists',
       links: [
-        { label: 'Join as an Artist', href: '/signup/artist/benefits' },
+        { label: 'Artist Sign Up', href: '/signup/artist/benefits' },
         { label: 'Artist Dashboard', href: '/dashboard/artist' },
         { label: 'Artist Resources', href: '/help' }
       ]
@@ -29,7 +29,7 @@ export function Footer() {
     {
       title: 'For Venues',
       links: [
-        { label: 'Join as a Venue Partner', href: '/venues/partner' },
+        { label: 'Venue Sign Up', href: '/venues/partner' },
         { label: 'Venue Dashboard', href: '/dashboard/venue' },
         { label: 'Integration Guide', href: '/help' }
       ]
