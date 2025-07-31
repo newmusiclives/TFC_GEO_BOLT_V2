@@ -29,7 +29,7 @@ export function Footer() {
     {
       title: 'For Venues',
       links: [
-        { label: 'Become a Venue Partner', href: '/venues/partner' },
+        { label: 'Join as a Venue Partner', href: '/venues/partner' },
         { label: 'Venue Dashboard', href: '/dashboard/venue' },
         { label: 'Integration Guide', href: '/help' }
       ]
