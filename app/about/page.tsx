@@ -25,7 +25,7 @@ export default function AboutPage() {
     {
       name: 'Matthew Wood',
       role: 'CMO & Co-Founder',
-      bio: 'His focused to expand the reach of the platform to music artists on a global scale',
+      bio: 'His focused is to expand the reach of the platform to music artists on a global scale.',
       avatar: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=150'
     },
     {
