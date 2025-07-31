@@ -21,7 +21,7 @@ export function Footer() {
     {
       title: 'For Artists',
       links: [
-        { label: 'I\'m an Artist', href: '/signup/artist/benefits' },
+        { label: 'Join as an Artist', href: '/signup/artist/benefits' },
         { label: 'Artist Dashboard', href: '/dashboard/artist' },
         { label: 'Artist Resources', href: '/help' }
       ]
@@ -37,7 +37,7 @@ export function Footer() {
     {
       title: 'For Fans',
       links: [
-        { label: 'Find Shows', href: '/discover' },
+        { label: 'Find Local Shows', href: '/discover' },
         { label: 'Fan Dashboard', href: '/dashboard/fan' },
         { label: 'Support Artists', href: '/support' },
         { label: 'Community', href: '/help' }
