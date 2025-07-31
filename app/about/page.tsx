@@ -29,8 +29,8 @@ export default function AboutPage() {
       avatar: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=150'
     },
     {
-      name: 'John Fogg',
-      role: 'CCO and Creative Writer',
+      name: 'Lou Bledsoe',
+      role: 'CDO & Co-Founder',
       bio: 'Million selling author and creative writer focused on educating and informing our community',
       avatar: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=150'
     }
