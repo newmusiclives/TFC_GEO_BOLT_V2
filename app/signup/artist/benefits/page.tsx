@@ -175,7 +175,7 @@ export default function ArtistBenefitsPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium text-white mb-1">Add Your Shows</h3>
-                      <p className="text-gray-300 text-sm">List your upcoming performances at partner venues or any location.</p>
+                      <p className="text-gray-300 text-sm">List your upcoming performances using BandsInTown or add them manually.</p>
                     </div>
                   </div>
                   
