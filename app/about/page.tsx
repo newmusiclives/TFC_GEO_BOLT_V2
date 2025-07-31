@@ -179,7 +179,7 @@ export default function AboutPage() {
                   Artist First
                 </h3>
                 <p className="text-gray-300 mb-6">
-                  Every decision we make prioritizes the needs and success of artists. 
+                  Every decision we make prioritizes the needs and success of music artists. 
                   We believe in fair compensation and transparent processes.
                 </p>
                 
