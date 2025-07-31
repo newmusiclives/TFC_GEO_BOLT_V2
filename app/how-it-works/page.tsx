@@ -95,23 +95,23 @@ export default function HowItWorksPage() {
   const faqs = [
     {
       question: 'How does the geolocation detection work?',
-      answer: 'We use advanced GPS technology combined with venue mapping to detect when you\'re within 1km of a partnered venue hosting a live show. Your location data is only used for show detection and is never stored permanently.'
+      answer: 'We use advanced GPS technology combined with venue mapping to detect when you\'re within 1km of a venue hosting a live show. Your location data is only used for show detection and is never stored permanently.'
     },
     {
       question: 'How much of my donation goes to the artist?',
-      answer: 'Artists receive 80% of every donation. We take a small platform fee to maintain and improve the service. Payment processing fees (2.9% + $0.30) are clearly disclosed before you donate.'
+      answer: 'Music Artists receive 80% of every donation. We take a small platform fee to maintain and improve the service. Payment processing fees (2.9% + $0.30) are clearly disclosed before you donate.'
     },
     {
       question: 'Can I donate if I\'m not at the show?',
-      answer: 'Yes! While our geolocation feature works best when you\'re at the venue, you can also browse artists and shows to support them remotely through their profile pages.'
+      answer: 'Yes! While our geolocation feature works best when you\'re at the venue, you can also browse music artists and shows to support them remotely through their profile pages.'
     },
     {
       question: 'Is my payment information secure?',
       answer: 'Absolutely. We use industry-standard encryption and work with certified payment processors. We never store your complete payment information on our servers.'
     },
     {
-      question: 'How do artists receive their money?',
-      answer: 'Artists receive donations instantly through our payment partner Manifest Financial. They can set up instant payouts to their bank account or choose to accumulate donations before withdrawal.'
+      question: 'How do music artists receive their money?',
+      answer: 'Artists receive donations instantly through our payment partner Manifest Financial. They set up instant payout directly to their bank account or choose to accumulate donations before withdrawal.'
     }
   ]
 
@@ -129,7 +129,7 @@ export default function HowItWorksPage() {
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
             Supporting live music has never been easier. Our platform uses cutting-edge 
-            geolocation technology to connect fans with artists in real-time.
+            geolocation technology to connect fans with music artists in real-time.
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/discover">
@@ -329,7 +329,7 @@ export default function HowItWorksPage() {
             </h2>
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
               Join music lovers who are already making a difference 
-              in artists' lives. Start discovering and supporting live music today.
+              in music artists' lives. Start discovering and supporting live music today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/discover">
