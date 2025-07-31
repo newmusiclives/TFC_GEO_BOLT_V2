@@ -83,8 +83,8 @@ export default function ArtistBenefitsPage() {
             Amplify Your Music Career
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
-            Join TrueFans CONNECT™ and transform how fans support your music. 
-            Our platform uses cutting-edge geolocation technology to connect you with fans 
+            Join TrueFans CONNECT™ and transform how TrueFans can support your music. 
+            Our platform uses cutting-edge geolocation technology to connect you with your TrueFans 
             during live performances and enable instant support.
           </p>
           <div className="flex gap-4 justify-center">
