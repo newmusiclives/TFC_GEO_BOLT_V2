@@ -228,7 +228,7 @@ export default function AboutPage() {
               Join Our Mission
             </h2>
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-              Whether you're an artist, fan, or venue owner, there's a place for you 
+              Whether you're a music artist, TrueFan, or Venue owner, there's a place for you 
               in the TrueFans CONNECT™ community. Let's support live music together.
             </p>
             <div className="flex gap-4 justify-center">
