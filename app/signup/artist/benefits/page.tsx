@@ -350,28 +350,28 @@ export default function ArtistBenefitsPage() {
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">How much does it cost to join?</h3>
                 <p className="text-gray-300">
-                  It's completely free to join TrueFans as an artist. We only take a small percentage of donations you receive through the platform.
+                  It's completely free to join TrueFans CONNECT™ as an artist. We only take a small percentage from the donations you receive through the platform.
                 </p>
               </div>
               
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">How do I get paid?</h3>
                 <p className="text-gray-300">
-                  You'll receive 80% of all donations. Payments are processed securely and can be transferred to your bank account immediately or on a schedule you choose.
+                  You'll receive 80% of all donations. Payments are processed securely and can be transferred directly to your bank account immediately or on a schedule you choose.
                 </p>
               </div>
               
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">Do I need to be verified?</h3>
                 <p className="text-gray-300">
-                  While verification isn't required to join, verified artists receive a badge that increases trust and visibility on the platform.
+                  While verification isn't required to join, you can become a verified artist and receive a badge that increases trust and visibility on the platform.
                 </p>
               </div>
               
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">Can I use this at any venue?</h3>
                 <p className="text-gray-300">
-                  Yes! While we partner with many venues for enhanced features, you can use TrueFans at any performance location.
+                  Yes! We partner with many venues to offer you enhanced features, you can use TrueFans CONNECT™ at any performance location, even at a house concert.
                 </p>
               </div>
             </div>
