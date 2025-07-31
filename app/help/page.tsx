@@ -18,7 +18,7 @@ export default function HelpPage() {
       id: 'getting-started',
       title: 'Getting Started',
       icon: Book,
-      description: 'Learn the basics of using TrueFans GeoConnect',
+      description: 'Learn the basics of using TrueFans CONNECT™',
       articles: [
         {
           title: 'How to create your account',
@@ -48,12 +48,12 @@ export default function HelpPage() {
     },
     {
       id: 'for-artists',
-      title: 'For Artists',
+      title: 'For Music Artists',
       icon: MessageCircle,
-      description: 'Artist-specific guides and best practices',
+      description: 'Music Artist specific guides and best practices',
       articles: [
         {
-          title: 'Setting up your artist profile',
+          title: 'Setting up your music artist profile',
           description: 'Complete your profile to start receiving donations',
           readTime: '8 min',
           difficulty: 'Intermediate'
@@ -305,7 +305,7 @@ export default function HelpPage() {
             Help Center
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
-            Find answers to your questions, learn how to use TrueFans GeoConnect, 
+            Find answers to your questions, learn how to use TrueFans CONNECT™, 
             and get the most out of our platform.
           </p>
           
