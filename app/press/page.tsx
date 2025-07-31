@@ -10,23 +10,23 @@ import { Badge } from '@/components/ui/badge'
 export default function PressKitPage() {
   const pressReleases = [
     {
-      title: 'TrueFans GeoConnect Raises $5M Series A to Revolutionize Live Music Support',
+      title: 'TrueFans CONNECT™ seeeks to Revolutionize Live Music Support',
       date: '2024-01-15',
-      excerpt: 'Leading music technology company secures funding to expand geolocation-powered artist support platform.',
+      excerpt: 'Leading music technology company uses geolocation to develop music artist support platform.',
       type: 'Funding',
       downloadUrl: '#'
     },
     {
-      title: 'TrueFans GeoConnect Partners with 500+ Venues Nationwide',
+      title: 'TrueFans CONNECT™ Partners with Venues Nationwide',
       date: '2024-01-10',
       excerpt: 'Platform reaches major milestone with venue partnerships across all major US markets.',
       type: 'Partnership',
       downloadUrl: '#'
     },
     {
-      title: 'Artists Earn Over $125K Through TrueFans GeoConnect Platform',
+      title: 'Music artists Earn additional income through the TrueFans CONNECT™ Platform',
       date: '2024-01-05',
-      excerpt: 'Independent artists see significant revenue increase through real-time fan donations.',
+      excerpt: 'Independent music artists see significant revenue increase through real-time fan donations.',
       type: 'Milestone',
       downloadUrl: '#'
     }
@@ -55,8 +55,8 @@ export default function PressKitPage() {
       category: 'Team Photos',
       items: [
         { name: 'Executive Team', size: '4.1 MB', format: 'JPG' },
-        { name: 'Alex Chen - CEO', size: '2.3 MB', format: 'JPG' },
-        { name: 'Maria Rodriguez - CTO', size: '2.1 MB', format: 'JPG' },
+        { name: 'Paul Saunders - Founder & CEO', size: '2.3 MB', format: 'JPG' },
+        { name: 'Matthew Wood - CMO', size: '2.1 MB', format: 'JPG' },
         { name: 'Company Group Photo', size: '5.2 MB', format: 'JPG' }
       ]
     }
@@ -71,36 +71,35 @@ export default function PressKitPage() {
 
   const teamMembers = [
     {
-      name: 'Alex Chen',
+      name: 'Paul Saunders',
       role: 'CEO & Co-Founder',
-      bio: 'Former Spotify engineer with 8+ years in music technology. Led product development for artist tools at major streaming platforms.',
+      bio: 'More than 40+ years in music industry. Now completely passionate about create a music artist ecosystem that is truly artist-first',
       image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200',
-      linkedin: 'https://linkedin.com/in/alexchen',
-      twitter: '@alexchen'
+      linkedin: 'https://linkedin.com/in/paulksaunders',
+      twitter: '@paulksaunders'
     },
     {
-      name: 'Maria Rodriguez',
-      role: 'CTO & Co-Founder',
-      bio: 'Full-stack engineer specializing in real-time systems and geolocation technology. Previously at Google Maps and Uber.',
+      name: 'Matthew Wood',
+      role: 'CMO & Co-Founder',
+      bio: 'Digital marketing specialist seeking to develop the marketing and promotional strategy to reach music artists on a global scale.',
       image: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=200',
-      linkedin: 'https://linkedin.com/in/mariarodriguez',
-      twitter: '@maria_codes'
+      linkedin: 'https://linkedin.com/in/matthewwood',
     },
     {
-      name: 'David Kim',
-      role: 'Head of Product',
-      bio: 'Product designer with expertise in mobile UX and music applications. Former design lead at SoundCloud.',
+      name: 'Lou Bledsoe',
+      role: 'CCO & Co-Founder',
+      bio: 'Web developer and photgraper with a passion for music applications. Bring years of creative design experience',
       image: 'https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=200',
-      linkedin: 'https://linkedin.com/in/davidkim',
-      twitter: '@davidkim_design'
+      linkedin: 'https://linkedin.com/in/loubledsoe',
+      twitter: '@loubrledsor'
     }
   ]
 
   const mediaContact = {
     name: 'Sarah Thompson',
     role: 'Head of Communications',
-    email: 'press@truefans.ai',
-    phone: '+1 (555) 123-4567',
+    email: 'press@truefansconnect.com',
+    phone: '+1 (xxx)-xxx-xxxx',
     image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
 
@@ -118,7 +117,7 @@ export default function PressKitPage() {
           </h1>
           <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
             Media resources, company information, and press materials for 
-            journalists and content creators covering TrueFans GeoConnect.
+            journalists and content creators covering TrueFans CONNECT™.
           </p>
           <div className="flex gap-4 justify-center">
             <Button className="bg-purple-600 hover:bg-purple-700" size="lg">
@@ -143,16 +142,15 @@ export default function PressKitPage() {
               <div>
                 <h2 className="text-3xl font-bold text-white mb-6">Company Overview</h2>
                 <p className="text-gray-300 leading-relaxed mb-6">
-                  TrueFans GeoConnect is revolutionizing how fans support artists through 
+                  TrueFans CONNECT™ is revolutionizing how fans support music artists through 
                   cutting-edge geolocation technology. Our platform detects when fans are 
-                  at live music venues and enables instant, seamless donations directly 
-                  to performing artists.
+                  at live music venues and enables them to instantly and seamlessly donate directly 
+                  to performing music artists.
                 </p>
                 <p className="text-gray-300 leading-relaxed mb-6">
-                  Founded in 2023 by former Spotify and Google engineers, we've already 
-                  facilitated over $125,000 in direct artist support across 500+ venues 
-                  nationwide. Our mission is to ensure that live music thrives by creating 
-                  new revenue streams for independent artists.
+                  Founded in 2023 by former music business and technology experts, we've already 
+                  facilitating direct music artist support and we are partnered with more than 200 venues nationwide. Our mission is to ensure that live music thrives by creating 
+                  new revenue streams for music artists.
                 </p>
                 <div className="flex gap-3">
                   <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
