@@ -209,7 +209,7 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-gray-300">
                   Open communication, fair pricing, and honest relationships with 
-                  artists, fans, and venues are at the core of everything we do.
+                  music artists, TrueFans, and Venues are at the core of everything we do.
                 </p>
               </div>
             </div>
