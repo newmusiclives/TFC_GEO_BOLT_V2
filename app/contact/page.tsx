@@ -112,8 +112,8 @@ export default function ContactPage() {
                     <option value="">Select a topic</option>
                     <option value="general">General Inquiry</option>
                     <option value="support">Technical Support</option>
-                    <option value="artist">Artist Questions</option>
-                    <option value="venue">Venue Partnership</option>
+                    <option value="artist">Music Artist Questions</option>
+                    <option value="venue">Venue Partnerships</option>
                     <option value="press">Press & Media</option>
                     <option value="other">Other</option>
                   </select>
@@ -235,15 +235,15 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">How does geolocation detection work?</h3>
                   <p className="text-gray-300 text-sm">
-                    Our advanced PostGIS system detects when you're near or inside a venue hosting a live show, 
-                    enabling instant artist support.
+                    Our advanced Geolocation system detects when you're near or inside a venue hosting a live show, 
+                    enabling instant music artist support.
                   </p>
                 </div>
                 
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">Is my payment information secure?</h3>
                   <p className="text-gray-300 text-sm">
-                    Yes, we use industry-standard encryption and partner with trusted payment processors 
+                    Yes, we use industry-standard encryption and partner with Manifest Financial 
                     to ensure your information is always protected.
                   </p>
                 </div>
@@ -251,9 +251,9 @@ export default function ContactPage() {
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">How do artists receive donations?</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">How do music artists receive donations?</h3>
                   <p className="text-gray-300 text-sm">
-                    Artists receive donations instantly through our payment system, with transparent 
+                    Music artists receive donations instantly through our payment system, with transparent 
                     fee structures and real-time analytics.
                   </p>
                 </div>
@@ -261,7 +261,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">Can I use this at any venue?</h3>
                   <p className="text-gray-300 text-sm">
-                    We're constantly expanding our venue network. If your favorite venue isn't listed, 
+                    We're constantly expanding our venue network. If you want to add any venues you can and if you need help, 
                     let us know and we'll work to add them.
                   </p>
                 </div>
